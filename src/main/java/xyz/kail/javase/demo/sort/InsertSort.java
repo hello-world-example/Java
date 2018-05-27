@@ -1,6 +1,7 @@
 package xyz.kail.javase.demo.sort;
 
 import java.util.Arrays;
+import java.util.TimerTask;
 
 /**
  * Created by kail on 2018/4/16.
@@ -36,6 +37,13 @@ public class InsertSort {
         insertSort(arr);
 
         System.out.println(Arrays.asList(arr));
+
+        TimerTask timerTask = new TimerTask() {
+            @Override
+            public void run() {
+
+            }
+        };
     }
 
 }
