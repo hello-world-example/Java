@@ -10,23 +10,11 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>javase-temp</module>
+        <module>javase-proxy</module>
+        <module>javase-socket</module>
+        <module>javase-sort</module>
+        <module>javase-lock</module>
     </modules>
-
-    <dependencies>
-
-        <dependency>
-            <groupId>cglib</groupId>
-            <artifactId>cglib-nodep</artifactId>
-            <version>3.2.6</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context-support</artifactId>
-            <version>4.3.7.RELEASE</version>
-        </dependency>
-
-    </dependencies>
 
     <build>
         <plugins>
@@ -35,6 +23,7 @@
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
+                    <encoding>utf-8</encoding>
                 </configuration>
             </plugin>
         </plugins>
