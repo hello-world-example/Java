@@ -14,6 +14,7 @@
         <module>javase-socket</module>
         <module>javase-sort</module>
         <module>javase-lock</module>
+        <module>javase-tools</module>
     </modules>
 
     <build>
