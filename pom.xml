@@ -15,6 +15,7 @@
         <module>javase-sort</module>
         <module>javase-lock</module>
         <module>javase-tools</module>
+        <module>javase-jdbc</module>
     </modules>
 
     <build>
@@ -29,6 +30,13 @@
             </plugin>
         </plugins>
     </build>
+
+    <repositories>
+        <repository>
+            <id>aliyun</id>
+            <url>https://maven.aliyun.com/repository/public</url>
+        </repository>
+    </repositories>
 
 
 </project>
