@@ -3,18 +3,21 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>Java</artifactId>
+        <artifactId>javase-tools</artifactId>
         <groupId>Java</groupId>
         <version>1.0.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>javase-tools</artifactId>
-    <packaging>pom</packaging>
-    <modules>
-        <module>javase-tool-httpclient</module>
-        <module>javase-tool-guava</module>
-    </modules>
+    <artifactId>javase-tool-guava</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>27.1-jre</version>
+        </dependency>
+    </dependencies>
 
 
 </project>
