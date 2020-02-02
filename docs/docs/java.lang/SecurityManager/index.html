@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Security Manager | Java</title>
+
+
+<link rel="stylesheet" href="/Java/book.min.79de1f7861b0c98f453c0a93bebf3608a280809e417787746c373699639900d7.css">
+
+
+
+
+<link rel="icon" href="/Java/favicon.png" type="image/x-icon">
+
+
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body>
+  <input type="checkbox" style="display: none" id="menu-control" />
+  <main class="flex container">
+
+    <aside class="book-menu fixed">
+      <nav>
+<h2 class="book-brand">
+  <a href="https://hello-world-example.github.io/Java/">Java</a>
+</h2>
+
+
+
+
+
+
+    
+  
+  
+  
+
+  <style>
+  nav ul a[href$="\2fJava\2f docs\2fjava.lang\2fSecurityManager\2f "] {
+      color: #004ed0;
+  }
+  </style>
+
+<ul>
+<li><p><strong>java.lang</strong></p>
+
+<ul>
+<li><a href="/Java/docs/java.lang/SecurityManager/">SecurityManager</a></li>
+</ul></li>
+</ul>
+
+
+
+
+
+
+
+</nav>
+
+
+<script>
+(function() {
+  var menu = document.querySelector("aside.book-menu nav");
+  addEventListener("beforeunload", function(event) {
+    localStorage.setItem("menu.scrollTop", menu.scrollTop);
+  });
+  menu.scrollTop = localStorage.getItem("menu.scrollTop");
+})();
+</script>
+
+    </aside>
+
+    <div class="book-page">
+      <header class="flex align-center justify-between book-header">
+  <label for="menu-control">
+    <img src="/Java/svg/menu.svg" alt="Menu" />
+  </label>
+  <strong>Security Manager</strong>
+</header>
+
+      
+<article class="markdown">
+
+<h1 id="securitymanager">SecurityManager</h1>
+
+<h2 id="简单理解">简单理解</h2>
+
+<ul>
+<li>JDK 针对一些敏感的资源操作，通过 <code>Security</code> 机制，添加了很多埋点</li>
+<li>权限通过 配置文件 <code>$JAVA_HOME/jre/lib/security/java.policy</code> 进行配置</li>
+<li>配置文件的匹配 通过 <code>java.security.Permission</code> 的各种子类实现</li>
+<li>具体的校验操作 通过 <code>java.security.AccessController.checkPermission(perm)</code> 处理</li>
+<li><code>SecurityManager</code> 对 <code>AccessController</code> 进行了封装了，通过 <code>checkXXX()</code> 调用</li>
+<li><code>SecurityManager</code> 的获取方式一般通过  <code>System.getSecurityManager()</code> 获取，使用的时候一定要判空，因为 安全机制不一定开启，如果没有开启，返回值是 <code>null</code></li>
+</ul>
+
+<h2 id="示例埋点代码">示例埋点代码</h2>
+
+<h3 id="runtime-getruntime-exit-system-exit-退出-jvm">Runtime.getRuntime().exit | System.exit 退出 JVM</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#a6e22e">void</span> exit(<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">status</span>) {
+    SecurityManager <span style="color:#a6e22e">security</span> <span style="color:#f92672">=</span> System.<span style="color:#a6e22e">getSecurityManager</span>();
+    <span style="color:#66d9ef">if</span> (security <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span>) {
+        <span style="color:#75715e">// 不允许调用 System.exit
+</span><span style="color:#75715e"></span>        security.<span style="color:#a6e22e">checkExit</span>(status);
+    }
+    Shutdown.<span style="color:#a6e22e">exit</span>(status);
+}</code></pre></div>
+<h3 id="system-setproperty-设置系统属性">System.setProperty 设置系统属性</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#a6e22e">static</span> String <span style="color:#a6e22e">setProperty</span>(String <span style="color:#a6e22e">key</span>, String <span style="color:#a6e22e">value</span>) {
+  checkKey(key);
+  SecurityManager <span style="color:#a6e22e">sm</span> <span style="color:#f92672">=</span> getSecurityManager();
+  <span style="color:#66d9ef">if</span> (sm <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span>) {    
+   <span style="color:#75715e">// 指定的系统属性是否可写
+</span><span style="color:#75715e"></span>   sm.<span style="color:#a6e22e">checkPermission</span>(<span style="color:#66d9ef">new</span> PropertyPermission(key, SecurityConstants.<span style="color:#a6e22e">PROPERTY_WRITE_ACTION</span>));
+  }
+
+  <span style="color:#66d9ef">return</span> (String) props.<span style="color:#a6e22e">setProperty</span>(key, value);
+}</code></pre></div>
+<h3 id="thread-stop">Thread.stop</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a6e22e">@Deprecated</span>
+<span style="color:#66d9ef">public</span> <span style="color:#a6e22e">final</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">stop</span>() {
+    SecurityManager <span style="color:#a6e22e">security</span> <span style="color:#f92672">=</span> System.<span style="color:#a6e22e">getSecurityManager</span>();
+    <span style="color:#66d9ef">if</span> (security <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span>) {
+        checkAccess();
+        <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">this</span> <span style="color:#f92672">!=</span> Thread.<span style="color:#a6e22e">currentThread</span>()) {
+            <span style="color:#75715e">// 非当前线程不允许停止
+</span><span style="color:#75715e"></span>            security.<span style="color:#a6e22e">checkPermission</span>(SecurityConstants.<span style="color:#a6e22e">STOP_THREAD_PERMISSION</span>);
+        }
+    }
+    <span style="color:#75715e">// A zero status value corresponds to &#34;NEW&#34;, it can&#39;t change to
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// not-NEW because we hold the lock.
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> (threadStatus <span style="color:#f92672">!=</span> 0) {
+        resume(); <span style="color:#75715e">// Wake up thread if it was suspended; no-op otherwise
+</span><span style="color:#75715e"></span>    }
+
+    <span style="color:#75715e">// The VM can handle all thread states
+</span><span style="color:#75715e"></span>    stop0(<span style="color:#66d9ef">new</span> ThreadDeath());
+}</code></pre></div>
+<h2 id="开启-securitymanager">开启 SecurityManager</h2>
+
+<p>默认 SecurityManager 是关闭的，可以通过以下方式开启</p>
+
+<p>增加启动参数 <code>-Djava.security.manager</code> 或 程序中 启动 <code>System.setSecurityManager(new SecurityManager());</code></p>
+
+<h2 id="read-more">Read More</h2>
+
+<ul>
+<li><a href="https://juejin.im/post/5b693511e51d45195113866a">Java安全：SecurityManager与AccessController</a></li>
+</ul>
+</article>
+
+      
+<div class="book-footer justify-end">
+  
+  
+  <div>
+    <a href="https://github.com/hello-world-example/Java/edit/master/HuGo/content/docs/java.lang/SecurityManager.md" target="_blank" rel="noopener">
+      <img src="/Java/svg/edit.svg" alt="Edit" /> Edit this page
+    </a>
+  </div>
+  
+</div>
+
+
+      
+    </div>
+
+    
+  
+
+  <aside class="book-toc level-3 fixed">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#securitymanager">SecurityManager</a>
+<ul>
+<li><a href="#简单理解">简单理解</a></li>
+<li><a href="#示例埋点代码">示例埋点代码</a>
+<ul>
+<li><a href="#runtime-getruntime-exit-system-exit-退出-jvm">Runtime.getRuntime().exit | System.exit 退出 JVM</a></li>
+<li><a href="#system-setproperty-设置系统属性">System.setProperty 设置系统属性</a></li>
+<li><a href="#thread-stop">Thread.stop</a></li>
+</ul></li>
+<li><a href="#开启-securitymanager">开启 SecurityManager</a></li>
+<li><a href="#read-more">Read More</a></li>
+</ul></li>
+</ul>
+</nav>
+  </aside>
+
+
+
+  </main>
+  
+  
+  
+</body>
+
+</html>

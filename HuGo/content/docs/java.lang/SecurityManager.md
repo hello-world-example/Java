@@ -1,9 +1,5 @@
 # SecurityManager
 
-
-
-
-
 ## 简单理解
 
 - JDK 针对一些敏感的资源操作，通过 `Security` 机制，添加了很多埋点

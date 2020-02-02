@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Java</title>
+    <link>https://hello-world-example.github.io/Java/</link>
+    <description>Recent content on Java</description>
+    <generator>Hugo -- gohugo.io</generator>
+    
+	<atom:link href="https://hello-world-example.github.io/Java/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title></title>
+      <link>https://hello-world-example.github.io/Java/_sidebar/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://hello-world-example.github.io/Java/_sidebar/</guid>
+      <description> java.lang
+ SecurityManager   </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://hello-world-example.github.io/Java/docs/java.lang/SecurityManager/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://hello-world-example.github.io/Java/docs/java.lang/SecurityManager/</guid>
+      <description>SecurityManager 简单理解  JDK 针对一些敏感的资源操作，通过 Security 机制，添加了很多埋点 权限通过 配置文件 $JAVA_HOME/jre/lib/security/java.policy 进行配置 配置文件的匹配 通过 java.security.Permission 的各种子类实现 具体的校验操作 通过 java.security.AccessController.checkPermission(perm) 处理 SecurityManager 对 AccessController 进行了封装了，通过 checkXXX() 调用 SecurityManager 的获取方式一般通过 System.getSecurityManager() 获取，使用的时候一定要判空，因为 安全机制不一定开启，如果没有开启，返回值是 null  示例埋点代码 Runtime.getRuntime().exit | System.exit 退出 JVM public void exit(int status) { SecurityManager security = System.getSecurityManager(); if (security != null) { // 不允许调用 System.exit  security.checkExit(status); } Shutdown.exit(status); } System.setProperty 设置系统属性 public static String setProperty(String key, String value) { checkKey(key); SecurityManager sm = getSecurityManager(); if (sm !</description>
+    </item>
+    
+  </channel>
+</rss>
