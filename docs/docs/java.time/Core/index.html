@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Core | Java</title>
+
+
+<link rel="stylesheet" href="/Java/book.min.79de1f7861b0c98f453c0a93bebf3608a280809e417787746c373699639900d7.css">
+
+
+
+
+<link rel="icon" href="/Java/favicon.png" type="image/x-icon">
+
+
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body>
+  <input type="checkbox" style="display: none" id="menu-control" />
+  <main class="flex container">
+
+    <aside class="book-menu fixed">
+      <nav>
+<h2 class="book-brand">
+  <a href="https://hello-world-example.github.io/Java/">Java</a>
+</h2>
+
+
+
+
+
+
+    
+  
+  
+  
+
+  <style>
+  nav ul a[href$="\2fJava\2f docs\2fjava.time\2f Core\2f "] {
+      color: #004ed0;
+  }
+  </style>
+
+<ul>
+<li><p><strong>java.lang</strong></p>
+
+<ul>
+<li><a href="/Java/docs/java.lang/SecurityManager/">SecurityManager</a></li>
+</ul></li>
+
+<li><p><strong>java.time</strong></p>
+
+<ul>
+<li><a href="/Java/docs/java.time/Core/">关键概念</a></li>
+<li><a href="/Java/docs/java.time/Gap/">时间区间</a></li>
+</ul></li>
+</ul>
+
+
+
+
+
+
+
+</nav>
+
+
+<script>
+(function() {
+  var menu = document.querySelector("aside.book-menu nav");
+  addEventListener("beforeunload", function(event) {
+    localStorage.setItem("menu.scrollTop", menu.scrollTop);
+  });
+  menu.scrollTop = localStorage.getItem("menu.scrollTop");
+})();
+</script>
+
+    </aside>
+
+    <div class="book-page">
+      <header class="flex align-center justify-between book-header">
+  <label for="menu-control">
+    <img src="/Java/svg/menu.svg" alt="Menu" />
+  </label>
+  <strong>Core</strong>
+</header>
+
+      
+<article class="markdown">
+
+<h1 id="关键概念">关键概念</h1>
+
+<blockquote>
+</blockquote>
+
+<h2 id="时间标准">时间标准</h2>
+
+<ul>
+<li><code>GMT</code> (Greenwich Mean Time) : <strong>格林威治(Greenwich)</strong>标准时间，英国伦敦郊区的皇家 <strong>格林威治天文台</strong> 的标准时间，是太阳在 <strong>格林威治上空最高点</strong> 时的时间。因为 <strong>公转速度的不均匀</strong> 和 <strong>自转速度的减慢</strong> ，最大误差可达 16分钟，因此格林威治时间已经不再被作为标准时间使用</li>
+<li><strong><code>UTC</code></strong> (Universal Time Coordinated): <strong>协调世界时</strong>，由原子钟报时，相对与 GMT 经度更高，可认为 <strong>UTC = GMT+0</strong>，只是统计方式不同</li>
+<li><code>DST</code> (Daylight Saving Time): <strong>夏令时</strong>，又称“日光节约时制”，是一种为节约能源而人为规定地方时间的制度。各个采用夏令时的国家规则不同，大致是在天亮早的夏季人为将时间调快一小时，以充分利用光照资源，从而节约照明用电。<strong>1986~1991年</strong>我国曾采用了6年夏时制，因为各种原因导致了很多的混乱，因此后续取消。</li>
+<li><code>CST</code> (Cxxx Standard Time): 是一个<strong>地区时间</strong>，不同地区的时间不一致
+
+<ul>
+<li>中国标准时间：China Standard Time <strong>UTC+8:00</strong></li>
+<li>美国中部时间：Central Standard Time <strong>UTC-6:00</strong></li>
+<li>澳大利亚中部时间：Central Standard Time <strong>UTC+9:30</strong></li>
+<li>古巴标准时间：Cuba Standard Time <strong>UTC-4:00</strong></li>
+</ul></li>
+</ul>
+
+<h2 id="关键类">关键类</h2>
+
+<ul>
+<li><code>java.time</code> 基于 ISO_8601日历系统实现的日期时间库
+
+<ul>
+<li><code>Year</code> 年</li>
+<li><code>YearMonth</code> 年月</li>
+<li><code>MonthDay</code> 日期</li>
+<li><strong><code>LocalDate</code> 年月日</strong></li>
+<li><strong><code>LocalTime</code> 时分秒</strong></li>
+<li><strong><code>LocalDateTime</code> 年月日 时分秒</strong></li>
+<li><code>Clock</code></li>
+<li><code>Duration</code> 时间区间</li>
+<li><code>Instant</code> 时间点</li>
+<li><code>ZonedDateTime</code> 时区</li>
+</ul></li>
+<li>java.time.chrono 支持对全球日历系统的扩展</li>
+<li>java.time.format：日期时间格式</li>
+<li>java.time.zone：时区信息库</li>
+<li>java.time.temporal：日期时间调整辅助库</li>
+</ul>
+
+<h2 id="read-more">Read More</h2>
+
+<ul>
+<li><a href="https://www.cnblogs.com/lxyit/p/9442135.html">Java 8——日期时间工具库（java.time）</a></li>
+<li>Date Time <a href="https://docs.oracle.com/javase/tutorial/datetime/iso/index.html">官方文档</a></li>
+</ul>
+</article>
+
+      
+<div class="book-footer justify-end">
+  
+  
+  <div>
+    <a href="https://github.com/hello-world-example/Java/edit/master/HuGo/content/docs/java.time/Core.md" target="_blank" rel="noopener">
+      <img src="/Java/svg/edit.svg" alt="Edit" /> Edit this page
+    </a>
+  </div>
+  
+</div>
+
+
+      
+    </div>
+
+    
+  
+
+  <aside class="book-toc level-3 fixed">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#关键概念">关键概念</a>
+<ul>
+<li><a href="#时间标准">时间标准</a></li>
+<li><a href="#关键类">关键类</a></li>
+<li><a href="#read-more">Read More</a></li>
+</ul></li>
+</ul>
+</nav>
+  </aside>
+
+
+
+  </main>
+  
+  
+  
+</body>
+
+</html>

@@ -4,10 +4,21 @@
   
   <url>
     <loc>https://hello-world-example.github.io/Java/_sidebar/</loc>
+    <lastmod>2020-02-02T21:19:18+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://hello-world-example.github.io/Java/docs/java.lang/SecurityManager/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://hello-world-example.github.io/Java/docs/java.time/Core/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://hello-world-example.github.io/Java/docs/java.time/Gap/</loc>
     <priority>0</priority>
   </url>
   
@@ -17,6 +28,7 @@
   
   <url>
     <loc>https://hello-world-example.github.io/Java/</loc>
+    <lastmod>2020-02-02T21:19:18+08:00</lastmod>
   </url>
   
 </urlset>
