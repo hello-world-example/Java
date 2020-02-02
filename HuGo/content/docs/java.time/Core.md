@@ -13,6 +13,16 @@
   - 澳大利亚中部时间：Central Standard Time **UTC+9:30**
   - 古巴标准时间：Cuba Standard Time **UTC-4:00**
 
+## 关键词
+
+> - **temporal** 时间上的
+> - **temporal amount** 时间量
+> - **chrono** 长期的、慢性的
+> - **chronology** 年表
+> - **period** 时期、时代
+> - **duration** 期间、持续时间
+> - **epoch** 世纪
+
 ## 关键类
 
 - `java.time` 基于 ISO_8601日历系统实现的日期时间库

@@ -16,7 +16,7 @@
 > - **temporal** 时间上的
 > - **temporal amount** 时间量
 > - **chrono** 长期的、慢性的
-> - **Chronology** 年表
+> - **chronology** 年表
 > - **period** 时期、时代
 > - **duration** 期间、持续时间
 

@@ -24,7 +24,7 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://hello-world-example.github.io/Java/docs/java.time/Core/</guid>
-      <description>关键概念   时间标准  GMT (Greenwich Mean Time) : 格林威治(Greenwich)标准时间，英国伦敦郊区的皇家 格林威治天文台 的标准时间，是太阳在 格林威治上空最高点 时的时间。因为 公转速度的不均匀 和 自转速度的减慢 ，最大误差可达 16分钟，因此格林威治时间已经不再被作为标准时间使用 UTC (Universal Time Coordinated): 协调世界时，由原子钟报时，相对与 GMT 经度更高，可认为 UTC = GMT+0，只是统计方式不同 DST (Daylight Saving Time): 夏令时，又称“日光节约时制”，是一种为节约能源而人为规定地方时间的制度。各个采用夏令时的国家规则不同，大致是在天亮早的夏季人为将时间调快一小时，以充分利用光照资源，从而节约照明用电。1986~1991年我国曾采用了6年夏时制，因为各种原因导致了很多的混乱，因此后续取消。 CST (Cxxx Standard Time): 是一个地区时间，不同地区的时间不一致  中国标准时间：China Standard Time UTC+8:00 美国中部时间：Central Standard Time UTC-6:00 澳大利亚中部时间：Central Standard Time UTC+9:30 古巴标准时间：Cuba Standard Time UTC-4:00   关键类  java.time 基于 ISO_8601日历系统实现的日期时间库  Year 年 YearMonth 年月 MonthDay 日期 LocalDate 年月日 LocalTime 时分秒 LocalDateTime 年月日 时分秒 Clock Duration 时间区间 Instant 时间点 ZonedDateTime 时区  java.</description>
+      <description>关键概念   时间标准  GMT (Greenwich Mean Time) : 格林威治(Greenwich)标准时间，英国伦敦郊区的皇家 格林威治天文台 的标准时间，是太阳在 格林威治上空最高点 时的时间。因为 公转速度的不均匀 和 自转速度的减慢 ，最大误差可达 16分钟，因此格林威治时间已经不再被作为标准时间使用 UTC (Universal Time Coordinated): 协调世界时，由原子钟报时，相对与 GMT 经度更高，可认为 UTC = GMT+0，只是统计方式不同 DST (Daylight Saving Time): 夏令时，又称“日光节约时制”，是一种为节约能源而人为规定地方时间的制度。各个采用夏令时的国家规则不同，大致是在天亮早的夏季人为将时间调快一小时，以充分利用光照资源，从而节约照明用电。1986~1991年我国曾采用了6年夏时制，因为各种原因导致了很多的混乱，因此后续取消。 CST (Cxxx Standard Time): 是一个地区时间，不同地区的时间不一致  中国标准时间：China Standard Time UTC+8:00 美国中部时间：Central Standard Time UTC-6:00 澳大利亚中部时间：Central Standard Time UTC+9:30 古巴标准时间：Cuba Standard Time UTC-4:00   关键词   temporal 时间上的 temporal amount 时间量 chrono 长期的、慢性的 chronology 年表 period 时期、时代 duration 期间、持续时间 epoch 世纪   关键类  java.</description>
     </item>
     
     <item>
@@ -34,7 +34,7 @@
       
       <guid>https://hello-world-example.github.io/Java/docs/java.time/Gap/</guid>
       <description>时间区间  Period and Duration 官方文档
- 继承关系 [i] java.time.temporal.TemporalAmount [c] java.time.Duration [i] java.time.chrono.ChronoPeriod [c] java.time.Period   temporal 时间上的 temporal amount 时间量 chrono 长期的、慢性的 Chronology 年表 period 时期、时代 duration 期间、持续时间   Duration // 1 秒时间 final Duration seconds = Duration.of(1, ChronoUnit.SECONDS); // 1.361 秒 final Duration duration = seconds.plusMillis(361); // 获取当前时间 final LocalTime now = LocalTime.now(); // 当前时间 + 1s final LocalTime start = now.plus(seconds); // 当前时间 + 1.</description>
+ 继承关系 [i] java.time.temporal.TemporalAmount [c] java.time.Duration [i] java.time.chrono.ChronoPeriod [c] java.time.Period   temporal 时间上的 temporal amount 时间量 chrono 长期的、慢性的 chronology 年表 period 时期、时代 duration 期间、持续时间   Duration // 1 秒时间 final Duration seconds = Duration.of(1, ChronoUnit.SECONDS); // 1.361 秒 final Duration duration = seconds.plusMillis(361); // 获取当前时间 final LocalTime now = LocalTime.now(); // 当前时间 + 1s final LocalTime start = now.plus(seconds); // 当前时间 + 1.</description>
     </item>
     
   </channel>
