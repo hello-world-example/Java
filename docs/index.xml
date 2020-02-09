@@ -17,7 +17,7 @@
       <guid>https://hello-world-example.github.io/Java/_sidebar/</guid>
       <description> java.lang
  SecurityManager  java.time
- 关键概念 时间区间   </description>
+ 关键概念 常见操作 时间区间   </description>
     </item>
     
     <item>
@@ -27,6 +27,15 @@
       
       <guid>https://hello-world-example.github.io/Java/docs/java.lang/SecurityManager/</guid>
       <description>SecurityManager 简单理解  JDK 针对一些敏感的资源操作，通过 Security 机制，添加了很多埋点 权限通过 配置文件 $JAVA_HOME/jre/lib/security/java.policy 进行配置 配置文件的匹配 通过 java.security.Permission 的各种子类实现 具体的校验操作 通过 java.security.AccessController.checkPermission(perm) 处理 SecurityManager 对 AccessController 进行了封装了，通过 checkXXX() 调用 SecurityManager 的获取方式一般通过 System.getSecurityManager() 获取，使用的时候一定要判空，因为 安全机制不一定开启，如果没有开启，返回值是 null  示例埋点代码 Runtime.getRuntime().exit | System.exit 退出 JVM public void exit(int status) { SecurityManager security = System.getSecurityManager(); if (security != null) { // 不允许调用 System.exit  security.checkExit(status); } Shutdown.exit(status); } System.setProperty 设置系统属性 public static String setProperty(String key, String value) { checkKey(key); SecurityManager sm = getSecurityManager(); if (sm !</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://hello-world-example.github.io/Java/docs/java.time/Action/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://hello-world-example.github.io/Java/docs/java.time/Action/</guid>
+      <description>常见操作 Date &amp;lt;-Long-&amp;gt; Instant Instant now = Instant.now(); // Date.from 1.8 新增的方法 Date date = Date.from(now); // date.toInstant() 1.8 新增的方法 Instant justNow = date.toInstant(); // 时间戳 转 Instant  Instant instant = Instant.ofEpochMilli(timestamp); // Instant 转 时间戳（ Date.from 的内部实现 ） Date date2 = new Date(now.toEpochMilli()); // 时间戳 转 Instant（ date.toInstant 的内部实现 ） final Instant now2 = Instant.ofEpochMilli(date.getTime()); Instant &amp;lt;-(ZonedDateTime)-&amp;gt; LocalDateTime // 可理解为对 时间戳 timestamp 的封装 Instant now = Instant.now(); // 转为为各个时区的时间 ZonedDateTime zonedDateTime = now.</description>
     </item>
     
     <item>

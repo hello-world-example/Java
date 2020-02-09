@@ -20,6 +20,15 @@
     
     <item>
       <title></title>
+      <link>https://hello-world-example.github.io/Java/docs/java.time/Action/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://hello-world-example.github.io/Java/docs/java.time/Action/</guid>
+      <description>常见操作 Date &amp;lt;-Long-&amp;gt; Instant Instant now = Instant.now(); // Date.from 1.8 新增的方法 Date date = Date.from(now); // date.toInstant() 1.8 新增的方法 Instant justNow = date.toInstant(); // 时间戳 转 Instant  Instant instant = Instant.ofEpochMilli(timestamp); // Instant 转 时间戳（ Date.from 的内部实现 ） Date date2 = new Date(now.toEpochMilli()); // 时间戳 转 Instant（ date.toInstant 的内部实现 ） final Instant now2 = Instant.ofEpochMilli(date.getTime()); Instant &amp;lt;-(ZonedDateTime)-&amp;gt; LocalDateTime // 可理解为对 时间戳 timestamp 的封装 Instant now = Instant.now(); // 转为为各个时区的时间 ZonedDateTime zonedDateTime = now.</description>
+    </item>
+    
+    <item>
+      <title></title>
       <link>https://hello-world-example.github.io/Java/docs/java.time/Core/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
