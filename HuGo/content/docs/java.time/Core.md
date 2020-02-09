@@ -32,14 +32,16 @@
   - **`LocalDate` 年月日**
   - **`LocalTime` 时分秒**
   - **`LocalDateTime` 年月日 时分秒**
-  - `Clock` 
+  - **`Instant`** 时间点，对标 `Date`，**可理解为对 timestamp 的封装，能获取毫秒级别的时间戳**
+  - `Clock` 基于 `Instant` 生成的时钟对象
   - `Duration` 时间区间
-  - `Instant` 时间点
-  - `ZonedDateTime` 时区
+  - `ZonedDateTime` 时区，
 - java.time.chrono 支持对全球日历系统的扩展
 - java.time.format：日期时间格式
 - java.time.zone：时区信息库
 - java.time.temporal：日期时间调整辅助库
+
+
 
 ## Read More
 

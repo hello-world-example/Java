@@ -6,8 +6,9 @@
 
     <groupId>Java</groupId>
     <artifactId>Java</artifactId>
-    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
     <modules>
         <module>javase-temp</module>
         <module>javase-proxy</module>
@@ -16,7 +17,6 @@
         <module>javase-lock</module>
         <module>javase-tools</module>
         <module>javase-jdbc</module>
-        <module>java8-time</module>
     </modules>
 
     <build>
