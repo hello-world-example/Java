@@ -11,12 +11,26 @@
 
     <modules>
         <module>javase-temp</module>
+
+        <module>javase-common</module>
+        <module>javase-tools</module>
+
+        <module>javase-regex</module>
+        <module>javase-crypto</module>
         <module>javase-proxy</module>
         <module>javase-socket</module>
         <module>javase-lock</module>
-        <module>javase-tools</module>
         <module>javase-jdbc</module>
     </modules>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
     <build>
         <plugins>

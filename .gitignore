@@ -2,3 +2,6 @@
 *.iml
 
 target
+
+# 私密信息不提交
+key.properties
