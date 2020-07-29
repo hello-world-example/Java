@@ -16,17 +16,17 @@ public class PrintSqlMain {
         // com.mysql.cj.jdbc.PreparedStatement@4157f54e: select * from T_TEST_ where ID = 613290
         System.out.println(preparedStatement.toString());
 
-        if (preparedStatement instanceof com.mysql.cj.jdbc.PreparedStatement) {
-            com.mysql.cj.jdbc.PreparedStatement mysqlPreparedStatement = (com.mysql.cj.jdbc.PreparedStatement) preparedStatement;
-            String sql = mysqlPreparedStatement.asSql();
-            // select * from T_TEST_ where ID = 613290
-            System.out.println(sql);
-
-            String preparedSql = mysqlPreparedStatement.getPreparedSql();
-            // select * from T_TEST_ where ID = ?
-            System.out.println(preparedSql);
-
-        }
+//        if (preparedStatement instanceof com.mysql.cj.jdbc.PreparedStatement) {
+//            com.mysql.cj.jdbc.PreparedStatement mysqlPreparedStatement = (com.mysql.cj.jdbc.PreparedStatement) preparedStatement;
+//            String sql = mysqlPreparedStatement.asSql();
+//            // select * from T_TEST_ where ID = 613290
+//            System.out.println(sql);
+//
+//            String preparedSql = mysqlPreparedStatement.getPreparedSql();
+//            // select * from T_TEST_ where ID = ?
+//            System.out.println(preparedSql);
+//
+//        }
 
 
     }
