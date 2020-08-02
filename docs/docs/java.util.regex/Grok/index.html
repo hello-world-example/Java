@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grok | Java</title>
+
+
+<link rel="stylesheet" href="/Java/book.min.a2277534155c5e81ce2c8ca6a4cd295525f25c75788a2e4e72c3310491c743b1.css">
+
+
+
+
+<link rel="icon" href="/Java/favicon.png" type="image/x-icon">
+
+
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body>
+  <input type="checkbox" style="display: none" id="menu-control" />
+  <main class="flex container">
+
+    <aside class="book-menu fixed">
+      <nav>
+<h2 class="book-brand">
+  <a href="https://hello-world-example.github.io/Java/">Java</a>
+</h2>
+
+
+
+
+
+
+    
+  
+  
+  
+
+  <style>
+  nav ul a[href$="\2fJava\2f docs\2fjava.util.regex\2fGrok\2f "] {
+      color: #004ed0;
+  }
+  </style>
+
+<ul>
+<li>
+<p><strong>GC</strong></p>
+<ul>
+<li><a href="/Java/docs/GC/JVM-Args/">JVM 参数</a></li>
+</ul>
+</li>
+<li>
+<p><strong>java.lang</strong></p>
+<ul>
+<li><a href="/Java/docs/java.lang/SecurityManager/">SecurityManager</a></li>
+</ul>
+</li>
+<li>
+<p><strong>java.time</strong></p>
+<ul>
+<li><a href="/Java/docs/java.time/Core/">关键概念</a></li>
+<li><a href="/Java/docs/java.time/Action/">常见操作</a></li>
+<li><a href="/Java/docs/java.time/Gap/">时间区间</a></li>
+</ul>
+</li>
+<li>
+<p><a href="/Java-IO"><strong>java.nio 🔗</strong></a></p>
+</li>
+<li>
+<p><a href="/Java-Concurrent"><strong>java.util.concurrent 🔗</strong></a></p>
+</li>
+<li>
+<p><strong>java.util.regex</strong></p>
+<ul>
+<li><a href="/Java/docs/java.util.regex/Pattern/">Pattern</a></li>
+<li><a href="/Java/docs/java.util.regex/Grok/">Grok</a></li>
+</ul>
+</li>
+<li>
+<p><a href="/Troubleshooting/docs/Java/"><strong>内置工具 🔗</strong></a></p>
+</li>
+</ul>
+
+
+
+
+
+
+
+</nav>
+
+
+<script>
+(function() {
+  var menu = document.querySelector("aside.book-menu nav");
+  addEventListener("beforeunload", function(event) {
+    localStorage.setItem("menu.scrollTop", menu.scrollTop);
+  });
+  menu.scrollTop = localStorage.getItem("menu.scrollTop");
+})();
+</script>
+
+    </aside>
+
+    <div class="book-page">
+      <header class="flex align-center justify-between book-header">
+  <label for="menu-control">
+    <img src="/Java/svg/menu.svg" alt="Menu" />
+  </label>
+  <strong>Grok</strong>
+</header>
+
+      
+<article class="markdown"><h1 id="grok">Grok</h1>
+<p>Java Grok 基于 <strong>正则表达式</strong> ，用来解析 <strong>日志、事件 等 单行文本文件</strong> ，最终 <strong>转换成结构化数据</strong>，如：JSON 等</p>
+<p>方便之处在于，可以对复杂的正则表达式进行拆分，便于维护，同时也方便取到需要的部分，避免各种嵌套 group</p>
+<h2 id="maven-依赖">Maven 依赖</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;!-- https://github.com/thekrakken/java-grok --&gt;</span>
+<span style="color:#f92672">&lt;dependency&gt;</span>
+  <span style="color:#f92672">&lt;groupId&gt;</span>io.krakens<span style="color:#f92672">&lt;/groupId&gt;</span>
+  <span style="color:#f92672">&lt;artifactId&gt;</span>java-grok<span style="color:#f92672">&lt;/artifactId&gt;</span>
+  <span style="color:#f92672">&lt;version&gt;</span>0.1.9<span style="color:#f92672">&lt;/version&gt;</span>
+<span style="color:#f92672">&lt;/dependency&gt;</span>
+</code></pre></div><h3 id="老版本"><del>老版本</del></h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;dependency&gt;</span>
+    <span style="color:#f92672">&lt;groupId&gt;</span>io.thekraken<span style="color:#f92672">&lt;/groupId&gt;</span>
+    <span style="color:#f92672">&lt;artifactId&gt;</span>grok<span style="color:#f92672">&lt;/artifactId&gt;</span>
+    <span style="color:#f92672">&lt;version&gt;</span>0.1.5<span style="color:#f92672">&lt;/version&gt;</span>
+<span style="color:#f92672">&lt;/dependency&gt;</span>
+</code></pre></div><h2 id="示例">示例</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">package</span> xyz.kail.demo.javase.regex<span style="color:#f92672">;</span>
+
+<span style="color:#f92672">import</span> io.krakens.grok.api.Grok<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> io.krakens.grok.api.GrokCompiler<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> io.krakens.grok.api.Match<span style="color:#f92672">;</span>
+
+<span style="color:#f92672">import</span> java.util.Map<span style="color:#f92672">;</span>
+
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">GrokMain</span> <span style="color:#f92672">{</span>
+
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#75715e">/* 创建 grokCompiler 实例 */</span>
+        GrokCompiler grokCompiler <span style="color:#f92672">=</span> GrokCompiler<span style="color:#f92672">.</span><span style="color:#a6e22e">newInstance</span><span style="color:#f92672">();</span>
+
+        <span style="color:#75715e">// java-grok.jar 包内置的默认模式: /patterns/patterns
+</span><span style="color:#75715e"></span>        grokCompiler<span style="color:#f92672">.</span><span style="color:#a6e22e">registerDefaultPatterns</span><span style="color:#f92672">();</span>
+
+        <span style="color:#75715e">// 除此之外还有： firewalls、haproxy、java、linux-syslog、nagios、postfix、ruby
+</span><span style="color:#75715e"></span>        grokCompiler<span style="color:#f92672">.</span><span style="color:#a6e22e">registerPatternFromClasspath</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/patterns/java&#34;</span><span style="color:#f92672">);</span>
+        grokCompiler<span style="color:#f92672">.</span><span style="color:#a6e22e">registerPatternFromClasspath</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/patterns/linux-syslog&#34;</span><span style="color:#f92672">);</span>
+        grokCompiler<span style="color:#f92672">.</span><span style="color:#a6e22e">registerPatternFromClasspath</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/patterns/haproxy&#34;</span><span style="color:#f92672">);</span>
+
+        <span style="color:#75715e">// 或者自定义 pattern
+</span><span style="color:#75715e"></span>        grokCompiler<span style="color:#f92672">.</span><span style="color:#a6e22e">register</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Demo&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;%{IP:client} %{WORD:method} %{URIPATHPARAM:request} %{NUMBER:bytes} %{NUMBER:duration}&#34;</span><span style="color:#f92672">);</span>
+
+        <span style="color:#75715e">// 获取注册 Pattern
+</span><span style="color:#75715e"></span>        Map<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">,</span> String<span style="color:#f92672">&gt;</span> defaultPatternDefinitions <span style="color:#f92672">=</span> grokCompiler<span style="color:#f92672">.</span><span style="color:#a6e22e">getPatternDefinitions</span><span style="color:#f92672">();</span>
+        printMap<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;defaultPatternDefinitions&#34;</span><span style="color:#f92672">,</span> defaultPatternDefinitions<span style="color:#f92672">);</span>
+
+        <span style="color:#75715e">/**
+</span><span style="color:#75715e">         * IP (?:%{IPV6:UNWANTED}|%{IPV4:UNWANTED})
+</span><span style="color:#75715e">         *     IPV4 (?&lt;![0-9])(?:(?:25[0-5]|2[0-4][0-9]|[0-1]?[0-9]{1,2})[.](?:25[0-5]|2[0-4][0-9]|[0-1]?[0-9]{1,2})[.](?:25[0-5]|2[0-4][0-9]|[0-1]?[0-9]{1,2})[.](?:25[0-5]|2[0-4][0-9]|[0-1]?[0-9]{1,2}))(?![0-9])
+</span><span style="color:#75715e">         *     IPV6 ((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?
+</span><span style="color:#75715e">         * WORD \b\w+\b
+</span><span style="color:#75715e">         * URIPATHPARAM %{URIPATH}(?:%{URIPARAM})?
+</span><span style="color:#75715e">         *     URIPATH (?:/[A-Za-z0-9$.+!*&#39;(){},~:;=@#%_\-]*)+
+</span><span style="color:#75715e">         *     URIPARAM \?[A-Za-z0-9$.+!*&#39;|(){},~@#%&amp;/=:;_?\-\[\]]*
+</span><span style="color:#75715e">         * NUMBER (?:%{BASE10NUM:UNWANTED})
+</span><span style="color:#75715e">         *     BASE10NUM (?&lt;![0-9.+-])(?&gt;[+-]?(?:(?:[0-9]+(?:\.[0-9]+)?)|(?:\.[0-9]+)))
+</span><span style="color:#75715e">         */</span>
+        <span style="color:#75715e">// 一个 Pattern 有 多个 子 Pattern 组合而成
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">final</span> Grok grok <span style="color:#f92672">=</span> grokCompiler<span style="color:#f92672">.</span><span style="color:#a6e22e">compile</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;%{Demo}&#34;</span><span style="color:#f92672">);</span>
+
+        <span style="color:#75715e">/* 一条日志 */</span>
+        String log <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;55.3.244.1 GET /index.html 15824 0.043&#34;</span><span style="color:#f92672">;</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>log<span style="color:#f92672">);</span>
+
+        Match gm <span style="color:#f92672">=</span> grok<span style="color:#f92672">.</span><span style="color:#a6e22e">match</span><span style="color:#f92672">(</span>log<span style="color:#f92672">);</span>
+
+        <span style="color:#75715e">/* 匹配结果是一个 Map，Key 为 名称或别名 %{名称:别名} */</span>
+        <span style="color:#66d9ef">final</span> Map<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">,</span> Object<span style="color:#f92672">&gt;</span> capture <span style="color:#f92672">=</span> gm<span style="color:#f92672">.</span><span style="color:#a6e22e">capture</span><span style="color:#f92672">();</span>
+        printMap<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;capture&#34;</span><span style="color:#f92672">,</span> capture<span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">printMap</span><span style="color:#f92672">(</span>String name<span style="color:#f92672">,</span> Map<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">,</span> <span style="color:#f92672">?&gt;</span> map<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>name <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;: &#34;</span><span style="color:#f92672">);</span>
+        map<span style="color:#f92672">.</span><span style="color:#a6e22e">forEach</span><span style="color:#f92672">((</span>key<span style="color:#f92672">,</span> value<span style="color:#f92672">)</span> <span style="color:#f92672">-&gt;</span> System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;  &#34;</span> <span style="color:#f92672">+</span> key <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;  &#34;</span> <span style="color:#f92672">+</span> value<span style="color:#f92672">));</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">();</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><h3 id="结果">结果</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">capture: 
+  duration  0.043
+  request  /index.html
+  Demo  55.3.244.1 GET /index.html <span style="color:#ae81ff">15824</span> 0.043
+  method  GET
+  bytes  <span style="color:#ae81ff">15824</span>
+  URIPATH  /index.html
+  client  55.3.244.1
+  URIPARAM  null
+</code></pre></div><h2 id="格式">格式</h2>
+<ul>
+<li><code>name1 regex</code> 名称和正则表达式中间空格分割</li>
+<li><code>name2 %{name1}</code> name2 引用 name1，</li>
+<li><code>name3 %{name1:别名}</code> name3 引用 name1 同时给 name1 起别名</li>
+</ul>
+<h2 id="read-more">Read More</h2>
+<ul>
+<li>Github 仓库： <a href="https://github.com/thekrakken/java-grok">thekrakken / java-grok</a></li>
+<li><strong>Graylog</strong> » Extractors »  <a href="https://docs.graylog.org/en/3.3/pages/extractors.html#using-grok-patterns-to-extract-data">Using Grok patterns to extract data</a></li>
+<li><strong>Logstash</strong> Reference » Filter plugins » <a href="https://www.elastic.co/guide/en/logstash/current/plugins-filters-grok.html">Grok filter plugin</a></li>
+<li>Grok Debugger
+<ul>
+<li><strong><a href="http://grokdebug.fennbk.com/">http://grokdebug.fennbk.com/</a></strong></li>
+<li><a href="http://grokdebug.herokuapp.com/">http://grokdebug.herokuapp.com/</a></li>
+</ul>
+</li>
+<li><a href="https://www.cnblogs.com/zhangan/p/11395056.html">Grok 内置 Pattern 解释</a></li>
+</ul>
+</article>
+
+      
+<div class="book-footer justify-end">
+  
+  
+  <div>
+    <a href="https://github.com/hello-world-example/Java/edit/master/HuGo/content/docs/java.util.regex/Grok.md" target="_blank" rel="noopener">
+      <img src="/Java/svg/edit.svg" alt="Edit" /> Edit this page
+    </a>
+  </div>
+  
+</div>
+
+
+      
+    </div>
+
+    
+  
+
+  <aside class="book-toc level-3 fixed">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#maven-依赖">Maven 依赖</a>
+      <ul>
+        <li><a href="#老版本">老版本</a></li>
+      </ul>
+    </li>
+    <li><a href="#示例">示例</a>
+      <ul>
+        <li><a href="#结果">结果</a></li>
+      </ul>
+    </li>
+    <li><a href="#格式">格式</a></li>
+    <li><a href="#read-more">Read More</a></li>
+  </ul>
+</nav>
+  </aside>
+
+
+
+  </main>
+  
+  
+  
+</body>
+
+</html>

@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pattern | Java</title>
+
+
+<link rel="stylesheet" href="/Java/book.min.a2277534155c5e81ce2c8ca6a4cd295525f25c75788a2e4e72c3310491c743b1.css">
+
+
+
+
+<link rel="icon" href="/Java/favicon.png" type="image/x-icon">
+
+
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body>
+  <input type="checkbox" style="display: none" id="menu-control" />
+  <main class="flex container">
+
+    <aside class="book-menu fixed">
+      <nav>
+<h2 class="book-brand">
+  <a href="https://hello-world-example.github.io/Java/">Java</a>
+</h2>
+
+
+
+
+
+
+    
+  
+  
+  
+
+  <style>
+  nav ul a[href$="\2fJava\2f docs\2fjava.util.regex\2fPattern\2f "] {
+      color: #004ed0;
+  }
+  </style>
+
+<ul>
+<li>
+<p><strong>GC</strong></p>
+<ul>
+<li><a href="/Java/docs/GC/JVM-Args/">JVM 参数</a></li>
+</ul>
+</li>
+<li>
+<p><strong>java.lang</strong></p>
+<ul>
+<li><a href="/Java/docs/java.lang/SecurityManager/">SecurityManager</a></li>
+</ul>
+</li>
+<li>
+<p><strong>java.time</strong></p>
+<ul>
+<li><a href="/Java/docs/java.time/Core/">关键概念</a></li>
+<li><a href="/Java/docs/java.time/Action/">常见操作</a></li>
+<li><a href="/Java/docs/java.time/Gap/">时间区间</a></li>
+</ul>
+</li>
+<li>
+<p><a href="/Java-IO"><strong>java.nio 🔗</strong></a></p>
+</li>
+<li>
+<p><a href="/Java-Concurrent"><strong>java.util.concurrent 🔗</strong></a></p>
+</li>
+<li>
+<p><strong>java.util.regex</strong></p>
+<ul>
+<li><a href="/Java/docs/java.util.regex/Pattern/">Pattern</a></li>
+<li><a href="/Java/docs/java.util.regex/Grok/">Grok</a></li>
+</ul>
+</li>
+<li>
+<p><a href="/Troubleshooting/docs/Java/"><strong>内置工具 🔗</strong></a></p>
+</li>
+</ul>
+
+
+
+
+
+
+
+</nav>
+
+
+<script>
+(function() {
+  var menu = document.querySelector("aside.book-menu nav");
+  addEventListener("beforeunload", function(event) {
+    localStorage.setItem("menu.scrollTop", menu.scrollTop);
+  });
+  menu.scrollTop = localStorage.getItem("menu.scrollTop");
+})();
+</script>
+
+    </aside>
+
+    <div class="book-page">
+      <header class="flex align-center justify-between book-header">
+  <label for="menu-control">
+    <img src="/Java/svg/menu.svg" alt="Menu" />
+  </label>
+  <strong>Pattern</strong>
+</header>
+
+      
+<article class="markdown"><h1 id="java-正则表达式">Java 正则表达式</h1>
+<h2 id="边界">边界</h2>
+<table>
+<thead>
+<tr>
+<th align="center">Regex</th>
+<th>Desc</th>
+<th>Demo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><code>^</code></td>
+<td>行头</td>
+<td></td>
+</tr>
+<tr>
+<td align="center"><code>$</code></td>
+<td>行尾</td>
+<td></td>
+</tr>
+<tr>
+<td align="center"><code>\b</code> 、<code>\B</code></td>
+<td>单词边界、非边界</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="字符">字符</h2>
+<table>
+<thead>
+<tr>
+<th align="center">Regex</th>
+<th>Desc</th>
+<th>Demo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><code>.</code></td>
+<td>任意字符</td>
+<td></td>
+</tr>
+<tr>
+<td align="center"><code>\d</code> 、 <code>\D</code></td>
+<td>数字 <code>[0-9]</code>、非数字 <code>[^0-9]</code>， <strong>Digit</strong></td>
+<td></td>
+</tr>
+<tr>
+<td align="center"><code>\s</code> 、 <code>\S</code></td>
+<td>空白<code>[ \t\n\x0B\f\r]</code>、非空白 <code>[^\s]</code>， <strong>Space</strong></td>
+<td></td>
+</tr>
+<tr>
+<td align="center"><code>\w</code>、 <code>\W</code></td>
+<td>单词、非单词</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="数量">数量</h2>
+<table>
+<thead>
+<tr>
+<th align="center">Regex</th>
+<th>Desc</th>
+<th>Demo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><code>X?</code></td>
+<td><code>0~1</code></td>
+<td></td>
+</tr>
+<tr>
+<td align="center"><code>X*</code></td>
+<td><code>0~n</code></td>
+<td></td>
+</tr>
+<tr>
+<td align="center"><code>X+</code></td>
+<td><code>1~n</code></td>
+<td></td>
+</tr>
+<tr>
+<td align="center"><code>X{n}</code></td>
+<td>正好 <code>n</code>次</td>
+<td></td>
+</tr>
+<tr>
+<td align="center"><code>X{n,}</code></td>
+<td>至少 <code>n</code>次</td>
+<td></td>
+</tr>
+<tr>
+<td align="center"><code>X{n,m}</code></td>
+<td>至少 <code>n</code>次，不超过 <code>m</code> 次</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="零宽断言">零宽断言</h2>
+<ul>
+<li><strong>断言</strong>：
+<ul>
+<li>俗话的断言就是 <strong>我断定什么什么</strong></li>
+<li>正则中的断言是 <strong>在指定的内容的前面或后面会出现满足指定规则的内容</strong></li>
+<li><strong>只有当断言为真时才会继续进行匹配</strong></li>
+</ul>
+</li>
+<li><strong>零宽</strong>：就是没有宽度，只是匹配位置，不占字符，也就是说，<strong>匹配结果里是不会返回断言本身</strong></li>
+<li><strong>负向零宽断言</strong>
+<ul>
+<li>断言用来断定 <strong>是什么</strong></li>
+<li>负向断言用来断定 <strong>不是什么</strong></li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">位置</th>
+<th align="center"></th>
+<th align="center">断言</th>
+<th>Demo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">前</td>
+<td align="center">符合</td>
+<td align="center"><code>(?&lt;=exp)</code> <em>regex</em></td>
+<td><code>(?&lt;=\bre)\w+\b</code> 匹配 <code>reading a book</code> 出 <code>ading</code></td>
+</tr>
+<tr>
+<td align="center">后</td>
+<td align="center">符合</td>
+<td align="center"><em>regex</em> <code>(?=exp)</code></td>
+<td><code>\b\w+(?=ing\b)</code>匹配 <code>you're dancing</code> 出 <code>danc</code></td>
+</tr>
+<tr>
+<td align="center">前</td>
+<td align="center">不符合</td>
+<td align="center"><code>(?&lt;!exp)</code> regex</td>
+<td><code>(?&lt;![a-z])\d{7}</code> 匹配前面不是小写字母的七位数字</td>
+</tr>
+<tr>
+<td align="center">后</td>
+<td align="center">不符合</td>
+<td align="center"><em>regex</em> <code>(?!exp)</code></td>
+<td><code>\d{3}(?!\d)</code> 匹配三位数字，但是后面不能是数字</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"><code>(?:exp)</code></td>
+<td>括号内的表达式，不作为一个 Group，并不属于零宽断言的范畴</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>如何记忆？</strong></p>
+<ul>
+<li>断言的语法结构是 <code>(?...)</code></li>
+<li><code>&lt;</code> 搭配 html 的起始标签理解<code>&lt;exp&gt;regex&lt;/exp&gt;</code>，写在正则前，<strong>断言正则前必须符合指定的条件</strong></li>
+<li><code>=</code> 必须符合断言，<code>!</code> 必须不符合断言</li>
+</ul>
+</blockquote>
+<h2 id="匹配模式">匹配模式</h2>
+<table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center">Pattern</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><code>(?m)</code></td>
+<td align="center"><code>MULTILINE</code></td>
+<td>多行模式</td>
+</tr>
+<tr>
+<td align="center"><code>(?i)</code></td>
+<td align="center"><code>CASE_INSENSITIVE</code></td>
+<td>不缺分大小写</td>
+</tr>
+<tr>
+<td align="center"><code>(?x)</code></td>
+<td align="center"><code>COMMENTS</code></td>
+<td>允许使用注释</td>
+</tr>
+<tr>
+<td align="center"><code>(?s)</code></td>
+<td align="center"><code>DOTALL</code></td>
+<td><code>.</code> 可以匹配行结束符</td>
+</tr>
+<tr>
+<td align="center">..</td>
+<td align="center">..</td>
+<td>..</td>
+</tr>
+</tbody>
+</table>
+<h2 id="demo">Demo</h2>
+<h3 id="隐藏手机后中间四位">隐藏手机后中间四位</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// $1 引用 前3位，$2 引用 后4位
+</span><span style="color:#75715e"></span><span style="color:#e6db74">&#34;13843838438&#34;</span><span style="color:#f92672">.</span><span style="color:#a6e22e">replaceAll</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;(\\d{3})(\\d{4})(\\d{4})&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;$1****$3&#34;</span><span style="color:#f92672">)</span>
+<span style="color:#75715e">// (?:\\d{4}) 代表不作为一个 group 
+</span><span style="color:#75715e"></span><span style="color:#e6db74">&#34;13843838438&#34;</span><span style="color:#f92672">.</span><span style="color:#a6e22e">replaceAll</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;(\\d{3})(?:\\d{4})(\\d{4})&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;$1****$2&#34;</span><span style="color:#f92672">)</span>
+<span style="color:#75715e">// 同上
+</span><span style="color:#75715e"></span><span style="color:#e6db74">&#34;13843838438&#34;</span><span style="color:#f92672">.</span><span style="color:#a6e22e">replaceAll</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;(\\d{3})\\d{4}(\\d{4})&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;$1****$2&#34;</span><span style="color:#f92672">)</span>
+
+<span style="color:#75715e">// 或
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">new</span> StringBuilder<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;13843838438&#34;</span><span style="color:#f92672">).</span><span style="color:#a6e22e">replace</span><span style="color:#f92672">(</span>3<span style="color:#f92672">,</span>7<span style="color:#f92672">,</span><span style="color:#e6db74">&#34;****&#34;</span><span style="color:#f92672">)</span>
+</code></pre></div><h3 id="replace--replaceall">replace &amp; replaceAll</h3>
+<p>都能替换 全部匹配的字符</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// 字符串匹配
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">replace</span><span style="color:#f92672">(</span>CharSequence target<span style="color:#f92672">,</span> CharSequence replacement<span style="color:#f92672">)</span>
+
+<span style="color:#75715e">// 正则匹配
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">replaceAll</span><span style="color:#f92672">(</span>String regex<span style="color:#f92672">,</span> String replacement<span style="color:#f92672">)</span>
+  
+<span style="color:#75715e">// 替换正则匹配到的第一个
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">replaceFirst</span><span style="color:#f92672">(</span>String regex<span style="color:#f92672">,</span> String replacement<span style="color:#f92672">)</span>
+</code></pre></div><h2 id="read-more">Read More</h2>
+<ul>
+<li><a href="https://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/regex/Pattern.html">java.util.regex 类 Pattern</a></li>
+<li><a href="https://deerchao.cn/tutorials/regex/regex.htm">正则表达式30分钟入门教程</a></li>
+</ul>
+<hr>
+<ul>
+<li><a href="https://tool.oschina.net/regex/">在线正则表达式测试</a></li>
+</ul>
+</article>
+
+      
+<div class="book-footer justify-end">
+  
+  
+  <div>
+    <a href="https://github.com/hello-world-example/Java/edit/master/HuGo/content/docs/java.util.regex/Pattern.md" target="_blank" rel="noopener">
+      <img src="/Java/svg/edit.svg" alt="Edit" /> Edit this page
+    </a>
+  </div>
+  
+</div>
+
+
+      
+    </div>
+
+    
+  
+
+  <aside class="book-toc level-3 fixed">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#边界">边界</a></li>
+    <li><a href="#字符">字符</a></li>
+    <li><a href="#数量">数量</a></li>
+    <li><a href="#零宽断言">零宽断言</a></li>
+    <li><a href="#匹配模式">匹配模式</a></li>
+    <li><a href="#demo">Demo</a>
+      <ul>
+        <li><a href="#隐藏手机后中间四位">隐藏手机后中间四位</a></li>
+        <li><a href="#replace--replaceall">replace &amp; replaceAll</a></li>
+      </ul>
+    </li>
+    <li><a href="#read-more">Read More</a></li>
+  </ul>
+</nav>
+  </aside>
+
+
+
+  </main>
+  
+  
+  
+</body>
+
+</html>

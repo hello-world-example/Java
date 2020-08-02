@@ -7,7 +7,7 @@
 <title>Action | Java</title>
 
 
-<link rel="stylesheet" href="/Java/book.min.79de1f7861b0c98f453c0a93bebf3608a280809e417787746c373699639900d7.css">
+<link rel="stylesheet" href="/Java/book.min.a2277534155c5e81ce2c8ca6a4cd295525f25c75788a2e4e72c3310491c743b1.css">
 
 
 
@@ -50,31 +50,42 @@ https://github.com/alex-shpak/hugo-book
   </style>
 
 <ul>
-<li><p><strong>GC</strong></p>
-
+<li>
+<p><strong>GC</strong></p>
 <ul>
 <li><a href="/Java/docs/GC/JVM-Args/">JVM 参数</a></li>
-</ul></li>
-
-<li><p><strong>java.lang</strong></p>
-
+</ul>
+</li>
+<li>
+<p><strong>java.lang</strong></p>
 <ul>
 <li><a href="/Java/docs/java.lang/SecurityManager/">SecurityManager</a></li>
-</ul></li>
-
-<li><p><strong>java.time</strong></p>
-
+</ul>
+</li>
+<li>
+<p><strong>java.time</strong></p>
 <ul>
 <li><a href="/Java/docs/java.time/Core/">关键概念</a></li>
 <li><a href="/Java/docs/java.time/Action/">常见操作</a></li>
 <li><a href="/Java/docs/java.time/Gap/">时间区间</a></li>
-</ul></li>
-
-<li><p><a href="/Java-IO"><strong>java.nio 🔗</strong></a></p></li>
-
-<li><p><a href="/Java-Concurrent"><strong>java.util.concurrent 🔗</strong></a></p></li>
-
-<li><p><a href="/Troubleshooting/docs/Java/"><strong>内置工具 🔗</strong></a></p></li>
+</ul>
+</li>
+<li>
+<p><a href="/Java-IO"><strong>java.nio 🔗</strong></a></p>
+</li>
+<li>
+<p><a href="/Java-Concurrent"><strong>java.util.concurrent 🔗</strong></a></p>
+</li>
+<li>
+<p><strong>java.util.regex</strong></p>
+<ul>
+<li><a href="/Java/docs/java.util.regex/Pattern/">Pattern</a></li>
+<li><a href="/Java/docs/java.util.regex/Grok/">Grok</a></li>
+</ul>
+</li>
+<li>
+<p><a href="/Troubleshooting/docs/Java/"><strong>内置工具 🔗</strong></a></p>
+</li>
 </ul>
 
 
@@ -107,60 +118,57 @@ https://github.com/alex-shpak/hugo-book
 </header>
 
       
-<article class="markdown">
-
-<h1 id="常见操作">常见操作</h1>
-
-<h2 id="date-long-instant">Date &lt;-Long-&gt; Instant</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Instant <span style="color:#a6e22e">now</span> <span style="color:#f92672">=</span> Instant.<span style="color:#a6e22e">now</span>();
+<article class="markdown"><h1 id="常见操作">常见操作</h1>
+<h2 id="date--long--instant">Date &lt;-Long-&gt; Instant</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Instant now <span style="color:#f92672">=</span> Instant<span style="color:#f92672">.</span><span style="color:#a6e22e">now</span><span style="color:#f92672">();</span>
 <span style="color:#75715e">// Date.from 1.8 新增的方法
-</span><span style="color:#75715e"></span>Date <span style="color:#a6e22e">date</span> <span style="color:#f92672">=</span> Date.<span style="color:#a6e22e">from</span>(now);
+</span><span style="color:#75715e"></span>Date date <span style="color:#f92672">=</span> Date<span style="color:#f92672">.</span><span style="color:#a6e22e">from</span><span style="color:#f92672">(</span>now<span style="color:#f92672">);</span>
 <span style="color:#75715e">// date.toInstant() 1.8 新增的方法
-</span><span style="color:#75715e"></span>Instant <span style="color:#a6e22e">justNow</span> <span style="color:#f92672">=</span> date.<span style="color:#a6e22e">toInstant</span>();
+</span><span style="color:#75715e"></span>Instant justNow <span style="color:#f92672">=</span> date<span style="color:#f92672">.</span><span style="color:#a6e22e">toInstant</span><span style="color:#f92672">();</span>
 
 <span style="color:#75715e">// 时间戳 转 Instant
 </span><span style="color:#75715e"></span>
-Instant <span style="color:#a6e22e">instant</span> <span style="color:#f92672">=</span> Instant.<span style="color:#a6e22e">ofEpochMilli</span>(timestamp);
+Instant instant <span style="color:#f92672">=</span> Instant<span style="color:#f92672">.</span><span style="color:#a6e22e">ofEpochMilli</span><span style="color:#f92672">(</span>timestamp<span style="color:#f92672">);</span>
 
 <span style="color:#75715e">// Instant 转 时间戳（ Date.from 的内部实现 ）
-</span><span style="color:#75715e"></span>Date <span style="color:#a6e22e">date2</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Date(now.<span style="color:#a6e22e">toEpochMilli</span>());
+</span><span style="color:#75715e"></span>Date date2 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Date<span style="color:#f92672">(</span>now<span style="color:#f92672">.</span><span style="color:#a6e22e">toEpochMilli</span><span style="color:#f92672">());</span>
 <span style="color:#75715e">// 时间戳 转 Instant（ date.toInstant 的内部实现 ）
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">final</span> <span style="color:#a6e22e">Instant</span> now2 <span style="color:#f92672">=</span> Instant.<span style="color:#a6e22e">ofEpochMilli</span>(date.<span style="color:#a6e22e">getTime</span>());</code></pre></div>
-<h2 id="instant-zoneddatetime-localdatetime">Instant &lt;-(ZonedDateTime)-&gt;  LocalDateTime</h2>
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">final</span> Instant now2 <span style="color:#f92672">=</span> Instant<span style="color:#f92672">.</span><span style="color:#a6e22e">ofEpochMilli</span><span style="color:#f92672">(</span>date<span style="color:#f92672">.</span><span style="color:#a6e22e">getTime</span><span style="color:#f92672">());</span>
+</code></pre></div><h2 id="instant--zoneddatetime---localdatetime">Instant &lt;-(ZonedDateTime)-&gt;  LocalDateTime</h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// 可理解为对 时间戳 timestamp 的封装
-</span><span style="color:#75715e"></span>Instant <span style="color:#a6e22e">now</span> <span style="color:#f92672">=</span> Instant.<span style="color:#a6e22e">now</span>();
+</span><span style="color:#75715e"></span>Instant now <span style="color:#f92672">=</span> Instant<span style="color:#f92672">.</span><span style="color:#a6e22e">now</span><span style="color:#f92672">();</span>
 <span style="color:#75715e">// 转为为各个时区的时间
-</span><span style="color:#75715e"></span>ZonedDateTime <span style="color:#a6e22e">zonedDateTime</span> <span style="color:#f92672">=</span> now.<span style="color:#a6e22e">atZone</span>(ZoneId.<span style="color:#a6e22e">systemDefault</span>());
+</span><span style="color:#75715e"></span>ZonedDateTime zonedDateTime <span style="color:#f92672">=</span> now<span style="color:#f92672">.</span><span style="color:#a6e22e">atZone</span><span style="color:#f92672">(</span>ZoneId<span style="color:#f92672">.</span><span style="color:#a6e22e">systemDefault</span><span style="color:#f92672">());</span>
 <span style="color:#75715e">// 转化成本地时间
-</span><span style="color:#75715e"></span>LocalDateTime <span style="color:#a6e22e">localDateTime</span> <span style="color:#f92672">=</span> zonedDateTime.<span style="color:#a6e22e">toLocalDateTime</span>();
+</span><span style="color:#75715e"></span>LocalDateTime localDateTime <span style="color:#f92672">=</span> zonedDateTime<span style="color:#f92672">.</span><span style="color:#a6e22e">toLocalDateTime</span><span style="color:#f92672">();</span>
 
 <span style="color:#75715e">// 在某个时区的本地时间转化成 Instant
-</span><span style="color:#75715e"></span>Instant <span style="color:#a6e22e">justNow</span> <span style="color:#f92672">=</span> localDateTime.<span style="color:#a6e22e">atZone</span>(ZoneId.<span style="color:#a6e22e">systemDefault</span>()).<span style="color:#a6e22e">toInstant</span>()</code></pre></div>
-<h2 id="string-格式化">String 格式化</h2>
-
+</span><span style="color:#75715e"></span>Instant justNow <span style="color:#f92672">=</span> localDateTime<span style="color:#f92672">.</span><span style="color:#a6e22e">atZone</span><span style="color:#f92672">(</span>ZoneId<span style="color:#f92672">.</span><span style="color:#a6e22e">systemDefault</span><span style="color:#f92672">()).</span><span style="color:#a6e22e">toInstant</span><span style="color:#f92672">()</span>
+</code></pre></div><h2 id="string-格式化">String 格式化</h2>
 <blockquote>
 <p><a href="https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html">java.time.format.DateTimeFormatter</a></p>
 </blockquote>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// 默认的字符串格式 2020-02-09T17:21:11.621
-</span><span style="color:#75715e"></span>LocalDateTime.<span style="color:#a6e22e">now</span>().<span style="color:#a6e22e">toString</span>();
+</span><span style="color:#75715e"></span>LocalDateTime<span style="color:#f92672">.</span><span style="color:#a6e22e">now</span><span style="color:#f92672">().</span><span style="color:#a6e22e">toString</span><span style="color:#f92672">();</span>
 
 <span style="color:#75715e">// 解析
-</span><span style="color:#75715e"></span>LocalDateTime <span style="color:#a6e22e">dateTime1</span> <span style="color:#f92672">=</span> LocalDateTime.<span style="color:#a6e22e">parse</span>(<span style="color:#e6db74">&#34;2020-02-09T17:21:11.621&#34;</span>);
+</span><span style="color:#75715e"></span>LocalDateTime dateTime1 <span style="color:#f92672">=</span> LocalDateTime<span style="color:#f92672">.</span><span style="color:#a6e22e">parse</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;2020-02-09T17:21:11.621&#34;</span><span style="color:#f92672">);</span>
 <span style="color:#75715e">// 可以去掉毫秒
-</span><span style="color:#75715e"></span>LocalDateTime <span style="color:#a6e22e">dateTime2</span> <span style="color:#f92672">=</span> LocalDateTime.<span style="color:#a6e22e">parse</span>(<span style="color:#e6db74">&#34;2020-02-09T17:21:11&#34;</span>);
+</span><span style="color:#75715e"></span>LocalDateTime dateTime2 <span style="color:#f92672">=</span> LocalDateTime<span style="color:#f92672">.</span><span style="color:#a6e22e">parse</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;2020-02-09T17:21:11&#34;</span><span style="color:#f92672">);</span>
 <span style="color:#75715e">// 秒也可以去掉
-</span><span style="color:#75715e"></span>LocalDateTime <span style="color:#a6e22e">dateTime3</span> <span style="color:#f92672">=</span> LocalDateTime.<span style="color:#a6e22e">parse</span>(<span style="color:#e6db74">&#34;2020-02-09T17:21&#34;</span>);
+</span><span style="color:#75715e"></span>LocalDateTime dateTime3 <span style="color:#f92672">=</span> LocalDateTime<span style="color:#f92672">.</span><span style="color:#a6e22e">parse</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;2020-02-09T17:21&#34;</span><span style="color:#f92672">);</span>
 <span style="color:#75715e">// 自定义格式 解析
-</span><span style="color:#75715e"></span>LocalDateTime <span style="color:#a6e22e">dateTime4</span> <span style="color:#f92672">=</span> LocalDateTime.<span style="color:#a6e22e">parse</span>(
-    <span style="color:#e6db74">&#34;2020.02.09 17.31.03&#34;</span>, 
-    DateTimeFormatter.<span style="color:#a6e22e">ofPattern</span>(<span style="color:#e6db74">&#34;yyyy.MM.dd HH.mm.ss&#34;</span>)
-);
+</span><span style="color:#75715e"></span>LocalDateTime dateTime4 <span style="color:#f92672">=</span> LocalDateTime<span style="color:#f92672">.</span><span style="color:#a6e22e">parse</span><span style="color:#f92672">(</span>
+    <span style="color:#e6db74">&#34;2020.02.09 17.31.03&#34;</span><span style="color:#f92672">,</span> 
+    DateTimeFormatter<span style="color:#f92672">.</span><span style="color:#a6e22e">ofPattern</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;yyyy.MM.dd HH.mm.ss&#34;</span><span style="color:#f92672">)</span>
+<span style="color:#f92672">);</span>
 
 
 <span style="color:#75715e">// 2020-02-09T17:38:57.354
-</span><span style="color:#75715e"></span>LocalDateTime.<span style="color:#a6e22e">now</span>().<span style="color:#a6e22e">format</span>(DateTimeFormatter.<span style="color:#a6e22e">ISO_LOCAL_DATE_TIME</span>);
+</span><span style="color:#75715e"></span>LocalDateTime<span style="color:#f92672">.</span><span style="color:#a6e22e">now</span><span style="color:#f92672">().</span><span style="color:#a6e22e">format</span><span style="color:#f92672">(</span>DateTimeFormatter<span style="color:#f92672">.</span><span style="color:#a6e22e">ISO_LOCAL_DATE_TIME</span><span style="color:#f92672">);</span>
 <span style="color:#75715e">// 2020-02-09 17:38:57
-</span><span style="color:#75715e"></span>LocalDateTime.<span style="color:#a6e22e">now</span>().<span style="color:#a6e22e">format</span>(DateTimeFormatter.<span style="color:#a6e22e">ofPattern</span>(<span style="color:#e6db74">&#34;yyyy-MM-dd HH:mm:ss&#34;</span>));</code></pre></div></article>
+</span><span style="color:#75715e"></span>LocalDateTime<span style="color:#f92672">.</span><span style="color:#a6e22e">now</span><span style="color:#f92672">().</span><span style="color:#a6e22e">format</span><span style="color:#f92672">(</span>DateTimeFormatter<span style="color:#f92672">.</span><span style="color:#a6e22e">ofPattern</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;yyyy-MM-dd HH:mm:ss&#34;</span><span style="color:#f92672">));</span>
+</code></pre></div></article>
 
       
 <div class="book-footer justify-between">
@@ -190,14 +198,11 @@ Instant <span style="color:#a6e22e">instant</span> <span style="color:#f92672">=
 
   <aside class="book-toc level-3 fixed">
     <nav id="TableOfContents">
-<ul>
-<li><a href="#常见操作">常见操作</a>
-<ul>
-<li><a href="#date-long-instant">Date &lt;-Long-&gt; Instant</a></li>
-<li><a href="#instant-zoneddatetime-localdatetime">Instant &lt;-(ZonedDateTime)-&gt;  LocalDateTime</a></li>
-<li><a href="#string-格式化">String 格式化</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#date--long--instant">Date &lt;-Long-&gt; Instant</a></li>
+    <li><a href="#instant--zoneddatetime---localdatetime">Instant &lt;-(ZonedDateTime)-&gt;  LocalDateTime</a></li>
+    <li><a href="#string-格式化">String 格式化</a></li>
+  </ul>
 </nav>
   </aside>
 

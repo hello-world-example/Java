@@ -7,7 +7,7 @@
 <title>Gap | Java</title>
 
 
-<link rel="stylesheet" href="/Java/book.min.79de1f7861b0c98f453c0a93bebf3608a280809e417787746c373699639900d7.css">
+<link rel="stylesheet" href="/Java/book.min.a2277534155c5e81ce2c8ca6a4cd295525f25c75788a2e4e72c3310491c743b1.css">
 
 
 
@@ -50,31 +50,42 @@ https://github.com/alex-shpak/hugo-book
   </style>
 
 <ul>
-<li><p><strong>GC</strong></p>
-
+<li>
+<p><strong>GC</strong></p>
 <ul>
 <li><a href="/Java/docs/GC/JVM-Args/">JVM 参数</a></li>
-</ul></li>
-
-<li><p><strong>java.lang</strong></p>
-
+</ul>
+</li>
+<li>
+<p><strong>java.lang</strong></p>
 <ul>
 <li><a href="/Java/docs/java.lang/SecurityManager/">SecurityManager</a></li>
-</ul></li>
-
-<li><p><strong>java.time</strong></p>
-
+</ul>
+</li>
+<li>
+<p><strong>java.time</strong></p>
 <ul>
 <li><a href="/Java/docs/java.time/Core/">关键概念</a></li>
 <li><a href="/Java/docs/java.time/Action/">常见操作</a></li>
 <li><a href="/Java/docs/java.time/Gap/">时间区间</a></li>
-</ul></li>
-
-<li><p><a href="/Java-IO"><strong>java.nio 🔗</strong></a></p></li>
-
-<li><p><a href="/Java-Concurrent"><strong>java.util.concurrent 🔗</strong></a></p></li>
-
-<li><p><a href="/Troubleshooting/docs/Java/"><strong>内置工具 🔗</strong></a></p></li>
+</ul>
+</li>
+<li>
+<p><a href="/Java-IO"><strong>java.nio 🔗</strong></a></p>
+</li>
+<li>
+<p><a href="/Java-Concurrent"><strong>java.util.concurrent 🔗</strong></a></p>
+</li>
+<li>
+<p><strong>java.util.regex</strong></p>
+<ul>
+<li><a href="/Java/docs/java.util.regex/Pattern/">Pattern</a></li>
+<li><a href="/Java/docs/java.util.regex/Grok/">Grok</a></li>
+</ul>
+</li>
+<li>
+<p><a href="/Troubleshooting/docs/Java/"><strong>内置工具 🔗</strong></a></p>
+</li>
 </ul>
 
 
@@ -107,20 +118,16 @@ https://github.com/alex-shpak/hugo-book
 </header>
 
       
-<article class="markdown">
-
-<h1 id="时间区间">时间区间</h1>
-
+<article class="markdown"><h1 id="时间区间">时间区间</h1>
 <blockquote>
 <p>Period and Duration <a href="https://docs.oracle.com/javase/tutorial/datetime/iso/period.html">官方文档</a></p>
 </blockquote>
-
 <h2 id="继承关系">继承关系</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">[i] <span style="color:#a6e22e">java</span>.<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">temporal</span>.<span style="color:#a6e22e">TemporalAmount</span>
-	[c] <span style="color:#a6e22e">java</span>.<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Duration</span>
-	[i] <span style="color:#a6e22e">java</span>.<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">chrono</span>.<span style="color:#a6e22e">ChronoPeriod</span>
-		[c] <span style="color:#a6e22e">java</span>.<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Period</span></code></pre></div>
-<blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> java<span style="color:#f92672">.</span><span style="color:#a6e22e">time</span><span style="color:#f92672">.</span><span style="color:#a6e22e">temporal</span><span style="color:#f92672">.</span><span style="color:#a6e22e">TemporalAmount</span>
+	<span style="color:#f92672">[</span>c<span style="color:#f92672">]</span> java<span style="color:#f92672">.</span><span style="color:#a6e22e">time</span><span style="color:#f92672">.</span><span style="color:#a6e22e">Duration</span>
+	<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> java<span style="color:#f92672">.</span><span style="color:#a6e22e">time</span><span style="color:#f92672">.</span><span style="color:#a6e22e">chrono</span><span style="color:#f92672">.</span><span style="color:#a6e22e">ChronoPeriod</span>
+		<span style="color:#f92672">[</span>c<span style="color:#f92672">]</span> java<span style="color:#f92672">.</span><span style="color:#a6e22e">time</span><span style="color:#f92672">.</span><span style="color:#a6e22e">Period</span>
+</code></pre></div><blockquote>
 <ul>
 <li><strong>temporal</strong> 时间上的</li>
 <li><strong>temporal amount</strong> 时间量</li>
@@ -130,56 +137,56 @@ https://github.com/alex-shpak/hugo-book
 <li><strong>duration</strong> 期间、持续时间</li>
 </ul>
 </blockquote>
-
 <h2 id="duration">Duration</h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// 1 秒时间
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">final</span> <span style="color:#a6e22e">Duration</span> seconds <span style="color:#f92672">=</span> Duration.<span style="color:#a6e22e">of</span>(1, ChronoUnit.<span style="color:#a6e22e">SECONDS</span>);
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">final</span> Duration seconds <span style="color:#f92672">=</span> Duration<span style="color:#f92672">.</span><span style="color:#a6e22e">of</span><span style="color:#f92672">(</span>1<span style="color:#f92672">,</span> ChronoUnit<span style="color:#f92672">.</span><span style="color:#a6e22e">SECONDS</span><span style="color:#f92672">);</span>
 <span style="color:#75715e">// 1.361 秒
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">final</span> <span style="color:#a6e22e">Duration</span> duration <span style="color:#f92672">=</span> seconds.<span style="color:#a6e22e">plusMillis</span>(361);
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">final</span> Duration duration <span style="color:#f92672">=</span> seconds<span style="color:#f92672">.</span><span style="color:#a6e22e">plusMillis</span><span style="color:#f92672">(</span>361<span style="color:#f92672">);</span>
 
 <span style="color:#75715e">// 获取当前时间
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">final</span> <span style="color:#a6e22e">LocalTime</span> now <span style="color:#f92672">=</span> LocalTime.<span style="color:#a6e22e">now</span>();
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">final</span> LocalTime now <span style="color:#f92672">=</span> LocalTime<span style="color:#f92672">.</span><span style="color:#a6e22e">now</span><span style="color:#f92672">();</span>
 <span style="color:#75715e">// 当前时间 + 1s
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">final</span> <span style="color:#a6e22e">LocalTime</span> start <span style="color:#f92672">=</span> now.<span style="color:#a6e22e">plus</span>(seconds);
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">final</span> LocalTime start <span style="color:#f92672">=</span> now<span style="color:#f92672">.</span><span style="color:#a6e22e">plus</span><span style="color:#f92672">(</span>seconds<span style="color:#f92672">);</span>
 <span style="color:#75715e">// 当前时间 + 1.361s
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">final</span> <span style="color:#a6e22e">LocalTime</span> end <span style="color:#f92672">=</span> now.<span style="color:#a6e22e">plus</span>(duration);
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">final</span> LocalTime end <span style="color:#f92672">=</span> now<span style="color:#f92672">.</span><span style="color:#a6e22e">plus</span><span style="color:#f92672">(</span>duration<span style="color:#f92672">);</span>
 
 <span style="color:#75715e">// 两个时间的差值
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">final</span> <span style="color:#a6e22e">Duration</span> between <span style="color:#f92672">=</span> Duration.<span style="color:#a6e22e">between</span>(start, end);
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">final</span> Duration between <span style="color:#f92672">=</span> Duration<span style="color:#f92672">.</span><span style="color:#a6e22e">between</span><span style="color:#f92672">(</span>start<span style="color:#f92672">,</span> end<span style="color:#f92672">);</span>
 <span style="color:#75715e">// 输出 PT0.361S
-</span><span style="color:#75715e"></span>System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(between);
+</span><span style="color:#75715e"></span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>between<span style="color:#f92672">);</span>
 
 <span style="color:#75715e">// 1361000000
-</span><span style="color:#75715e"></span>System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(Duration.<span style="color:#a6e22e">parse</span>(<span style="color:#e6db74">&#34;PT1.361s&#34;</span>).<span style="color:#a6e22e">toNanos</span>());
+</span><span style="color:#75715e"></span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>Duration<span style="color:#f92672">.</span><span style="color:#a6e22e">parse</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;PT1.361s&#34;</span><span style="color:#f92672">).</span><span style="color:#a6e22e">toNanos</span><span style="color:#f92672">());</span>
 <span style="color:#75715e">// 1361
-</span><span style="color:#75715e"></span>System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(Duration.<span style="color:#a6e22e">parse</span>(<span style="color:#e6db74">&#34;PT1.361s&#34;</span>).<span style="color:#a6e22e">toMillis</span>());
+</span><span style="color:#75715e"></span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>Duration<span style="color:#f92672">.</span><span style="color:#a6e22e">parse</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;PT1.361s&#34;</span><span style="color:#f92672">).</span><span style="color:#a6e22e">toMillis</span><span style="color:#f92672">());</span>
 <span style="color:#75715e">// 1
-</span><span style="color:#75715e"></span>System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(Duration.<span style="color:#a6e22e">parse</span>(<span style="color:#e6db74">&#34;PT1.361s&#34;</span>).<span style="color:#a6e22e">getSeconds</span>());
+</span><span style="color:#75715e"></span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>Duration<span style="color:#f92672">.</span><span style="color:#a6e22e">parse</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;PT1.361s&#34;</span><span style="color:#f92672">).</span><span style="color:#a6e22e">getSeconds</span><span style="color:#f92672">());</span>
 <span style="color:#75715e">// 0
-</span><span style="color:#75715e"></span>System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(Duration.<span style="color:#a6e22e">parse</span>(<span style="color:#e6db74">&#34;PT1.361s&#34;</span>).<span style="color:#a6e22e">toMinutes</span>());
+</span><span style="color:#75715e"></span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>Duration<span style="color:#f92672">.</span><span style="color:#a6e22e">parse</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;PT1.361s&#34;</span><span style="color:#f92672">).</span><span style="color:#a6e22e">toMinutes</span><span style="color:#f92672">());</span>
 
 <span style="color:#75715e">// 00:01:00 = 60s
-</span><span style="color:#75715e"></span>System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(Duration.<span style="color:#a6e22e">parse</span>(<span style="color:#e6db74">&#34;PT1m&#34;</span>).<span style="color:#a6e22e">getSeconds</span>());
+</span><span style="color:#75715e"></span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>Duration<span style="color:#f92672">.</span><span style="color:#a6e22e">parse</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;PT1m&#34;</span><span style="color:#f92672">).</span><span style="color:#a6e22e">getSeconds</span><span style="color:#f92672">());</span>
 <span style="color:#75715e">// 00:01:10 = 70s
-</span><span style="color:#75715e"></span>System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(Duration.<span style="color:#a6e22e">parse</span>(<span style="color:#e6db74">&#34;pt1m10.1s&#34;</span>).<span style="color:#a6e22e">get</span>(ChronoUnit.<span style="color:#a6e22e">SECONDS</span>));
+</span><span style="color:#75715e"></span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>Duration<span style="color:#f92672">.</span><span style="color:#a6e22e">parse</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;pt1m10.1s&#34;</span><span style="color:#f92672">).</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>ChronoUnit<span style="color:#f92672">.</span><span style="color:#a6e22e">SECONDS</span><span style="color:#f92672">));</span>
 <span style="color:#75715e">// 01:30:00 = 90m
-</span><span style="color:#75715e"></span>System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(Duration.<span style="color:#a6e22e">parse</span>(<span style="color:#e6db74">&#34;PT1h30m&#34;</span>).<span style="color:#a6e22e">toMinutes</span>());
+</span><span style="color:#75715e"></span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>Duration<span style="color:#f92672">.</span><span style="color:#a6e22e">parse</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;PT1h30m&#34;</span><span style="color:#f92672">).</span><span style="color:#a6e22e">toMinutes</span><span style="color:#f92672">());</span>
 
 <span style="color:#75715e">// 1天 = 86400秒
-</span><span style="color:#75715e"></span>System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(Duration.<span style="color:#a6e22e">parse</span>(<span style="color:#e6db74">&#34;P1d&#34;</span>).<span style="color:#a6e22e">getSeconds</span>());
+</span><span style="color:#75715e"></span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>Duration<span style="color:#f92672">.</span><span style="color:#a6e22e">parse</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;P1d&#34;</span><span style="color:#f92672">).</span><span style="color:#a6e22e">getSeconds</span><span style="color:#f92672">());</span>
 <span style="color:#75715e">// 1天 = 86400秒
-</span><span style="color:#75715e"></span>System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(Duration.<span style="color:#a6e22e">parse</span>(<span style="color:#e6db74">&#34;P1dT0s&#34;</span>).<span style="color:#a6e22e">getSeconds</span>());</code></pre></div>
-<h2 id="period">Period</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">LocalDate <span style="color:#a6e22e">birthday</span> <span style="color:#f92672">=</span> LocalDate.<span style="color:#a6e22e">of</span>(1992, Month.<span style="color:#a6e22e">JULY</span>, 23);
-LocalDate <span style="color:#a6e22e">today</span> <span style="color:#f92672">=</span> LocalDate.<span style="color:#a6e22e">now</span>();
+</span><span style="color:#75715e"></span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>Duration<span style="color:#f92672">.</span><span style="color:#a6e22e">parse</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;P1dT0s&#34;</span><span style="color:#f92672">).</span><span style="color:#a6e22e">getSeconds</span><span style="color:#f92672">());</span>
+</code></pre></div><h2 id="period">Period</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">LocalDate birthday <span style="color:#f92672">=</span> LocalDate<span style="color:#f92672">.</span><span style="color:#a6e22e">of</span><span style="color:#f92672">(</span>1992<span style="color:#f92672">,</span> Month<span style="color:#f92672">.</span><span style="color:#a6e22e">JULY</span><span style="color:#f92672">,</span> 23<span style="color:#f92672">);</span>
+LocalDate today <span style="color:#f92672">=</span> LocalDate<span style="color:#f92672">.</span><span style="color:#a6e22e">now</span><span style="color:#f92672">();</span>
 
 <span style="color:#75715e">// P27y6m10d
-</span><span style="color:#75715e"></span>Period <span style="color:#a6e22e">p</span> <span style="color:#f92672">=</span> Period.<span style="color:#a6e22e">between</span>(birthday, today);
-System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;岁 : &#34;</span> <span style="color:#f92672">+</span> p.<span style="color:#a6e22e">getYears</span>());
-System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;月 : &#34;</span> <span style="color:#f92672">+</span> p.<span style="color:#a6e22e">getMonths</span>());
-System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;日 : &#34;</span> <span style="color:#f92672">+</span> p.<span style="color:#a6e22e">getDays</span>());
-System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;总月数 : &#34;</span> <span style="color:#f92672">+</span> p.<span style="color:#a6e22e">toTotalMonths</span>());
-System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;总天数 : &#34;</span> <span style="color:#f92672">+</span> ChronoUnit.<span style="color:#a6e22e">DAYS</span>.<span style="color:#a6e22e">between</span>(birthday, today));</code></pre></div></article>
+</span><span style="color:#75715e"></span>Period p <span style="color:#f92672">=</span> Period<span style="color:#f92672">.</span><span style="color:#a6e22e">between</span><span style="color:#f92672">(</span>birthday<span style="color:#f92672">,</span> today<span style="color:#f92672">);</span>
+System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;岁 : &#34;</span> <span style="color:#f92672">+</span> p<span style="color:#f92672">.</span><span style="color:#a6e22e">getYears</span><span style="color:#f92672">());</span>
+System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;月 : &#34;</span> <span style="color:#f92672">+</span> p<span style="color:#f92672">.</span><span style="color:#a6e22e">getMonths</span><span style="color:#f92672">());</span>
+System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;日 : &#34;</span> <span style="color:#f92672">+</span> p<span style="color:#f92672">.</span><span style="color:#a6e22e">getDays</span><span style="color:#f92672">());</span>
+System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;总月数 : &#34;</span> <span style="color:#f92672">+</span> p<span style="color:#f92672">.</span><span style="color:#a6e22e">toTotalMonths</span><span style="color:#f92672">());</span>
+System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;总天数 : &#34;</span> <span style="color:#f92672">+</span> ChronoUnit<span style="color:#f92672">.</span><span style="color:#a6e22e">DAYS</span><span style="color:#f92672">.</span><span style="color:#a6e22e">between</span><span style="color:#f92672">(</span>birthday<span style="color:#f92672">,</span> today<span style="color:#f92672">));</span>
+</code></pre></div></article>
 
       
 <div class="book-footer justify-between">
@@ -209,14 +216,11 @@ System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">printl
 
   <aside class="book-toc level-3 fixed">
     <nav id="TableOfContents">
-<ul>
-<li><a href="#时间区间">时间区间</a>
-<ul>
-<li><a href="#继承关系">继承关系</a></li>
-<li><a href="#duration">Duration</a></li>
-<li><a href="#period">Period</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#继承关系">继承关系</a></li>
+    <li><a href="#duration">Duration</a></li>
+    <li><a href="#period">Period</a></li>
+  </ul>
 </nav>
   </aside>
 

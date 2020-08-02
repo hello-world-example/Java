@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Java</title>
@@ -15,12 +15,13 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://hello-world-example.github.io/Java/_sidebar/</guid>
-      <description> GC
- JVM 参数  java.lang
- SecurityManager  java.time
- 关键概念 常见操作 时间区间  java.nio 🔗
- java.util.concurrent 🔗
- 内置工具 🔗
+      <description>  GC
+ JVM 参数    java.lang
+ SecurityManager    java.time
+ 关键概念 常见操作 时间区间    java.nio 🔗
+  java.util.concurrent 🔗
+  java.util.regex
+ Pattern Grok    内置工具 🔗
   </description>
     </item>
     
@@ -30,8 +31,7 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://hello-world-example.github.io/Java/docs/GC/JVM-Args/</guid>
-      <description>JVM 参数 内存分代    参数 描述     -Xms4096M 初始化堆大小   -Xmx4096M 最大堆大小   -Xss1024k
--XX:ThreadStackSize= 每个线程的堆栈大小(建议不要超过1M)       –Xmn1024M 年轻代大小(官方推荐配置为整个堆的3/8)   -XX:NewSize=1024M 年轻代初始化大小   -XX:MaxNewSize=1024M 年轻代再打化大小 最大       -XX:NewRatio=2 年轻代:年老代=1:2，年轻代占整个堆的1/3 。设置该值的情况会忽略掉 -Xmn   -XX:SurvivorRatio=3 S0:S1:Eden=1:1:3，整个Survivor占年轻代的 2&amp;frasl;5   -XX:MaxTenuringThreshold=15 对象年龄到15岁的时候晋升到老年代，默认是15   -XX:TargetSurvivorRatio=90 表示MinorGC结束了Survivor区域中占用空间的期望比例。期望未达到时，重新调整TenuringThreshold值，让对象尽早的去old区，默认是50       -XX:PermSize=256M 持久代初始化大小   -XX:MaxPermSize=256M 持久代最大大小   -XX:MetaspaceSize=256M JDK8 元数据空间初始大小   -XX:MaxMetaspaceSize=256m JDK8 元数据空间最大值    垃圾回收    参数 描述     -server x64 下只有server模式；新生代默认Parallel Scavenge，老年代默认 Serial Old       -XX:+UseConcMarkSweepGC ParNew + CMS + Serial Old   -XX:ConcGCThreads=2 并发收集线程数，如果没有设置则为(ParallelGCThreads + 3)/4   -XX:CMSFullGCsBeforeCompaction=0 运行多少次FullGC以后对内存空间进行压缩、整理, 默认是0   -XX:+UseCMSCompactAtFullCollection 可以对年老代的压缩，默认是打开的   -XX:CMSInitiatingOccupancyFraction=75 设置执行GC的阈值，如75，则占用空间到达75%的时候开始GC       -XX:+UseG1GC 使用G1GC   -XX:G1HeapRegionSize=n 值是 2 的幂，范围是 1 MB 到 32 MB 之间。目标是根据最小的 Java 堆大小划分出约 2048 个区域   -XX:MaxGCPauseMillis=200 GC可以暂停多长时间。 这只是个建议值，G1GC 暂停的时间会尽可能比这个值短。默认值是 200 毫秒   -XX:G1HeapWastePercent=10 设置您愿意浪费的堆百分比。 垃圾越大， GC 在新区域分配对象时越快，而不是试图将这些空间浪费掉       -XX:UseParallelOldGC Parallel Scavenge + Parallel Old   -XX:ParallelGCThreads=4 并行收集线程数，默认是CPU个数   -XX:MaxGCPauseMillis=n 并行收集最大暂停时间   -XX:GCTimeRatio=n GC时间占程序时间的百分比,公式为1/(1+n)   -XX:+UseAdaptiveSizePolicy 自动选择年轻代区大小和相应的Survivor区比例，以达到目标系统规定的最低相应时间或者收集频率等;设置该选项之后，就不要再设置 -Xmn、-XX:SurvivorRatio、-XX:MaxTenuringThreshold 等选项了，但是可以设置 -Xms、-Xmx规定一下整个堆的大小       -XX:UseParallelGC Parallel Scavenge + Serial Old   -XX:UseParNewGC ParNew + Serial Old   -XX:UseSerialGC Serial + Serial Old       -Xnoclassgc 禁用垃圾回收，慎用       -XX:+DisableExplicitGC 禁用System.</description>
+      <description>JVM 参数 内存分代    参数 描述     -Xms4096M 初始化堆大小   -Xmx4096M 最大堆大小   -Xss1024k-XX:ThreadStackSize= 每个线程的堆栈大小(建议不要超过1M)       –Xmn1024M 年轻代大小(官方推荐配置为整个堆的3/8)   -XX:NewSize=1024M 年轻代初始化大小   -XX:MaxNewSize=1024M 年轻代再打化大小 最大       -XX:NewRatio=2 年轻代:年老代=1:2，年轻代占整个堆的1/3 。设置该值的情况会忽略掉 -Xmn   -XX:SurvivorRatio=3 S0:S1:Eden=1:1:3，整个Survivor占年轻代的 2/5   -XX:MaxTenuringThreshold=15 对象年龄到15岁的时候晋升到老年代，默认是15   -XX:TargetSurvivorRatio=90 表示MinorGC结束了Survivor区域中占用空间的期望比例。期望未达到时，重新调整TenuringThreshold值，让对象尽早的去old区，默认是50       -XX:PermSize=256M 持久代初始化大小   -XX:MaxPermSize=256M 持久代最大大小   -XX:MetaspaceSize=256M JDK8 元数据空间初始大小   -XX:MaxMetaspaceSize=256m JDK8 元数据空间最大值    垃圾回收    参数 描述     -server x64 下只有server模式；新生代默认Parallel Scavenge，老年代默认 Serial Old       -XX:+UseConcMarkSweepGC ParNew + CMS + Serial Old   -XX:ConcGCThreads=2 并发收集线程数，如果没有设置则为(ParallelGCThreads + 3)/4   -XX:CMSFullGCsBeforeCompaction=0 运行多少次FullGC以后对内存空间进行压缩、整理, 默认是0   -XX:+UseCMSCompactAtFullCollection 可以对年老代的压缩，默认是打开的   -XX:CMSInitiatingOccupancyFraction=75 设置执行GC的阈值，如75，则占用空间到达75%的时候开始GC       -XX:+UseG1GC 使用G1GC   -XX:G1HeapRegionSize=n 值是 2 的幂，范围是 1 MB 到 32 MB 之间。目标是根据最小的 Java 堆大小划分出约 2048 个区域   -XX:MaxGCPauseMillis=200 GC可以暂停多长时间。 这只是个建议值，G1GC 暂停的时间会尽可能比这个值短。默认值是 200 毫秒   -XX:G1HeapWastePercent=10 设置您愿意浪费的堆百分比。 垃圾越大， GC 在新区域分配对象时越快，而不是试图将这些空间浪费掉       -XX:UseParallelOldGC Parallel Scavenge + Parallel Old   -XX:ParallelGCThreads=4 并行收集线程数，默认是CPU个数   -XX:MaxGCPauseMillis=n 并行收集最大暂停时间   -XX:GCTimeRatio=n GC时间占程序时间的百分比,公式为1/(1+n)   -XX:+UseAdaptiveSizePolicy 自动选择年轻代区大小和相应的Survivor区比例，以达到目标系统规定的最低相应时间或者收集频率等;设置该选项之后，就不要再设置 -Xmn、-XX:SurvivorRatio、-XX:MaxTenuringThreshold 等选项了，但是可以设置 -Xms、-Xmx规定一下整个堆的大小       -XX:UseParallelGC Parallel Scavenge + Serial Old   -XX:UseParNewGC ParNew + Serial Old   -XX:UseSerialGC Serial + Serial Old       -Xnoclassgc 禁用垃圾回收，慎用       -XX:+DisableExplicitGC 禁用System.</description>
     </item>
     
     <item>
@@ -58,7 +58,7 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://hello-world-example.github.io/Java/docs/java.time/Core/</guid>
-      <description>关键概念   时间标准  GMT (Greenwich Mean Time) : 格林威治(Greenwich)标准时间，英国伦敦郊区的皇家 格林威治天文台 的标准时间，是太阳在 格林威治上空最高点 时的时间。因为 公转速度的不均匀 和 自转速度的减慢 ，最大误差可达 16分钟，因此格林威治时间已经不再被作为标准时间使用 UTC (Universal Time Coordinated): 协调世界时，由原子钟报时，相对与 GMT 经度更高，可认为 UTC = GMT+0，只是统计方式不同 DST (Daylight Saving Time): 夏令时，又称“日光节约时制”，是一种为节约能源而人为规定地方时间的制度。各个采用夏令时的国家规则不同，大致是在天亮早的夏季人为将时间调快一小时，以充分利用光照资源，从而节约照明用电。1986~1991年我国曾采用了6年夏时制，因为各种原因导致了很多的混乱，因此后续取消。 CST (Cxxx Standard Time): 是一个地区时间，不同地区的时间不一致  中国标准时间：China Standard Time UTC+8:00 美国中部时间：Central Standard Time UTC-6:00 澳大利亚中部时间：Central Standard Time UTC+9:30 古巴标准时间：Cuba Standard Time UTC-4:00   关键词   temporal 时间上的 temporal amount 时间量 chrono 长期的、慢性的 chronology 年表 period 时期、时代 duration 期间、持续时间 epoch 世纪   关键类  java.</description>
+      <description>关键概念   时间标准  GMT (Greenwich Mean Time) : **格林威治(Greenwich)**标准时间，英国伦敦郊区的皇家 格林威治天文台 的标准时间，是太阳在 格林威治上空最高点 时的时间。因为 公转速度的不均匀 和 自转速度的减慢 ，最大误差可达 16分钟，因此格林威治时间已经不再被作为标准时间使用 UTC (Universal Time Coordinated): 协调世界时，由原子钟报时，相对与 GMT 经度更高，可认为 UTC = GMT+0，只是统计方式不同 DST (Daylight Saving Time): 夏令时，又称“日光节约时制”，是一种为节约能源而人为规定地方时间的制度。各个采用夏令时的国家规则不同，大致是在天亮早的夏季人为将时间调快一小时，以充分利用光照资源，从而节约照明用电。1986~1991年我国曾采用了6年夏时制，因为各种原因导致了很多的混乱，因此后续取消。 CST (Cxxx Standard Time): 是一个地区时间，不同地区的时间不一致  中国标准时间：China Standard Time UTC+8:00 美国中部时间：Central Standard Time UTC-6:00 澳大利亚中部时间：Central Standard Time UTC+9:30 古巴标准时间：Cuba Standard Time UTC-4:00    关键词   temporal 时间上的 temporal amount 时间量 chrono 长期的、慢性的 chronology 年表 period 时期、时代 duration 期间、持续时间 epoch 世纪   关键类  java.</description>
     </item>
     
     <item>
@@ -69,6 +69,26 @@
       <guid>https://hello-world-example.github.io/Java/docs/java.time/Gap/</guid>
       <description>时间区间  Period and Duration 官方文档
  继承关系 [i] java.time.temporal.TemporalAmount [c] java.time.Duration [i] java.time.chrono.ChronoPeriod [c] java.time.Period   temporal 时间上的 temporal amount 时间量 chrono 长期的、慢性的 chronology 年表 period 时期、时代 duration 期间、持续时间   Duration // 1 秒时间 final Duration seconds = Duration.of(1, ChronoUnit.SECONDS); // 1.361 秒 final Duration duration = seconds.plusMillis(361); // 获取当前时间 final LocalTime now = LocalTime.now(); // 当前时间 + 1s final LocalTime start = now.plus(seconds); // 当前时间 + 1.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://hello-world-example.github.io/Java/docs/java.util.regex/Grok/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://hello-world-example.github.io/Java/docs/java.util.regex/Grok/</guid>
+      <description>Grok Java Grok 基于 正则表达式 ，用来解析 日志、事件 等 单行文本文件 ，最终 转换成结构化数据，如：JSON 等
+方便之处在于，可以对复杂的正则表达式进行拆分，便于维护，同时也方便取到需要的部分，避免各种嵌套 group
+Maven 依赖 &amp;lt;!-- https://github.com/thekrakken/java-grok --&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;io.krakens&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;java-grok&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;0.1.9&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; 老版本 &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;io.thekraken&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;grok&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;0.1.5&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; 示例 package xyz.kail.demo.javase.regex; import io.krakens.grok.api.Grok; import io.krakens.grok.api.GrokCompiler; import io.krakens.grok.api.Match; import java.util.Map; public class GrokMain { public static void main(String[] args) { /* 创建 grokCompiler 实例 */ GrokCompiler grokCompiler = GrokCompiler.newInstance(); // java-grok.jar 包内置的默认模式: /patterns/patterns  grokCompiler.registerDefaultPatterns(); // 除此之外还有： firewalls、haproxy、java、linux-syslog、nagios、postfix、ruby  grokCompiler.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://hello-world-example.github.io/Java/docs/java.util.regex/Pattern/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://hello-world-example.github.io/Java/docs/java.util.regex/Pattern/</guid>
+      <description>Java 正则表达式 边界    Regex Desc Demo     ^ 行头    $ 行尾    \b 、\B 单词边界、非边界     字符    Regex Desc Demo     . 任意字符    \d 、 \D 数字 [0-9]、非数字 [^0-9]， Digit    \s 、 \S 空白[ \t\n\x0B\f\r]、非空白 [^\s]， Space    \w、 \W 单词、非单词     数量    Regex Desc Demo     X?</description>
     </item>
     
   </channel>
