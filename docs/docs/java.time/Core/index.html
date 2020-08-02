@@ -4,15 +4,16 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="关键概念   时间标准  GMT (Greenwich Mean Time) : **格林威治(Greenwich)**标准时间，英国伦敦郊区的皇家 格林威治天文台 的标准时间，是太阳在 格林威治上空最高点 时的时间。因为 公转速度的不均匀 和 自转速度的减慢 ，最大误差可达 16分钟，因此格林威治时间已经不再被作为标准时间使用 UTC (Universal Time Coordinated): 协调世界时，由原子钟报时，相对与 GMT 经度更高，可认为 UTC = GMT&#43;0，只是统计方式不同 DST (Daylight Saving Time): 夏令时，又称“日光节约时制”，是一种为节约能源而人为规定地方时间的制度。各个采用夏令时的国家规则不同，大致是在天亮早的夏季人为将时间调快一小时，以充分利用光照资源，从而节约照明用电。1986~1991年我国曾采用了6年夏时制，因为各种原因导致了很多的混乱，因此后续取消。 CST (Cxxx Standard Time): 是一个地区时间，不同地区的时间不一致  中国标准时间：China Standard Time UTC&#43;8:00 美国中部时间：Central Standard Time UTC-6:00 澳大利亚中部时间：Central Standard Time UTC&#43;9:30 古巴标准时间：Cuba Standard Time UTC-4:00    关键词   temporal 时间上的 temporal amount 时间量 chrono 长期的、慢性的 chronology 年表 period 时期、时代 duration 期间、持续时间 epoch 世纪   关键类  java."><meta property="og:title" content="" />
+<meta property="og:description" content="关键概念   时间标准  GMT (Greenwich Mean Time) : **格林威治(Greenwich)**标准时间，英国伦敦郊区的皇家 格林威治天文台 的标准时间，是太阳在 格林威治上空最高点 时的时间。因为 公转速度的不均匀 和 自转速度的减慢 ，最大误差可达 16分钟，因此格林威治时间已经不再被作为标准时间使用 UTC (Universal Time Coordinated): 协调世界时，由原子钟报时，相对与 GMT 经度更高，可认为 UTC = GMT&#43;0，只是统计方式不同 DST (Daylight Saving Time): 夏令时，又称“日光节约时制”，是一种为节约能源而人为规定地方时间的制度。各个采用夏令时的国家规则不同，大致是在天亮早的夏季人为将时间调快一小时，以充分利用光照资源，从而节约照明用电。1986~1991年我国曾采用了6年夏时制，因为各种原因导致了很多的混乱，因此后续取消。 CST (Cxxx Standard Time): 是一个地区时间，不同地区的时间不一致  中国标准时间：China Standard Time UTC&#43;8:00 美国中部时间：Central Standard Time UTC-6:00 澳大利亚中部时间：Central Standard Time UTC&#43;9:30 古巴标准时间：Cuba Standard Time UTC-4:00    关键词   temporal 时间上的 temporal amount 时间量 chrono 长期的、慢性的 chronology 年表 period 时期、时代 duration 期间、持续时间 epoch 世纪   关键类  java." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://hello-world-example.github.io/Java/docs/java.time/Core/" />
+<meta property="article:modified_time" content="2020-02-09T23:05:19+08:00" />
 <title>Core | Java</title>
-
-
-<link rel="stylesheet" href="/Java/book.min.a2277534155c5e81ce2c8ca6a4cd295525f25c75788a2e4e72c3310491c743b1.css">
-
-
-
-
 <link rel="icon" href="/Java/favicon.png" type="image/x-icon">
+
+
+<link rel="stylesheet" href="/Java/book.min.d436f463c9471cfab26a8b71cd2f50b6abf5225806391453da4ca111d1834fef.css" integrity="sha256-1Db0Y8lHHPqyaotxzS9Qtqv1IlgGORRT2kyhEdGDT&#43;8=">
 
 
 <!--
@@ -24,13 +25,14 @@ https://github.com/alex-shpak/hugo-book
 </head>
 
 <body>
-  <input type="checkbox" style="display: none" id="menu-control" />
-  <main class="flex container">
-
-    <aside class="book-menu fixed">
-      <nav>
+  <input type="checkbox" class="hidden" id="menu-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
 <h2 class="book-brand">
-  <a href="https://hello-world-example.github.io/Java/">Java</a>
+  <a href="/Java"><span>Java</span>
+  </a>
 </h2>
 
 
@@ -38,55 +40,63 @@ https://github.com/alex-shpak/hugo-book
 
 
 
-    
-  
-  
-  
 
-  <style>
-  nav ul a[href$="\2fJava\2f docs\2fjava.time\2f Core\2f "] {
-      color: #004ed0;
-  }
-  </style>
 
-<ul>
+
+
+
+
+  <ul>
 <li>
 <p><strong>GC</strong></p>
 <ul>
-<li><a href="/Java/docs/GC/JVM-Args/">JVM 参数</a></li>
+<li>
+  <a href="/Java/docs/GC/JVM-Args/">JVM 参数</a></li>
 </ul>
 </li>
 <li>
 <p><strong>java.lang</strong></p>
 <ul>
-<li><a href="/Java/docs/java.lang/SecurityManager/">SecurityManager</a></li>
+<li>
+  <a href="/Java/docs/java.lang/SecurityManager/">SecurityManager</a></li>
 </ul>
 </li>
 <li>
 <p><strong>java.time</strong></p>
 <ul>
-<li><a href="/Java/docs/java.time/Core/">关键概念</a></li>
-<li><a href="/Java/docs/java.time/Action/">常见操作</a></li>
-<li><a href="/Java/docs/java.time/Gap/">时间区间</a></li>
+<li>
+  <a href="/Java/docs/java.time/Core/"class=active>关键概念</a></li>
+<li>
+  <a href="/Java/docs/java.time/Action/">常见操作</a></li>
+<li>
+  <a href="/Java/docs/java.time/Gap/">时间区间</a></li>
 </ul>
 </li>
 <li>
-<p><a href="/Java-IO"><strong>java.nio 🔗</strong></a></p>
+<p>
+  <a href="/Java-IO"><strong>java.nio 🔗</strong></a></p>
 </li>
 <li>
-<p><a href="/Java-Concurrent"><strong>java.util.concurrent 🔗</strong></a></p>
+<p>
+  <a href="/Java-Concurrent"><strong>java.util.concurrent 🔗</strong></a></p>
 </li>
 <li>
 <p><strong>java.util.regex</strong></p>
 <ul>
-<li><a href="/Java/docs/java.util.regex/Pattern/">Pattern</a></li>
-<li><a href="/Java/docs/java.util.regex/Grok/">Grok</a></li>
+<li>
+  <a href="/Java/docs/java.util.regex/Pattern/">Pattern</a></li>
+<li>
+  <a href="/Java/docs/java.util.regex/Grok/">Grok</a></li>
 </ul>
 </li>
 <li>
-<p><a href="/Troubleshooting/docs/Java/"><strong>内置工具 🔗</strong></a></p>
+<p>
+  <a href="/Troubleshooting/docs/Java/"><strong>内置工具 🔗</strong></a></p>
 </li>
 </ul>
+
+
+
 
 
 
@@ -97,28 +107,56 @@ https://github.com/alex-shpak/hugo-book
 </nav>
 
 
-<script>
-(function() {
-  var menu = document.querySelector("aside.book-menu nav");
-  addEventListener("beforeunload", function(event) {
-    localStorage.setItem("menu.scrollTop", menu.scrollTop);
-  });
-  menu.scrollTop = localStorage.getItem("menu.scrollTop");
-})();
-</script>
 
+
+  <script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script>
+
+
+ 
     </aside>
 
     <div class="book-page">
-      <header class="flex align-center justify-between book-header">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
   <label for="menu-control">
-    <img src="/Java/svg/menu.svg" alt="Menu" />
+    <img src="/Java/svg/menu.svg" class="book-icon" alt="Menu" />
   </label>
+
   <strong>Core</strong>
-</header>
+
+  <label for="toc-control">
+    <img src="/Java/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+  </label>
+</div>
+
+
+  
+    <input type="checkbox" class="hidden" id="toc-control" />
+    <aside class="hidden clearfix">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#关键概念">关键概念</a>
+      <ul>
+        <li><a href="#时间标准">时间标准</a></li>
+        <li><a href="#关键词">关键词</a></li>
+        <li><a href="#关键类">关键类</a></li>
+        <li><a href="#read-more">Read More</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+    </aside>
+  
+ 
+      </header>
 
       
-<article class="markdown"><h1 id="关键概念">关键概念</h1>
+      
+  <article class="markdown"><h1 id="关键概念">关键概念</h1>
 <blockquote>
 </blockquote>
 <h2 id="时间标准">时间标准</h2>
@@ -170,54 +208,89 @@ https://github.com/alex-shpak/hugo-book
 </ul>
 <h2 id="read-more">Read More</h2>
 <ul>
-<li><a href="https://www.cnblogs.com/lxyit/p/9442135.html">Java 8——日期时间工具库（java.time）</a></li>
-<li>Date Time <a href="https://docs.oracle.com/javase/tutorial/datetime/iso/index.html">官方文档</a></li>
+<li>
+  <a href="https://www.cnblogs.com/lxyit/p/9442135.html">Java 8——日期时间工具库（java.time）</a></li>
+<li>Date Time 
+  <a href="https://docs.oracle.com/javase/tutorial/datetime/iso/index.html">官方文档</a></li>
 </ul>
 </article>
-
+ 
       
-<div class="book-footer justify-between">
-  
+
+      <footer class="book-footer">
+        
+  <div class="flex justify-between">
+
+
+
   <div>
     
-    <a href="https://github.com/hello-world-example/Java/commit/9bcaa117162d9f4368ad3814ebfdf7d5a47f2acb" title='Last modified Feb 9, 2020 by kailbin' target="_blank" rel="noopener">
-      <img src="/Java/svg/calendar.svg" alt="Changed" /> Feb 9, 2020
+    <a class="flex align-center" href="https://github.com/hello-world-example/Java/commit/9bcaa117162d9f4368ad3814ebfdf7d5a47f2acb" title='Last modified by kailbin | Feb 9, 2020' target="_blank" rel="noopener">
+      <img src="/Java/svg/calendar.svg" class="book-icon" alt="Calendar" />
+      <span>Feb 9, 2020</span>
     </a>
   </div>
-  
-  
+
+
+
   <div>
-    <a href="https://github.com/hello-world-example/Java/edit/master/HuGo/content/docs/java.time/Core.md" target="_blank" rel="noopener">
-      <img src="/Java/svg/edit.svg" alt="Edit" /> Edit this page
+    <a class="flex align-center" href="https://github.com/hello-world-example/Java/edit/master/HuGo/content/docs/java.time/Core.md" target="_blank" rel="noopener">
+      <img src="/Java/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
     </a>
   </div>
-  
+
 </div>
 
+ 
+        
+      </footer>
 
       
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
     </div>
 
     
-  
-
-  <aside class="book-toc level-3 fixed">
-    <nav id="TableOfContents">
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
   <ul>
-    <li><a href="#时间标准">时间标准</a></li>
-    <li><a href="#关键词">关键词</a></li>
-    <li><a href="#关键类">关键类</a></li>
-    <li><a href="#read-more">Read More</a></li>
+    <li><a href="#关键概念">关键概念</a>
+      <ul>
+        <li><a href="#时间标准">时间标准</a></li>
+        <li><a href="#关键词">关键词</a></li>
+        <li><a href="#关键类">关键类</a></li>
+        <li><a href="#read-more">Read More</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
-  </aside>
 
-
-
+ 
+    </aside>
+    
   </main>
-  
-  
+
   
 </body>
 
 </html>
+
+
+
+
+
+
+
+
+
+
+
+

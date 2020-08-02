@@ -4,15 +4,18 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="时间区间  Period and Duration 官方文档
+ 继承关系 [i] java.time.temporal.TemporalAmount [c] java.time.Duration [i] java.time.chrono.ChronoPeriod [c] java.time.Period   temporal 时间上的 temporal amount 时间量 chrono 长期的、慢性的 chronology 年表 period 时期、时代 duration 期间、持续时间   Duration // 1 秒时间 final Duration seconds = Duration.of(1, ChronoUnit.SECONDS); // 1.361 秒 final Duration duration = seconds.plusMillis(361); // 获取当前时间 final LocalTime now = LocalTime.now(); // 当前时间 &#43; 1s final LocalTime start = now.plus(seconds); // 当前时间 &#43; 1."><meta property="og:title" content="" />
+<meta property="og:description" content="时间区间  Period and Duration 官方文档
+ 继承关系 [i] java.time.temporal.TemporalAmount [c] java.time.Duration [i] java.time.chrono.ChronoPeriod [c] java.time.Period   temporal 时间上的 temporal amount 时间量 chrono 长期的、慢性的 chronology 年表 period 时期、时代 duration 期间、持续时间   Duration // 1 秒时间 final Duration seconds = Duration.of(1, ChronoUnit.SECONDS); // 1.361 秒 final Duration duration = seconds.plusMillis(361); // 获取当前时间 final LocalTime now = LocalTime.now(); // 当前时间 &#43; 1s final LocalTime start = now.plus(seconds); // 当前时间 &#43; 1." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://hello-world-example.github.io/Java/docs/java.time/Gap/" />
+<meta property="article:modified_time" content="2020-02-02T23:45:11+08:00" />
 <title>Gap | Java</title>
-
-
-<link rel="stylesheet" href="/Java/book.min.a2277534155c5e81ce2c8ca6a4cd295525f25c75788a2e4e72c3310491c743b1.css">
-
-
-
-
 <link rel="icon" href="/Java/favicon.png" type="image/x-icon">
+
+
+<link rel="stylesheet" href="/Java/book.min.d436f463c9471cfab26a8b71cd2f50b6abf5225806391453da4ca111d1834fef.css" integrity="sha256-1Db0Y8lHHPqyaotxzS9Qtqv1IlgGORRT2kyhEdGDT&#43;8=">
 
 
 <!--
@@ -24,13 +27,14 @@ https://github.com/alex-shpak/hugo-book
 </head>
 
 <body>
-  <input type="checkbox" style="display: none" id="menu-control" />
-  <main class="flex container">
-
-    <aside class="book-menu fixed">
-      <nav>
+  <input type="checkbox" class="hidden" id="menu-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
 <h2 class="book-brand">
-  <a href="https://hello-world-example.github.io/Java/">Java</a>
+  <a href="/Java"><span>Java</span>
+  </a>
 </h2>
 
 
@@ -38,55 +42,63 @@ https://github.com/alex-shpak/hugo-book
 
 
 
-    
-  
-  
-  
 
-  <style>
-  nav ul a[href$="\2fJava\2f docs\2fjava.time\2fGap\2f "] {
-      color: #004ed0;
-  }
-  </style>
 
-<ul>
+
+
+
+
+  <ul>
 <li>
 <p><strong>GC</strong></p>
 <ul>
-<li><a href="/Java/docs/GC/JVM-Args/">JVM 参数</a></li>
+<li>
+  <a href="/Java/docs/GC/JVM-Args/">JVM 参数</a></li>
 </ul>
 </li>
 <li>
 <p><strong>java.lang</strong></p>
 <ul>
-<li><a href="/Java/docs/java.lang/SecurityManager/">SecurityManager</a></li>
+<li>
+  <a href="/Java/docs/java.lang/SecurityManager/">SecurityManager</a></li>
 </ul>
 </li>
 <li>
 <p><strong>java.time</strong></p>
 <ul>
-<li><a href="/Java/docs/java.time/Core/">关键概念</a></li>
-<li><a href="/Java/docs/java.time/Action/">常见操作</a></li>
-<li><a href="/Java/docs/java.time/Gap/">时间区间</a></li>
+<li>
+  <a href="/Java/docs/java.time/Core/">关键概念</a></li>
+<li>
+  <a href="/Java/docs/java.time/Action/">常见操作</a></li>
+<li>
+  <a href="/Java/docs/java.time/Gap/"class=active>时间区间</a></li>
 </ul>
 </li>
 <li>
-<p><a href="/Java-IO"><strong>java.nio 🔗</strong></a></p>
+<p>
+  <a href="/Java-IO"><strong>java.nio 🔗</strong></a></p>
 </li>
 <li>
-<p><a href="/Java-Concurrent"><strong>java.util.concurrent 🔗</strong></a></p>
+<p>
+  <a href="/Java-Concurrent"><strong>java.util.concurrent 🔗</strong></a></p>
 </li>
 <li>
 <p><strong>java.util.regex</strong></p>
 <ul>
-<li><a href="/Java/docs/java.util.regex/Pattern/">Pattern</a></li>
-<li><a href="/Java/docs/java.util.regex/Grok/">Grok</a></li>
+<li>
+  <a href="/Java/docs/java.util.regex/Pattern/">Pattern</a></li>
+<li>
+  <a href="/Java/docs/java.util.regex/Grok/">Grok</a></li>
 </ul>
 </li>
 <li>
-<p><a href="/Troubleshooting/docs/Java/"><strong>内置工具 🔗</strong></a></p>
+<p>
+  <a href="/Troubleshooting/docs/Java/"><strong>内置工具 🔗</strong></a></p>
 </li>
 </ul>
+
+
+
 
 
 
@@ -97,30 +109,58 @@ https://github.com/alex-shpak/hugo-book
 </nav>
 
 
-<script>
-(function() {
-  var menu = document.querySelector("aside.book-menu nav");
-  addEventListener("beforeunload", function(event) {
-    localStorage.setItem("menu.scrollTop", menu.scrollTop);
-  });
-  menu.scrollTop = localStorage.getItem("menu.scrollTop");
-})();
-</script>
 
+
+  <script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script>
+
+
+ 
     </aside>
 
     <div class="book-page">
-      <header class="flex align-center justify-between book-header">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
   <label for="menu-control">
-    <img src="/Java/svg/menu.svg" alt="Menu" />
+    <img src="/Java/svg/menu.svg" class="book-icon" alt="Menu" />
   </label>
+
   <strong>Gap</strong>
-</header>
+
+  <label for="toc-control">
+    <img src="/Java/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+  </label>
+</div>
+
+
+  
+    <input type="checkbox" class="hidden" id="toc-control" />
+    <aside class="hidden clearfix">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#时间区间">时间区间</a>
+      <ul>
+        <li><a href="#继承关系">继承关系</a></li>
+        <li><a href="#duration">Duration</a></li>
+        <li><a href="#period">Period</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+    </aside>
+  
+ 
+      </header>
 
       
-<article class="markdown"><h1 id="时间区间">时间区间</h1>
+      
+  <article class="markdown"><h1 id="时间区间">时间区间</h1>
 <blockquote>
-<p>Period and Duration <a href="https://docs.oracle.com/javase/tutorial/datetime/iso/period.html">官方文档</a></p>
+<p>Period and Duration 
+  <a href="https://docs.oracle.com/javase/tutorial/datetime/iso/period.html">官方文档</a></p>
 </blockquote>
 <h2 id="继承关系">继承关系</h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> java<span style="color:#f92672">.</span><span style="color:#a6e22e">time</span><span style="color:#f92672">.</span><span style="color:#a6e22e">temporal</span><span style="color:#f92672">.</span><span style="color:#a6e22e">TemporalAmount</span>
@@ -187,49 +227,82 @@ System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span>
 System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;总月数 : &#34;</span> <span style="color:#f92672">+</span> p<span style="color:#f92672">.</span><span style="color:#a6e22e">toTotalMonths</span><span style="color:#f92672">());</span>
 System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;总天数 : &#34;</span> <span style="color:#f92672">+</span> ChronoUnit<span style="color:#f92672">.</span><span style="color:#a6e22e">DAYS</span><span style="color:#f92672">.</span><span style="color:#a6e22e">between</span><span style="color:#f92672">(</span>birthday<span style="color:#f92672">,</span> today<span style="color:#f92672">));</span>
 </code></pre></div></article>
-
+ 
       
-<div class="book-footer justify-between">
-  
+
+      <footer class="book-footer">
+        
+  <div class="flex justify-between">
+
+
+
   <div>
     
-    <a href="https://github.com/hello-world-example/Java/commit/e6302d3690e4d24b49cfaa3d365633acbbb90566" title='Last modified Feb 2, 2020 by kailbin' target="_blank" rel="noopener">
-      <img src="/Java/svg/calendar.svg" alt="Changed" /> Feb 2, 2020
+    <a class="flex align-center" href="https://github.com/hello-world-example/Java/commit/e6302d3690e4d24b49cfaa3d365633acbbb90566" title='Last modified by kailbin | Feb 2, 2020' target="_blank" rel="noopener">
+      <img src="/Java/svg/calendar.svg" class="book-icon" alt="Calendar" />
+      <span>Feb 2, 2020</span>
     </a>
   </div>
-  
-  
+
+
+
   <div>
-    <a href="https://github.com/hello-world-example/Java/edit/master/HuGo/content/docs/java.time/Gap.md" target="_blank" rel="noopener">
-      <img src="/Java/svg/edit.svg" alt="Edit" /> Edit this page
+    <a class="flex align-center" href="https://github.com/hello-world-example/Java/edit/master/HuGo/content/docs/java.time/Gap.md" target="_blank" rel="noopener">
+      <img src="/Java/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
     </a>
   </div>
-  
+
 </div>
 
+ 
+        
+      </footer>
 
       
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
     </div>
 
     
-  
-
-  <aside class="book-toc level-3 fixed">
-    <nav id="TableOfContents">
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
   <ul>
-    <li><a href="#继承关系">继承关系</a></li>
-    <li><a href="#duration">Duration</a></li>
-    <li><a href="#period">Period</a></li>
+    <li><a href="#时间区间">时间区间</a>
+      <ul>
+        <li><a href="#继承关系">继承关系</a></li>
+        <li><a href="#duration">Duration</a></li>
+        <li><a href="#period">Period</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
-  </aside>
 
-
-
+ 
+    </aside>
+    
   </main>
-  
-  
+
   
 </body>
 
 </html>
+
+
+
+
+
+
+
+
+
+
+
+

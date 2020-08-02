@@ -4,15 +4,16 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="常见操作 Date &lt;-Long-&gt; Instant Instant now = Instant.now(); // Date.from 1.8 新增的方法 Date date = Date.from(now); // date.toInstant() 1.8 新增的方法 Instant justNow = date.toInstant(); // 时间戳 转 Instant  Instant instant = Instant.ofEpochMilli(timestamp); // Instant 转 时间戳（ Date.from 的内部实现 ） Date date2 = new Date(now.toEpochMilli()); // 时间戳 转 Instant（ date.toInstant 的内部实现 ） final Instant now2 = Instant.ofEpochMilli(date.getTime()); Instant &lt;-(ZonedDateTime)-&gt; LocalDateTime // 可理解为对 时间戳 timestamp 的封装 Instant now = Instant.now(); // 转为为各个时区的时间 ZonedDateTime zonedDateTime = now."><meta property="og:title" content="" />
+<meta property="og:description" content="常见操作 Date &lt;-Long-&gt; Instant Instant now = Instant.now(); // Date.from 1.8 新增的方法 Date date = Date.from(now); // date.toInstant() 1.8 新增的方法 Instant justNow = date.toInstant(); // 时间戳 转 Instant  Instant instant = Instant.ofEpochMilli(timestamp); // Instant 转 时间戳（ Date.from 的内部实现 ） Date date2 = new Date(now.toEpochMilli()); // 时间戳 转 Instant（ date.toInstant 的内部实现 ） final Instant now2 = Instant.ofEpochMilli(date.getTime()); Instant &lt;-(ZonedDateTime)-&gt; LocalDateTime // 可理解为对 时间戳 timestamp 的封装 Instant now = Instant.now(); // 转为为各个时区的时间 ZonedDateTime zonedDateTime = now." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://hello-world-example.github.io/Java/docs/java.time/Action/" />
+<meta property="article:modified_time" content="2020-02-09T23:05:19+08:00" />
 <title>Action | Java</title>
-
-
-<link rel="stylesheet" href="/Java/book.min.a2277534155c5e81ce2c8ca6a4cd295525f25c75788a2e4e72c3310491c743b1.css">
-
-
-
-
 <link rel="icon" href="/Java/favicon.png" type="image/x-icon">
+
+
+<link rel="stylesheet" href="/Java/book.min.d436f463c9471cfab26a8b71cd2f50b6abf5225806391453da4ca111d1834fef.css" integrity="sha256-1Db0Y8lHHPqyaotxzS9Qtqv1IlgGORRT2kyhEdGDT&#43;8=">
 
 
 <!--
@@ -24,13 +25,14 @@ https://github.com/alex-shpak/hugo-book
 </head>
 
 <body>
-  <input type="checkbox" style="display: none" id="menu-control" />
-  <main class="flex container">
-
-    <aside class="book-menu fixed">
-      <nav>
+  <input type="checkbox" class="hidden" id="menu-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
 <h2 class="book-brand">
-  <a href="https://hello-world-example.github.io/Java/">Java</a>
+  <a href="/Java"><span>Java</span>
+  </a>
 </h2>
 
 
@@ -38,55 +40,63 @@ https://github.com/alex-shpak/hugo-book
 
 
 
-    
-  
-  
-  
 
-  <style>
-  nav ul a[href$="\2fJava\2f docs\2fjava.time\2f Action\2f "] {
-      color: #004ed0;
-  }
-  </style>
 
-<ul>
+
+
+
+
+  <ul>
 <li>
 <p><strong>GC</strong></p>
 <ul>
-<li><a href="/Java/docs/GC/JVM-Args/">JVM 参数</a></li>
+<li>
+  <a href="/Java/docs/GC/JVM-Args/">JVM 参数</a></li>
 </ul>
 </li>
 <li>
 <p><strong>java.lang</strong></p>
 <ul>
-<li><a href="/Java/docs/java.lang/SecurityManager/">SecurityManager</a></li>
+<li>
+  <a href="/Java/docs/java.lang/SecurityManager/">SecurityManager</a></li>
 </ul>
 </li>
 <li>
 <p><strong>java.time</strong></p>
 <ul>
-<li><a href="/Java/docs/java.time/Core/">关键概念</a></li>
-<li><a href="/Java/docs/java.time/Action/">常见操作</a></li>
-<li><a href="/Java/docs/java.time/Gap/">时间区间</a></li>
+<li>
+  <a href="/Java/docs/java.time/Core/">关键概念</a></li>
+<li>
+  <a href="/Java/docs/java.time/Action/"class=active>常见操作</a></li>
+<li>
+  <a href="/Java/docs/java.time/Gap/">时间区间</a></li>
 </ul>
 </li>
 <li>
-<p><a href="/Java-IO"><strong>java.nio 🔗</strong></a></p>
+<p>
+  <a href="/Java-IO"><strong>java.nio 🔗</strong></a></p>
 </li>
 <li>
-<p><a href="/Java-Concurrent"><strong>java.util.concurrent 🔗</strong></a></p>
+<p>
+  <a href="/Java-Concurrent"><strong>java.util.concurrent 🔗</strong></a></p>
 </li>
 <li>
 <p><strong>java.util.regex</strong></p>
 <ul>
-<li><a href="/Java/docs/java.util.regex/Pattern/">Pattern</a></li>
-<li><a href="/Java/docs/java.util.regex/Grok/">Grok</a></li>
+<li>
+  <a href="/Java/docs/java.util.regex/Pattern/">Pattern</a></li>
+<li>
+  <a href="/Java/docs/java.util.regex/Grok/">Grok</a></li>
 </ul>
 </li>
 <li>
-<p><a href="/Troubleshooting/docs/Java/"><strong>内置工具 🔗</strong></a></p>
+<p>
+  <a href="/Troubleshooting/docs/Java/"><strong>内置工具 🔗</strong></a></p>
 </li>
 </ul>
+
+
+
 
 
 
@@ -97,28 +107,55 @@ https://github.com/alex-shpak/hugo-book
 </nav>
 
 
-<script>
-(function() {
-  var menu = document.querySelector("aside.book-menu nav");
-  addEventListener("beforeunload", function(event) {
-    localStorage.setItem("menu.scrollTop", menu.scrollTop);
-  });
-  menu.scrollTop = localStorage.getItem("menu.scrollTop");
-})();
-</script>
 
+
+  <script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script>
+
+
+ 
     </aside>
 
     <div class="book-page">
-      <header class="flex align-center justify-between book-header">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
   <label for="menu-control">
-    <img src="/Java/svg/menu.svg" alt="Menu" />
+    <img src="/Java/svg/menu.svg" class="book-icon" alt="Menu" />
   </label>
+
   <strong>Action</strong>
-</header>
+
+  <label for="toc-control">
+    <img src="/Java/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+  </label>
+</div>
+
+
+  
+    <input type="checkbox" class="hidden" id="toc-control" />
+    <aside class="hidden clearfix">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#常见操作">常见操作</a>
+      <ul>
+        <li><a href="#date--long--instant">Date &lt;-Long-&gt; Instant</a></li>
+        <li><a href="#instant--zoneddatetime---localdatetime">Instant &lt;-(ZonedDateTime)-&gt;  LocalDateTime</a></li>
+        <li><a href="#string-格式化">String 格式化</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+    </aside>
+  
+ 
+      </header>
 
       
-<article class="markdown"><h1 id="常见操作">常见操作</h1>
+      
+  <article class="markdown"><h1 id="常见操作">常见操作</h1>
 <h2 id="date--long--instant">Date &lt;-Long-&gt; Instant</h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Instant now <span style="color:#f92672">=</span> Instant<span style="color:#f92672">.</span><span style="color:#a6e22e">now</span><span style="color:#f92672">();</span>
 <span style="color:#75715e">// Date.from 1.8 新增的方法
@@ -146,7 +183,8 @@ Instant instant <span style="color:#f92672">=</span> Instant<span style="color:#
 </span><span style="color:#75715e"></span>Instant justNow <span style="color:#f92672">=</span> localDateTime<span style="color:#f92672">.</span><span style="color:#a6e22e">atZone</span><span style="color:#f92672">(</span>ZoneId<span style="color:#f92672">.</span><span style="color:#a6e22e">systemDefault</span><span style="color:#f92672">()).</span><span style="color:#a6e22e">toInstant</span><span style="color:#f92672">()</span>
 </code></pre></div><h2 id="string-格式化">String 格式化</h2>
 <blockquote>
-<p><a href="https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html">java.time.format.DateTimeFormatter</a></p>
+<p>
+  <a href="https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html">java.time.format.DateTimeFormatter</a></p>
 </blockquote>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// 默认的字符串格式 2020-02-09T17:21:11.621
 </span><span style="color:#75715e"></span>LocalDateTime<span style="color:#f92672">.</span><span style="color:#a6e22e">now</span><span style="color:#f92672">().</span><span style="color:#a6e22e">toString</span><span style="color:#f92672">();</span>
@@ -169,49 +207,82 @@ Instant instant <span style="color:#f92672">=</span> Instant<span style="color:#
 <span style="color:#75715e">// 2020-02-09 17:38:57
 </span><span style="color:#75715e"></span>LocalDateTime<span style="color:#f92672">.</span><span style="color:#a6e22e">now</span><span style="color:#f92672">().</span><span style="color:#a6e22e">format</span><span style="color:#f92672">(</span>DateTimeFormatter<span style="color:#f92672">.</span><span style="color:#a6e22e">ofPattern</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;yyyy-MM-dd HH:mm:ss&#34;</span><span style="color:#f92672">));</span>
 </code></pre></div></article>
-
+ 
       
-<div class="book-footer justify-between">
-  
+
+      <footer class="book-footer">
+        
+  <div class="flex justify-between">
+
+
+
   <div>
     
-    <a href="https://github.com/hello-world-example/Java/commit/9bcaa117162d9f4368ad3814ebfdf7d5a47f2acb" title='Last modified Feb 9, 2020 by kailbin' target="_blank" rel="noopener">
-      <img src="/Java/svg/calendar.svg" alt="Changed" /> Feb 9, 2020
+    <a class="flex align-center" href="https://github.com/hello-world-example/Java/commit/9bcaa117162d9f4368ad3814ebfdf7d5a47f2acb" title='Last modified by kailbin | Feb 9, 2020' target="_blank" rel="noopener">
+      <img src="/Java/svg/calendar.svg" class="book-icon" alt="Calendar" />
+      <span>Feb 9, 2020</span>
     </a>
   </div>
-  
-  
+
+
+
   <div>
-    <a href="https://github.com/hello-world-example/Java/edit/master/HuGo/content/docs/java.time/Action.md" target="_blank" rel="noopener">
-      <img src="/Java/svg/edit.svg" alt="Edit" /> Edit this page
+    <a class="flex align-center" href="https://github.com/hello-world-example/Java/edit/master/HuGo/content/docs/java.time/Action.md" target="_blank" rel="noopener">
+      <img src="/Java/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
     </a>
   </div>
-  
+
 </div>
 
+ 
+        
+      </footer>
 
       
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
     </div>
 
     
-  
-
-  <aside class="book-toc level-3 fixed">
-    <nav id="TableOfContents">
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
   <ul>
-    <li><a href="#date--long--instant">Date &lt;-Long-&gt; Instant</a></li>
-    <li><a href="#instant--zoneddatetime---localdatetime">Instant &lt;-(ZonedDateTime)-&gt;  LocalDateTime</a></li>
-    <li><a href="#string-格式化">String 格式化</a></li>
+    <li><a href="#常见操作">常见操作</a>
+      <ul>
+        <li><a href="#date--long--instant">Date &lt;-Long-&gt; Instant</a></li>
+        <li><a href="#instant--zoneddatetime---localdatetime">Instant &lt;-(ZonedDateTime)-&gt;  LocalDateTime</a></li>
+        <li><a href="#string-格式化">String 格式化</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
-  </aside>
 
-
-
+ 
+    </aside>
+    
   </main>
-  
-  
+
   
 </body>
 
 </html>
+
+
+
+
+
+
+
+
+
+
+
+

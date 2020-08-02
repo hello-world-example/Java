@@ -4,15 +4,16 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="SecurityManager 简单理解  JDK 针对一些敏感的资源操作，通过 Security 机制，添加了很多埋点 权限通过 配置文件 $JAVA_HOME/jre/lib/security/java.policy 进行配置 配置文件的匹配 通过 java.security.Permission 的各种子类实现 具体的校验操作 通过 java.security.AccessController.checkPermission(perm) 处理 SecurityManager 对 AccessController 进行了封装了，通过 checkXXX() 调用 SecurityManager 的获取方式一般通过 System.getSecurityManager() 获取，使用的时候一定要判空，因为 安全机制不一定开启，如果没有开启，返回值是 null  示例埋点代码 Runtime.getRuntime().exit | System.exit 退出 JVM public void exit(int status) { SecurityManager security = System.getSecurityManager(); if (security != null) { // 不允许调用 System.exit  security.checkExit(status); } Shutdown.exit(status); } System.setProperty 设置系统属性 public static String setProperty(String key, String value) { checkKey(key); SecurityManager sm = getSecurityManager(); if (sm !"><meta property="og:title" content="" />
+<meta property="og:description" content="SecurityManager 简单理解  JDK 针对一些敏感的资源操作，通过 Security 机制，添加了很多埋点 权限通过 配置文件 $JAVA_HOME/jre/lib/security/java.policy 进行配置 配置文件的匹配 通过 java.security.Permission 的各种子类实现 具体的校验操作 通过 java.security.AccessController.checkPermission(perm) 处理 SecurityManager 对 AccessController 进行了封装了，通过 checkXXX() 调用 SecurityManager 的获取方式一般通过 System.getSecurityManager() 获取，使用的时候一定要判空，因为 安全机制不一定开启，如果没有开启，返回值是 null  示例埋点代码 Runtime.getRuntime().exit | System.exit 退出 JVM public void exit(int status) { SecurityManager security = System.getSecurityManager(); if (security != null) { // 不允许调用 System.exit  security.checkExit(status); } Shutdown.exit(status); } System.setProperty 设置系统属性 public static String setProperty(String key, String value) { checkKey(key); SecurityManager sm = getSecurityManager(); if (sm !" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://hello-world-example.github.io/Java/docs/java.lang/SecurityManager/" />
+<meta property="article:modified_time" content="2020-02-02T21:19:18+08:00" />
 <title>Security Manager | Java</title>
-
-
-<link rel="stylesheet" href="/Java/book.min.a2277534155c5e81ce2c8ca6a4cd295525f25c75788a2e4e72c3310491c743b1.css">
-
-
-
-
 <link rel="icon" href="/Java/favicon.png" type="image/x-icon">
+
+
+<link rel="stylesheet" href="/Java/book.min.d436f463c9471cfab26a8b71cd2f50b6abf5225806391453da4ca111d1834fef.css" integrity="sha256-1Db0Y8lHHPqyaotxzS9Qtqv1IlgGORRT2kyhEdGDT&#43;8=">
 
 
 <!--
@@ -24,13 +25,14 @@ https://github.com/alex-shpak/hugo-book
 </head>
 
 <body>
-  <input type="checkbox" style="display: none" id="menu-control" />
-  <main class="flex container">
-
-    <aside class="book-menu fixed">
-      <nav>
+  <input type="checkbox" class="hidden" id="menu-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
 <h2 class="book-brand">
-  <a href="https://hello-world-example.github.io/Java/">Java</a>
+  <a href="/Java"><span>Java</span>
+  </a>
 </h2>
 
 
@@ -38,55 +40,63 @@ https://github.com/alex-shpak/hugo-book
 
 
 
-    
-  
-  
-  
 
-  <style>
-  nav ul a[href$="\2fJava\2f docs\2fjava.lang\2fSecurityManager\2f "] {
-      color: #004ed0;
-  }
-  </style>
 
-<ul>
+
+
+
+
+  <ul>
 <li>
 <p><strong>GC</strong></p>
 <ul>
-<li><a href="/Java/docs/GC/JVM-Args/">JVM 参数</a></li>
+<li>
+  <a href="/Java/docs/GC/JVM-Args/">JVM 参数</a></li>
 </ul>
 </li>
 <li>
 <p><strong>java.lang</strong></p>
 <ul>
-<li><a href="/Java/docs/java.lang/SecurityManager/">SecurityManager</a></li>
+<li>
+  <a href="/Java/docs/java.lang/SecurityManager/"class=active>SecurityManager</a></li>
 </ul>
 </li>
 <li>
 <p><strong>java.time</strong></p>
 <ul>
-<li><a href="/Java/docs/java.time/Core/">关键概念</a></li>
-<li><a href="/Java/docs/java.time/Action/">常见操作</a></li>
-<li><a href="/Java/docs/java.time/Gap/">时间区间</a></li>
+<li>
+  <a href="/Java/docs/java.time/Core/">关键概念</a></li>
+<li>
+  <a href="/Java/docs/java.time/Action/">常见操作</a></li>
+<li>
+  <a href="/Java/docs/java.time/Gap/">时间区间</a></li>
 </ul>
 </li>
 <li>
-<p><a href="/Java-IO"><strong>java.nio 🔗</strong></a></p>
+<p>
+  <a href="/Java-IO"><strong>java.nio 🔗</strong></a></p>
 </li>
 <li>
-<p><a href="/Java-Concurrent"><strong>java.util.concurrent 🔗</strong></a></p>
+<p>
+  <a href="/Java-Concurrent"><strong>java.util.concurrent 🔗</strong></a></p>
 </li>
 <li>
 <p><strong>java.util.regex</strong></p>
 <ul>
-<li><a href="/Java/docs/java.util.regex/Pattern/">Pattern</a></li>
-<li><a href="/Java/docs/java.util.regex/Grok/">Grok</a></li>
+<li>
+  <a href="/Java/docs/java.util.regex/Pattern/">Pattern</a></li>
+<li>
+  <a href="/Java/docs/java.util.regex/Grok/">Grok</a></li>
 </ul>
 </li>
 <li>
-<p><a href="/Troubleshooting/docs/Java/"><strong>内置工具 🔗</strong></a></p>
+<p>
+  <a href="/Troubleshooting/docs/Java/"><strong>内置工具 🔗</strong></a></p>
 </li>
 </ul>
+
+
+
 
 
 
@@ -97,28 +107,62 @@ https://github.com/alex-shpak/hugo-book
 </nav>
 
 
-<script>
-(function() {
-  var menu = document.querySelector("aside.book-menu nav");
-  addEventListener("beforeunload", function(event) {
-    localStorage.setItem("menu.scrollTop", menu.scrollTop);
-  });
-  menu.scrollTop = localStorage.getItem("menu.scrollTop");
-})();
-</script>
 
+
+  <script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script>
+
+
+ 
     </aside>
 
     <div class="book-page">
-      <header class="flex align-center justify-between book-header">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
   <label for="menu-control">
-    <img src="/Java/svg/menu.svg" alt="Menu" />
+    <img src="/Java/svg/menu.svg" class="book-icon" alt="Menu" />
   </label>
+
   <strong>Security Manager</strong>
-</header>
+
+  <label for="toc-control">
+    <img src="/Java/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+  </label>
+</div>
+
+
+  
+    <input type="checkbox" class="hidden" id="toc-control" />
+    <aside class="hidden clearfix">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#securitymanager">SecurityManager</a>
+      <ul>
+        <li><a href="#简单理解">简单理解</a></li>
+        <li><a href="#示例埋点代码">示例埋点代码</a>
+          <ul>
+            <li><a href="#runtimegetruntimeexit--systemexit-退出-jvm">Runtime.getRuntime().exit | System.exit 退出 JVM</a></li>
+            <li><a href="#systemsetproperty-设置系统属性">System.setProperty 设置系统属性</a></li>
+            <li><a href="#threadstop">Thread.stop</a></li>
+          </ul>
+        </li>
+        <li><a href="#开启-securitymanager">开启 SecurityManager</a></li>
+        <li><a href="#read-more">Read More</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+    </aside>
+  
+ 
+      </header>
 
       
-<article class="markdown"><h1 id="securitymanager">SecurityManager</h1>
+      
+  <article class="markdown"><h1 id="securitymanager">SecurityManager</h1>
 <h2 id="简单理解">简单理解</h2>
 <ul>
 <li>JDK 针对一些敏感的资源操作，通过 <code>Security</code> 机制，添加了很多埋点</li>
@@ -174,59 +218,93 @@ https://github.com/alex-shpak/hugo-book
 <p>增加启动参数 <code>-Djava.security.manager</code> 或 程序中 启动 <code>System.setSecurityManager(new SecurityManager());</code></p>
 <h2 id="read-more">Read More</h2>
 <ul>
-<li><a href="https://juejin.im/post/5b693511e51d45195113866a">Java安全：SecurityManager与AccessController</a></li>
+<li>
+  <a href="https://juejin.im/post/5b693511e51d45195113866a">Java安全：SecurityManager与AccessController</a></li>
 </ul>
 </article>
-
+ 
       
-<div class="book-footer justify-between">
-  
+
+      <footer class="book-footer">
+        
+  <div class="flex justify-between">
+
+
+
   <div>
     
-    <a href="https://github.com/hello-world-example/Java/commit/4121210059738ba03630c4a73752d62883ae8aa6" title='Last modified Feb 2, 2020 by kailbin' target="_blank" rel="noopener">
-      <img src="/Java/svg/calendar.svg" alt="Changed" /> Feb 2, 2020
+    <a class="flex align-center" href="https://github.com/hello-world-example/Java/commit/4121210059738ba03630c4a73752d62883ae8aa6" title='Last modified by kailbin | Feb 2, 2020' target="_blank" rel="noopener">
+      <img src="/Java/svg/calendar.svg" class="book-icon" alt="Calendar" />
+      <span>Feb 2, 2020</span>
     </a>
   </div>
-  
-  
+
+
+
   <div>
-    <a href="https://github.com/hello-world-example/Java/edit/master/HuGo/content/docs/java.lang/SecurityManager.md" target="_blank" rel="noopener">
-      <img src="/Java/svg/edit.svg" alt="Edit" /> Edit this page
+    <a class="flex align-center" href="https://github.com/hello-world-example/Java/edit/master/HuGo/content/docs/java.lang/SecurityManager.md" target="_blank" rel="noopener">
+      <img src="/Java/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
     </a>
   </div>
-  
+
 </div>
 
+ 
+        
+      </footer>
 
       
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
     </div>
 
     
-  
-
-  <aside class="book-toc level-3 fixed">
-    <nav id="TableOfContents">
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
   <ul>
-    <li><a href="#简单理解">简单理解</a></li>
-    <li><a href="#示例埋点代码">示例埋点代码</a>
+    <li><a href="#securitymanager">SecurityManager</a>
       <ul>
-        <li><a href="#runtimegetruntimeexit--systemexit-退出-jvm">Runtime.getRuntime().exit | System.exit 退出 JVM</a></li>
-        <li><a href="#systemsetproperty-设置系统属性">System.setProperty 设置系统属性</a></li>
-        <li><a href="#threadstop">Thread.stop</a></li>
+        <li><a href="#简单理解">简单理解</a></li>
+        <li><a href="#示例埋点代码">示例埋点代码</a>
+          <ul>
+            <li><a href="#runtimegetruntimeexit--systemexit-退出-jvm">Runtime.getRuntime().exit | System.exit 退出 JVM</a></li>
+            <li><a href="#systemsetproperty-设置系统属性">System.setProperty 设置系统属性</a></li>
+            <li><a href="#threadstop">Thread.stop</a></li>
+          </ul>
+        </li>
+        <li><a href="#开启-securitymanager">开启 SecurityManager</a></li>
+        <li><a href="#read-more">Read More</a></li>
       </ul>
     </li>
-    <li><a href="#开启-securitymanager">开启 SecurityManager</a></li>
-    <li><a href="#read-more">Read More</a></li>
   </ul>
 </nav>
-  </aside>
 
-
-
+ 
+    </aside>
+    
   </main>
-  
-  
+
   
 </body>
 
 </html>
+
+
+
+
+
+
+
+
+
+
+
+

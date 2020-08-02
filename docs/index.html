@@ -5,15 +5,16 @@
 	<meta name="generator" content="Hugo 0.65.3" />
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="  Java Platform, Standard Edition Documentation 官方文档   JDK8 中文文档  JDK6 中文文档    "><meta property="og:title" content="Java" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://hello-world-example.github.io/Java/" />
+
 <title>Java | Java</title>
-
-
-<link rel="stylesheet" href="/Java/book.min.a2277534155c5e81ce2c8ca6a4cd295525f25c75788a2e4e72c3310491c743b1.css">
-
-
-
-
 <link rel="icon" href="/Java/favicon.png" type="image/x-icon">
+
+
+<link rel="stylesheet" href="/Java/book.min.d436f463c9471cfab26a8b71cd2f50b6abf5225806391453da4ca111d1834fef.css" integrity="sha256-1Db0Y8lHHPqyaotxzS9Qtqv1IlgGORRT2kyhEdGDT&#43;8=">
 
 
 <link rel="alternate" type="application/rss+xml" href="https://hello-world-example.github.io/Java/index.xml" title="Java" />
@@ -26,13 +27,14 @@ https://github.com/alex-shpak/hugo-book
 </head>
 
 <body>
-  <input type="checkbox" style="display: none" id="menu-control" />
-  <main class="flex container">
-
-    <aside class="book-menu fixed">
-      <nav>
+  <input type="checkbox" class="hidden" id="menu-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
 <h2 class="book-brand">
-  <a href="https://hello-world-example.github.io/Java/">Java</a>
+  <a href="/Java"><span>Java</span>
+  </a>
 </h2>
 
 
@@ -40,55 +42,63 @@ https://github.com/alex-shpak/hugo-book
 
 
 
-    
-  
-  
-  
 
-  <style>
-  nav ul a[href$="\2fJava\2f "] {
-      color: #004ed0;
-  }
-  </style>
 
-<ul>
+
+
+
+
+  <ul>
 <li>
 <p><strong>GC</strong></p>
 <ul>
-<li><a href="/Java/docs/GC/JVM-Args/">JVM 参数</a></li>
+<li>
+  <a href="/Java/docs/GC/JVM-Args/">JVM 参数</a></li>
 </ul>
 </li>
 <li>
 <p><strong>java.lang</strong></p>
 <ul>
-<li><a href="/Java/docs/java.lang/SecurityManager/">SecurityManager</a></li>
+<li>
+  <a href="/Java/docs/java.lang/SecurityManager/">SecurityManager</a></li>
 </ul>
 </li>
 <li>
 <p><strong>java.time</strong></p>
 <ul>
-<li><a href="/Java/docs/java.time/Core/">关键概念</a></li>
-<li><a href="/Java/docs/java.time/Action/">常见操作</a></li>
-<li><a href="/Java/docs/java.time/Gap/">时间区间</a></li>
+<li>
+  <a href="/Java/docs/java.time/Core/">关键概念</a></li>
+<li>
+  <a href="/Java/docs/java.time/Action/">常见操作</a></li>
+<li>
+  <a href="/Java/docs/java.time/Gap/">时间区间</a></li>
 </ul>
 </li>
 <li>
-<p><a href="/Java-IO"><strong>java.nio 🔗</strong></a></p>
+<p>
+  <a href="/Java-IO"><strong>java.nio 🔗</strong></a></p>
 </li>
 <li>
-<p><a href="/Java-Concurrent"><strong>java.util.concurrent 🔗</strong></a></p>
+<p>
+  <a href="/Java-Concurrent"><strong>java.util.concurrent 🔗</strong></a></p>
 </li>
 <li>
 <p><strong>java.util.regex</strong></p>
 <ul>
-<li><a href="/Java/docs/java.util.regex/Pattern/">Pattern</a></li>
-<li><a href="/Java/docs/java.util.regex/Grok/">Grok</a></li>
+<li>
+  <a href="/Java/docs/java.util.regex/Pattern/">Pattern</a></li>
+<li>
+  <a href="/Java/docs/java.util.regex/Grok/">Grok</a></li>
 </ul>
 </li>
 <li>
-<p><a href="/Troubleshooting/docs/Java/"><strong>内置工具 🔗</strong></a></p>
+<p>
+  <a href="/Troubleshooting/docs/Java/"><strong>内置工具 🔗</strong></a></p>
 </li>
 </ul>
+
+
+
 
 
 
@@ -99,73 +109,122 @@ https://github.com/alex-shpak/hugo-book
 </nav>
 
 
-<script>
-(function() {
-  var menu = document.querySelector("aside.book-menu nav");
-  addEventListener("beforeunload", function(event) {
-    localStorage.setItem("menu.scrollTop", menu.scrollTop);
-  });
-  menu.scrollTop = localStorage.getItem("menu.scrollTop");
-})();
-</script>
 
+
+  <script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script>
+
+
+ 
     </aside>
 
     <div class="book-page">
-      <header class="flex align-center justify-between book-header">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
   <label for="menu-control">
-    <img src="/Java/svg/menu.svg" alt="Menu" />
+    <img src="/Java/svg/menu.svg" class="book-icon" alt="Menu" />
   </label>
+
   <strong>Java</strong>
-</header>
+
+  <label for="toc-control">
+    <img src="/Java/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+  </label>
+</div>
+
+
+  
+    <input type="checkbox" class="hidden" id="toc-control" />
+    <aside class="hidden clearfix">
+      
+  <nav id="TableOfContents"></nav>
+
+
+    </aside>
+  
+ 
+      </header>
 
       
-<article class="markdown"><ul>
-<li><a href="https://docs.oracle.com/en/java/javase/index.html">Java Platform, Standard Edition Documentation</a> 官方文档
+      
+  <article class="markdown"><ul>
+<li>
+  <a href="https://docs.oracle.com/en/java/javase/index.html">Java Platform, Standard Edition Documentation</a> 官方文档
 <ul>
-<li><a href="http://www.matools.com/file/manual/jdk_api_1.8_google/index.html">JDK8 中文文档</a></li>
-<li><a href="https://tool.oschina.net/uploads/apidocs/jdk-zh/">JDK6 中文文档</a></li>
+<li>
+  <a href="http://www.matools.com/file/manual/jdk_api_1.8_google/index.html">JDK8 中文文档</a></li>
+<li>
+  <a href="https://tool.oschina.net/uploads/apidocs/jdk-zh/">JDK6 中文文档</a></li>
 </ul>
 </li>
 </ul>
 </article>
-
+ 
       
-<div class="book-footer justify-between">
-  
+
+      <footer class="book-footer">
+        
+  <div class="flex justify-between">
+
+
+
   <div>
     
-    <a href="https://github.com/hello-world-example/Java/commit/9bcaa117162d9f4368ad3814ebfdf7d5a47f2acb" title='Last modified Feb 9, 2020 by kailbin' target="_blank" rel="noopener">
-      <img src="/Java/svg/calendar.svg" alt="Changed" /> Feb 9, 2020
+    <a class="flex align-center" href="https://github.com/hello-world-example/Java/commit/9bcaa117162d9f4368ad3814ebfdf7d5a47f2acb" title='Last modified by kailbin | Feb 9, 2020' target="_blank" rel="noopener">
+      <img src="/Java/svg/calendar.svg" class="book-icon" alt="Calendar" />
+      <span>Feb 9, 2020</span>
     </a>
   </div>
-  
-  
+
+
+
   <div>
-    <a href="https://github.com/hello-world-example/Java/edit/master/HuGo/content/_index.md" target="_blank" rel="noopener">
-      <img src="/Java/svg/edit.svg" alt="Edit" /> Edit this page
+    <a class="flex align-center" href="https://github.com/hello-world-example/Java/edit/master/HuGo/content/_index.md" target="_blank" rel="noopener">
+      <img src="/Java/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
     </a>
   </div>
-  
+
 </div>
 
+ 
+        
+      </footer>
 
       
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
     </div>
 
     
-  
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents"></nav>
 
-  <aside class="book-toc level-3 fixed">
-    <nav id="TableOfContents"></nav>
-  </aside>
-
-
-
+ 
+    </aside>
+    
   </main>
-  
-  
+
   
 </body>
 
 </html>
+
+
+
+
+
+
+
+
+
+
+
+

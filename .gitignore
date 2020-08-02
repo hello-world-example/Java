@@ -1,7 +1,12 @@
-.idea
-*.iml
-
 target
+*.iml
+.idea
+HuGo/themes/book
+
+.project
+.settings
+.classpath
+.factorypath
 
 # 私密信息不提交
 key.properties
