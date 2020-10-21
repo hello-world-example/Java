@@ -21,6 +21,15 @@
     
     <item>
       <title></title>
+      <link>https://hello-world-example.github.io/Java/docs/java.lang/instrument/JavaAgent/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://hello-world-example.github.io/Java/docs/java.lang/instrument/JavaAgent/</guid>
+      <description>JavaAgent 概述  JVMTI （JVM Tool Interface）是 Java 虚拟机对外提供的 Native 编程接口，通过 JVMTI，外部进程可以获取到运行时 JVM 的诸多信息，比如 线程、GC 等 在 Java SE 5之前，要实现一个 Agent 只能通过编写 Native 代码来实现 从 Java SE 5 开始，可以使用 Java 的 java.lang.instrument.Instrumentation 来编写 Agent，但是 1.5 时 只提供了 premain 一种方式，即在 main 方法启动前启动一个 -javaagent: 代理程序 Java SE 6 开始，提供了 agentmain 方式，支持在运行时使用 Agent  agent 签名 // Java SE 5+ // 通过: -javaagent:agent.jar=key1=value1;key2=value2 public static void premain(String agentArgs, Instrumentation inst) { } public static void premain(String agentArgs) { } // Java SE 6+ // 通过: VirtualMachine.</description>
+    </item>
+    
+    <item>
+      <title></title>
       <link>https://hello-world-example.github.io/Java/docs/java.lang/SecurityManager/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       

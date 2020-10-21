@@ -8,6 +8,9 @@ headless: true
   - [JVM 参数]({{< relref "/docs/GC/JVM-Args.md" >}})
 - **java.lang**  
   - [SecurityManager]({{< relref "/docs/java.lang/SecurityManager.md" >}})
+- **java.lang.instrument**
+
+  - [JavaAgent]({{< relref "/docs/java.lang/instrument/JavaAgent.md" >}})
 - **java.time**
   - [关键概念]({{< relref "/docs/java.time/Core.md" >}})
   - [常见操作]({{< relref "/docs/java.time/Action.md" >}})

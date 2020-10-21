@@ -17,7 +17,8 @@
       <guid>https://hello-world-example.github.io/Java/_sidebar/</guid>
       <description>  GC
   JVM 参数    java.lang
-  SecurityManager    java.time
+  SecurityManager    java.lang.instrument
+  JavaAgent    java.time
   关键概念  常见操作  时间区间     java.nio 🔗
    java.util.concurrent 🔗
   java.util.regex
@@ -33,6 +34,15 @@
       <guid>https://hello-world-example.github.io/Java/docs/GC/JVM-Args/</guid>
       <description>JVM 参数 内存分代    参数 描述     -Xms4096M 初始化堆大小   -Xmx4096M 最大堆大小   -Xss1024k
 -XX:ThreadStackSize= 每个线程的堆栈大小(建议不要超过1M)       –Xmn1024M 年轻代大小(官方推荐配置为整个堆的3/8)   -XX:NewSize=1024M 年轻代初始化大小   -XX:MaxNewSize=1024M 年轻代再打化大小 最大       -XX:NewRatio=2 年轻代:年老代=1:2，年轻代占整个堆的1/3 。设置该值的情况会忽略掉 -Xmn   -XX:SurvivorRatio=3 S0:S1:Eden=1:1:3，整个Survivor占年轻代的 2/5   -XX:MaxTenuringThreshold=15 对象年龄到15岁的时候晋升到老年代，默认是15   -XX:TargetSurvivorRatio=90 表示MinorGC结束了Survivor区域中占用空间的期望比例。期望未达到时，重新调整TenuringThreshold值，让对象尽早的去old区，默认是50       -XX:PermSize=256M 持久代初始化大小   -XX:MaxPermSize=256M 持久代最大大小   -XX:MetaspaceSize=256M JDK8 元数据空间初始大小   -XX:MaxMetaspaceSize=256m JDK8 元数据空间最大值    垃圾回收    参数 描述     -server x64 下只有server模式；新生代默认Parallel Scavenge，老年代默认 Serial Old       -XX:+UseConcMarkSweepGC ParNew + CMS + Serial Old   -XX:ConcGCThreads=2 并发收集线程数，如果没有设置则为(ParallelGCThreads + 3)/4   -XX:CMSFullGCsBeforeCompaction=0 运行多少次FullGC以后对内存空间进行压缩、整理, 默认是0   -XX:+UseCMSCompactAtFullCollection 可以对年老代的压缩，默认是打开的   -XX:CMSInitiatingOccupancyFraction=75 设置执行GC的阈值，如75，则占用空间到达75%的时候开始GC       -XX:+UseG1GC 使用G1GC   -XX:G1HeapRegionSize=n 值是 2 的幂，范围是 1 MB 到 32 MB 之间。目标是根据最小的 Java 堆大小划分出约 2048 个区域   -XX:MaxGCPauseMillis=200 GC可以暂停多长时间。 这只是个建议值，G1GC 暂停的时间会尽可能比这个值短。默认值是 200 毫秒   -XX:G1HeapWastePercent=10 设置您愿意浪费的堆百分比。 垃圾越大， GC 在新区域分配对象时越快，而不是试图将这些空间浪费掉       -XX:UseParallelOldGC Parallel Scavenge + Parallel Old   -XX:ParallelGCThreads=4 并行收集线程数，默认是CPU个数   -XX:MaxGCPauseMillis=n 并行收集最大暂停时间   -XX:GCTimeRatio=n GC时间占程序时间的百分比,公式为1/(1+n)   -XX:+UseAdaptiveSizePolicy 自动选择年轻代区大小和相应的Survivor区比例，以达到目标系统规定的最低相应时间或者收集频率等;设置该选项之后，就不要再设置 -Xmn、-XX:SurvivorRatio、-XX:MaxTenuringThreshold 等选项了，但是可以设置 -Xms、-Xmx规定一下整个堆的大小       -XX:UseParallelGC Parallel Scavenge + Serial Old   -XX:UseParNewGC ParNew + Serial Old   -XX:UseSerialGC Serial + Serial Old       -Xnoclassgc 禁用垃圾回收，慎用       -XX:+DisableExplicitGC 禁用System.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://hello-world-example.github.io/Java/docs/java.lang/instrument/JavaAgent/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://hello-world-example.github.io/Java/docs/java.lang/instrument/JavaAgent/</guid>
+      <description>JavaAgent 概述  JVMTI （JVM Tool Interface）是 Java 虚拟机对外提供的 Native 编程接口，通过 JVMTI，外部进程可以获取到运行时 JVM 的诸多信息，比如 线程、GC 等 在 Java SE 5之前，要实现一个 Agent 只能通过编写 Native 代码来实现 从 Java SE 5 开始，可以使用 Java 的 java.lang.instrument.Instrumentation 来编写 Agent，但是 1.5 时 只提供了 premain 一种方式，即在 main 方法启动前启动一个 -javaagent: 代理程序 Java SE 6 开始，提供了 agentmain 方式，支持在运行时使用 Agent  agent 签名 // Java SE 5+ // 通过: -javaagent:agent.jar=key1=value1;key2=value2 public static void premain(String agentArgs, Instrumentation inst) { } public static void premain(String agentArgs) { } // Java SE 6+ // 通过: VirtualMachine.</description>
     </item>
     
     <item>

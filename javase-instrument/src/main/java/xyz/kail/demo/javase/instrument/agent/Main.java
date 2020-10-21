@@ -10,11 +10,15 @@ import java.util.Scanner;
 
 /**
  * @author kail
+ *
+ * -javaagent:javase-instrument.jar=ClassToFileTransformer=true;debug=true;regex=xyz.+;path=~/
  */
 public class Main {
 
     public static void main(String[] args) throws Exception {
         // /target/classes/../
+        System.out.println(Main.class.getResource("/"));
+
         Path targetPath = Paths.get(Main.class.getResource("/").toURI()).getParent();
         System.out.println("targetPath:" + targetPath);
 
@@ -35,7 +39,7 @@ public class Main {
         //
         VirtualMachine vm = VirtualMachine.attach(pid);
         try {
-            vm.loadAgent(targetPath + "/javase-instrument-1.0-SNAPSHOT.jar",
+            vm.loadAgent(targetPath + "/javase-instrument.jar",
                     "" +
                             "ClassToFileTransformer=true;" +
                             "debug=true;" +

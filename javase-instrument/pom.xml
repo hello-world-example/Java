@@ -12,6 +12,7 @@
     <artifactId>javase-instrument</artifactId>
 
     <dependencies>
+        <!-- -Xbootclasspath/a:${JAVA_HOME}lib/tools.jar -->
         <dependency>
             <groupId>com.sun</groupId>
             <artifactId>tools</artifactId>
@@ -22,6 +23,8 @@
     </dependencies>
 
     <build>
+        <finalName>${artifactId}</finalName>
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="JavaAgent 概述  JVMTI （JVM Tool Interface）是 Java 虚拟机对外提供的 Native 编程接口，通过 JVMTI，外部进程可以获取到运行时 JVM 的诸多信息，比如 线程、GC 等 在 Java SE 5之前，要实现一个 Agent 只能通过编写 Native 代码来实现 从 Java SE 5 开始，可以使用 Java 的 java.lang.instrument.Instrumentation 来编写 Agent，但是 1.5 时 只提供了 premain 一种方式，即在 main 方法启动前启动一个 -javaagent: 代理程序 Java SE 6 开始，提供了 agentmain 方式，支持在运行时使用 Agent  agent 签名 // Java SE 5&#43; // 通过: -javaagent:agent.jar=key1=value1;key2=value2 public static void premain(String agentArgs, Instrumentation inst) { } public static void premain(String agentArgs) { } // Java SE 6&#43; // 通过: VirtualMachine."><meta property="og:title" content="" />
+<meta property="og:description" content="JavaAgent 概述  JVMTI （JVM Tool Interface）是 Java 虚拟机对外提供的 Native 编程接口，通过 JVMTI，外部进程可以获取到运行时 JVM 的诸多信息，比如 线程、GC 等 在 Java SE 5之前，要实现一个 Agent 只能通过编写 Native 代码来实现 从 Java SE 5 开始，可以使用 Java 的 java.lang.instrument.Instrumentation 来编写 Agent，但是 1.5 时 只提供了 premain 一种方式，即在 main 方法启动前启动一个 -javaagent: 代理程序 Java SE 6 开始，提供了 agentmain 方式，支持在运行时使用 Agent  agent 签名 // Java SE 5&#43; // 通过: -javaagent:agent.jar=key1=value1;key2=value2 public static void premain(String agentArgs, Instrumentation inst) { } public static void premain(String agentArgs) { } // Java SE 6&#43; // 通过: VirtualMachine." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://hello-world-example.github.io/Java/docs/java.lang/instrument/JavaAgent/" />
+
+<title>Java Agent | Java</title>
+<link rel="icon" href="/Java/favicon.png" type="image/x-icon">
+
+
+<link rel="stylesheet" href="/Java/book.min.d436f463c9471cfab26a8b71cd2f50b6abf5225806391453da4ca111d1834fef.css" integrity="sha256-1Db0Y8lHHPqyaotxzS9Qtqv1IlgGORRT2kyhEdGDT&#43;8=">
+
+
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body>
+  <input type="checkbox" class="hidden" id="menu-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/Java"><span>Java</span>
+  </a>
+</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+  <ul>
+<li>
+<p><strong>GC</strong></p>
+<ul>
+<li>
+  <a href="/Java/docs/GC/JVM-Args/">JVM 参数</a></li>
+</ul>
+</li>
+<li>
+<p><strong>java.lang</strong></p>
+<ul>
+<li>
+  <a href="/Java/docs/java.lang/SecurityManager/">SecurityManager</a></li>
+</ul>
+</li>
+<li>
+<p><strong>java.lang.instrument</strong></p>
+<ul>
+<li>
+  <a href="/Java/docs/java.lang/instrument/JavaAgent/"class=active>JavaAgent</a></li>
+</ul>
+</li>
+<li>
+<p><strong>java.time</strong></p>
+<ul>
+<li>
+  <a href="/Java/docs/java.time/Core/">关键概念</a></li>
+<li>
+  <a href="/Java/docs/java.time/Action/">常见操作</a></li>
+<li>
+  <a href="/Java/docs/java.time/Gap/">时间区间</a></li>
+</ul>
+</li>
+<li>
+<p>
+  <a href="/Java-IO"><strong>java.nio 🔗</strong></a></p>
+</li>
+<li>
+<p>
+  <a href="/Java-Concurrent"><strong>java.util.concurrent 🔗</strong></a></p>
+</li>
+<li>
+<p><strong>java.util.regex</strong></p>
+<ul>
+<li>
+  <a href="/Java/docs/java.util.regex/Pattern/">Pattern</a></li>
+<li>
+  <a href="/Java/docs/java.util.regex/Grok/">Grok</a></li>
+</ul>
+</li>
+<li>
+<p>
+  <a href="/Troubleshooting/docs/Java/"><strong>内置工具 🔗</strong></a></p>
+</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/Java/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Java Agent</strong>
+
+  <label for="toc-control">
+    <img src="/Java/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+  </label>
+</div>
+
+
+  
+    <input type="checkbox" class="hidden" id="toc-control" />
+    <aside class="hidden clearfix">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#javaagent">JavaAgent</a>
+      <ul>
+        <li><a href="#概述">概述</a></li>
+        <li><a href="#agent-签名">agent 签名</a></li>
+        <li><a href="#meta-infmanifestmf">META-INF/MANIFEST.MF</a></li>
+        <li><a href="#示例">示例</a>
+          <ul>
+            <li><a href="#agentjava">Agent.java</a></li>
+            <li><a href="#classtofiletransformerjava">ClassToFileTransformer.java</a></li>
+          </ul>
+        </li>
+        <li><a href="#premain-agent-方式">premain agent 方式</a></li>
+        <li><a href="#agentmain-attach-方式">agentmain attach 方式</a>
+          <ul>
+            <li><a href="#增加依赖">增加依赖</a></li>
+            <li><a href="#mainjava">Main.java</a></li>
+          </ul>
+        </li>
+        <li><a href="#read-more">Read More</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+    </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="javaagent">JavaAgent</h1>
+<h2 id="概述">概述</h2>
+<ul>
+<li><code>JVMTI</code> （<strong>JVM Tool Interface</strong>）是 Java 虚拟机对外提供的 Native 编程接口，通过 <code>JVMTI</code>，外部进程可以获取到运行时 JVM 的诸多信息，比如 线程、GC 等</li>
+<li><strong>在 Java SE 5之前</strong>，要实现一个 Agent 只能通过编写 Native 代码来实现</li>
+<li><strong>从 Java SE 5 开始</strong>，可以使用 Java 的  <code>java.lang.instrument.Instrumentation</code> 来编写 Agent，但是 1.5 时 只提供了 <code>premain</code> 一种方式，即在 main 方法启动前启动一个 <code>-javaagent:</code> 代理程序</li>
+<li><strong>Java SE 6 开始</strong>，提供了 <code>agentmain</code> 方式，支持在运行时使用 Agent</li>
+</ul>
+<h2 id="agent-签名">agent 签名</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// Java SE 5+
+</span><span style="color:#75715e">// 通过: -javaagent:agent.jar=key1=value1;key2=value2
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">premain</span><span style="color:#f92672">(</span>String agentArgs<span style="color:#f92672">,</span> Instrumentation inst<span style="color:#f92672">)</span> <span style="color:#f92672">{</span> <span style="color:#f92672">}</span>
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">premain</span><span style="color:#f92672">(</span>String agentArgs<span style="color:#f92672">)</span> <span style="color:#f92672">{</span> <span style="color:#f92672">}</span>
+
+<span style="color:#75715e">// Java SE 6+
+</span><span style="color:#75715e">// 通过: VirtualMachine.attach(pid).loadAgent(&#34;agent.jar&#34;, &#34;value1;key2=value2&#34;)
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">agentmain</span><span style="color:#f92672">(</span>String agentArgs<span style="color:#f92672">,</span> Instrumentation inst<span style="color:#f92672">)</span> <span style="color:#f92672">{</span> <span style="color:#f92672">}</span>
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">agentmain</span><span style="color:#f92672">(</span>String agentArgs<span style="color:#f92672">)</span> <span style="color:#f92672">{</span> <span style="color:#f92672">}</span>
+</code></pre></div><h2 id="meta-infmanifestmf">META-INF/MANIFEST.MF</h2>
+<p>定义完 Agent 需要在打包的的时候自定义 <code>META-INF/MANIFEST.MF</code></p>
+<ul>
+<li><code>Premain-Class:</code>  Agent Class 全路径名，对应 <code>premain</code> 方式</li>
+<li><code>Agent-Class:</code> Agent Class 全路径名，对应 <code>agentmain</code> 方式</li>
+<li><code>Can-Redefine-Classes:</code> true 表示能 重新定义类，即 通过<code>instrumentation.redefineClasses(ClassDefinition...)</code> 对类的字节码进行增强</li>
+<li><code>Can-Retransform-Classes:</code> true 表示能 重新加载类，提通过 <code>instrumentation.retransformClasses(Class&lt;?&gt;...)</code> 回归类的增强</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;plugin&gt;</span>
+  <span style="color:#f92672">&lt;groupId&gt;</span>org.apache.maven.plugins<span style="color:#f92672">&lt;/groupId&gt;</span>
+  <span style="color:#f92672">&lt;artifactId&gt;</span>maven-jar-plugin<span style="color:#f92672">&lt;/artifactId&gt;</span>
+  <span style="color:#f92672">&lt;version&gt;</span>3.1.0<span style="color:#f92672">&lt;/version&gt;</span>
+  <span style="color:#f92672">&lt;configuration&gt;</span>
+    <span style="color:#f92672">&lt;archive&gt;</span>
+      <span style="color:#75715e">&lt;!--自动添加META-INF/MANIFEST.MF --&gt;</span>
+      <span style="color:#f92672">&lt;manifest&gt;</span>
+        <span style="color:#f92672">&lt;addClasspath&gt;</span>true<span style="color:#f92672">&lt;/addClasspath&gt;</span>
+      <span style="color:#f92672">&lt;/manifest&gt;</span>
+      <span style="color:#f92672">&lt;manifestEntries&gt;</span>
+        <span style="color:#f92672">&lt;Main-Class&gt;</span>xyz.kail.demo.javase.instrument.agent.Main<span style="color:#f92672">&lt;/Main-Class&gt;</span>
+        <span style="color:#75715e">&lt;!----&gt;</span>
+        <span style="color:#f92672">&lt;Premain-Class&gt;</span>xyz.kail.demo.javase.instrument.agent.Agent<span style="color:#f92672">&lt;/Premain-Class&gt;</span>
+        <span style="color:#f92672">&lt;Agent-Class&gt;</span>xyz.kail.demo.javase.instrument.agent.Agent<span style="color:#f92672">&lt;/Agent-Class&gt;</span>
+        <span style="color:#75715e">&lt;!----&gt;</span>
+        <span style="color:#f92672">&lt;Can-Redefine-Classes&gt;</span>true<span style="color:#f92672">&lt;/Can-Redefine-Classes&gt;</span>
+        <span style="color:#f92672">&lt;Can-Retransform-Classes&gt;</span>true<span style="color:#f92672">&lt;/Can-Retransform-Classes&gt;</span>
+      <span style="color:#f92672">&lt;/manifestEntries&gt;</span>
+    <span style="color:#f92672">&lt;/archive&gt;</span>
+  <span style="color:#f92672">&lt;/configuration&gt;</span>
+<span style="color:#f92672">&lt;/plugin&gt;</span>
+</code></pre></div><h2 id="示例">示例</h2>
+<h3 id="agentjava">Agent.java</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">package</span> xyz.kail.demo.javase.instrument.agent<span style="color:#f92672">;</span>
+
+<span style="color:#f92672">import</span> java.lang.instrument.Instrumentation<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.lang.instrument.UnmodifiableClassException<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.util.Collections<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.util.HashMap<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.util.Map<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.util.regex.Pattern<span style="color:#f92672">;</span>
+
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Agent</span> <span style="color:#f92672">{</span>
+
+  <span style="color:#75715e">/**
+</span><span style="color:#75715e">   * 在 Java6 开始，支持在运行时使用 Agent
+</span><span style="color:#75715e">   */</span>
+  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">agentmain</span><span style="color:#f92672">(</span>String args<span style="color:#f92672">,</span> Instrumentation instrumentation<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> UnmodifiableClassException <span style="color:#f92672">{</span>
+    Map<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">,</span> String<span style="color:#f92672">&gt;</span> params <span style="color:#f92672">=</span> parseArgs<span style="color:#f92672">(</span>args<span style="color:#f92672">);</span>
+    <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>params<span style="color:#f92672">.</span><span style="color:#a6e22e">isEmpty</span><span style="color:#f92672">())</span> <span style="color:#f92672">{</span>
+      System<span style="color:#f92672">.</span><span style="color:#a6e22e">err</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;缺少参数&#34;</span><span style="color:#f92672">);</span>
+      <span style="color:#66d9ef">return</span><span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#75715e">/*
+</span><span style="color:#75715e">     *  注册 Transformer
+</span><span style="color:#75715e">     */</span>
+    premain<span style="color:#f92672">(</span>args<span style="color:#f92672">,</span> instrumentation<span style="color:#f92672">);</span>
+
+
+    String regex <span style="color:#f92672">=</span> params<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;regex&#34;</span><span style="color:#f92672">);</span>
+    <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">null</span> <span style="color:#f92672">==</span> regex<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+      System<span style="color:#f92672">.</span><span style="color:#a6e22e">err</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;缺少参数 regex&#34;</span><span style="color:#f92672">);</span>
+      <span style="color:#66d9ef">return</span><span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#75715e">// 获取所有已加载的 Class
+</span><span style="color:#75715e"></span>    Class<span style="color:#f92672">[]</span> allLoadedClasses <span style="color:#f92672">=</span> instrumentation<span style="color:#f92672">.</span><span style="color:#a6e22e">getAllLoadedClasses</span><span style="color:#f92672">();</span>
+    <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span>Class clazz <span style="color:#f92672">:</span> allLoadedClasses<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+      <span style="color:#75715e">// 如果类名匹配正则，重新转换类
+</span><span style="color:#75715e"></span>      <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>Pattern<span style="color:#f92672">.</span><span style="color:#a6e22e">matches</span><span style="color:#f92672">(</span>regex<span style="color:#f92672">,</span> clazz<span style="color:#f92672">.</span><span style="color:#a6e22e">getName</span><span style="color:#f92672">()))</span> <span style="color:#f92672">{</span>
+        <span style="color:#75715e">// Attach 时，类已经被加载，但是 instrumentation.addTransformer 是后执行的，所以需要 重新转换类
+</span><span style="color:#75715e"></span>        instrumentation<span style="color:#f92672">.</span><span style="color:#a6e22e">retransformClasses</span><span style="color:#f92672">(</span>clazz<span style="color:#f92672">);</span>
+      <span style="color:#f92672">}</span>
+    <span style="color:#f92672">}</span>
+
+  <span style="color:#f92672">}</span>
+
+
+  <span style="color:#75715e">/**
+</span><span style="color:#75715e">   * 在 Java5 时代，Instrument 只提供了 premain 一种方式，即在 main 方法启动前启动一个代理程序
+</span><span style="color:#75715e">   */</span>
+  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">premain</span><span style="color:#f92672">(</span>String args<span style="color:#f92672">,</span> Instrumentation instrumentation<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+    Map<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">,</span> String<span style="color:#f92672">&gt;</span> params <span style="color:#f92672">=</span> parseArgs<span style="color:#f92672">(</span>args<span style="color:#f92672">);</span>
+    <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>params<span style="color:#f92672">.</span><span style="color:#a6e22e">isEmpty</span><span style="color:#f92672">())</span> <span style="color:#f92672">{</span>
+      System<span style="color:#f92672">.</span><span style="color:#a6e22e">err</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;缺少参数&#34;</span><span style="color:#f92672">);</span>
+      <span style="color:#66d9ef">return</span><span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#75715e">/*
+</span><span style="color:#75715e">     * 启用打印
+</span><span style="color:#75715e">     */</span>
+    <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>Boolean<span style="color:#f92672">.</span><span style="color:#a6e22e">TRUE</span><span style="color:#f92672">.</span><span style="color:#a6e22e">toString</span><span style="color:#f92672">().</span><span style="color:#a6e22e">equals</span><span style="color:#f92672">(</span>params<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;ClassToFileTransformer&#34;</span><span style="color:#f92672">)))</span> <span style="color:#f92672">{</span>
+      instrumentation<span style="color:#f92672">.</span><span style="color:#a6e22e">addTransformer</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> ClassToFileTransformer<span style="color:#f92672">(</span>params<span style="color:#f92672">),</span> <span style="color:#66d9ef">true</span><span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+  <span style="color:#f92672">}</span>
+
+  <span style="color:#75715e">/**
+</span><span style="color:#75715e">   * key1=value1;key2=value2  --&gt; {key1:value1, key2:value2}
+</span><span style="color:#75715e">   */</span>
+  <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> Map<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">,</span> String<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">parseArgs</span><span style="color:#f92672">(</span>String args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">null</span> <span style="color:#f92672">==</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+      <span style="color:#66d9ef">return</span> Collections<span style="color:#f92672">.</span><span style="color:#a6e22e">emptyMap</span><span style="color:#f92672">();</span>
+    <span style="color:#f92672">}</span>
+
+    Map<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">,</span> String<span style="color:#f92672">&gt;</span> argsMap <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> HashMap<span style="color:#f92672">&lt;&gt;(</span>8<span style="color:#f92672">);</span>
+    String<span style="color:#f92672">[]</span> kvs <span style="color:#f92672">=</span> args<span style="color:#f92672">.</span><span style="color:#a6e22e">split</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;;&#34;</span><span style="color:#f92672">);</span>
+    <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span>String kv <span style="color:#f92672">:</span> kvs<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+      String<span style="color:#f92672">[]</span> kvArr <span style="color:#f92672">=</span> kv<span style="color:#f92672">.</span><span style="color:#a6e22e">split</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;=&#34;</span><span style="color:#f92672">);</span>
+      argsMap<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span>kvArr<span style="color:#f92672">[</span>0<span style="color:#f92672">],</span> kvArr<span style="color:#f92672">[</span>1<span style="color:#f92672">]);</span>
+    <span style="color:#f92672">}</span>
+    <span style="color:#66d9ef">return</span> argsMap<span style="color:#f92672">;</span>
+  <span style="color:#f92672">}</span>
+
+<span style="color:#f92672">}</span>
+</code></pre></div><h3 id="classtofiletransformerjava">ClassToFileTransformer.java</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">package</span> xyz.kail.demo.javase.instrument.agent<span style="color:#f92672">;</span>
+
+<span style="color:#f92672">import</span> java.lang.instrument.ClassFileTransformer<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.lang.instrument.IllegalClassFormatException<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.nio.file.Files<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.nio.file.Path<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.nio.file.Paths<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.nio.file.StandardOpenOption<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.security.ProtectionDomain<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.util.Map<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.util.regex.Pattern<span style="color:#f92672">;</span>
+
+<span style="color:#75715e">/**
+</span><span style="color:#75715e"> * 把加载的类，写入到文件
+</span><span style="color:#75715e"> */</span>
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ClassToFileTransformer</span> <span style="color:#66d9ef">implements</span> ClassFileTransformer <span style="color:#f92672">{</span>
+
+    Map<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">,</span> String<span style="color:#f92672">&gt;</span> args<span style="color:#f92672">;</span>
+
+    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">ClassToFileTransformer</span><span style="color:#f92672">(</span>Map<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">,</span> String<span style="color:#f92672">&gt;</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">args</span> <span style="color:#f92672">=</span> args<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#75715e">/**
+</span><span style="color:#75715e">     * @param className       类名
+</span><span style="color:#75715e">     * @param classFileBuffer 类的字节码
+</span><span style="color:#75715e">     */</span>
+    <span style="color:#a6e22e">@Override</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">byte</span><span style="color:#f92672">[]</span> <span style="color:#a6e22e">transform</span><span style="color:#f92672">(</span>ClassLoader loader<span style="color:#f92672">,</span> String className<span style="color:#f92672">,</span> Class<span style="color:#f92672">&lt;?&gt;</span> classBeingRedefined<span style="color:#f92672">,</span> ProtectionDomain protectionDomain<span style="color:#f92672">,</span> <span style="color:#66d9ef">byte</span><span style="color:#f92672">[]</span> classFileBuffer<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> IllegalClassFormatException <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">null</span> <span style="color:#f92672">!=</span> args<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;debug&#34;</span><span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
+            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>className<span style="color:#f92672">);</span>
+        <span style="color:#f92672">}</span>
+
+        String regex <span style="color:#f92672">=</span> args<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;regex&#34;</span><span style="color:#f92672">);</span>
+        <span style="color:#75715e">// 如果传入正则，但是不匹配，不进行操作
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(!(</span><span style="color:#66d9ef">null</span> <span style="color:#f92672">!=</span> regex <span style="color:#f92672">&amp;&amp;</span> Pattern<span style="color:#f92672">.</span><span style="color:#a6e22e">matches</span><span style="color:#f92672">(</span>regex<span style="color:#f92672">,</span> className<span style="color:#f92672">)))</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">return</span> classFileBuffer<span style="color:#f92672">;</span>
+        <span style="color:#f92672">}</span>
+
+        <span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
+            Path path <span style="color:#f92672">=</span> Paths<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>args<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;path&#34;</span><span style="color:#f92672">)</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;/agent/&#34;</span> <span style="color:#f92672">+</span> className <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;.class&#34;</span><span style="color:#f92672">);</span>
+            <span style="color:#66d9ef">if</span> <span style="color:#f92672">(!</span>Files<span style="color:#f92672">.</span><span style="color:#a6e22e">exists</span><span style="color:#f92672">(</span>path<span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
+                Files<span style="color:#f92672">.</span><span style="color:#a6e22e">createDirectories</span><span style="color:#f92672">(</span>path<span style="color:#f92672">.</span><span style="color:#a6e22e">getParent</span><span style="color:#f92672">());</span>
+            <span style="color:#f92672">}</span>
+            Files<span style="color:#f92672">.</span><span style="color:#a6e22e">write</span><span style="color:#f92672">(</span>path<span style="color:#f92672">,</span> classFileBuffer<span style="color:#f92672">,</span> StandardOpenOption<span style="color:#f92672">.</span><span style="color:#a6e22e">CREATE</span><span style="color:#f92672">);</span>
+        <span style="color:#f92672">}</span> <span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>Throwable ignored<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">null</span> <span style="color:#f92672">!=</span> args<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;debug&#34;</span><span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
+                ignored<span style="color:#f92672">.</span><span style="color:#a6e22e">printStackTrace</span><span style="color:#f92672">();</span>
+            <span style="color:#f92672">}</span>
+        <span style="color:#f92672">}</span>
+
+        <span style="color:#66d9ef">return</span> classFileBuffer<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+
+<span style="color:#f92672">}</span>
+</code></pre></div><h2 id="premain-agent-方式">premain agent 方式</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">java -javaagent:javase-instrument.jar<span style="color:#f92672">=</span>ClassToFileTransformer<span style="color:#f92672">=</span>true;debug<span style="color:#f92672">=</span>true;regex<span style="color:#f92672">=</span>xyz.+;path<span style="color:#f92672">=</span>~/ -jar  xxx.jar
+</code></pre></div><h2 id="agentmain-attach-方式">agentmain attach 方式</h2>
+<h3 id="增加依赖">增加依赖</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;dependencies&gt;</span>
+  <span style="color:#75715e">&lt;!-- 或 -Xbootclasspath/a:${JAVA_HOME}lib/tools.jar --&gt;</span>
+  <span style="color:#f92672">&lt;dependency&gt;</span>
+    <span style="color:#f92672">&lt;groupId&gt;</span>com.sun<span style="color:#f92672">&lt;/groupId&gt;</span>
+    <span style="color:#f92672">&lt;artifactId&gt;</span>tools<span style="color:#f92672">&lt;/artifactId&gt;</span>
+    <span style="color:#f92672">&lt;version&gt;</span>1.8<span style="color:#f92672">&lt;/version&gt;</span>
+    <span style="color:#f92672">&lt;scope&gt;</span>system<span style="color:#f92672">&lt;/scope&gt;</span>
+    <span style="color:#f92672">&lt;systemPath&gt;</span>${java.home}/../lib/tools.jar<span style="color:#f92672">&lt;/systemPath&gt;</span>
+  <span style="color:#f92672">&lt;/dependency&gt;</span>
+<span style="color:#f92672">&lt;/dependencies&gt;</span>
+</code></pre></div><h3 id="mainjava">Main.java</h3>
+<blockquote>
+<ul>
+<li>IDE 中 执行 main 方式</li>
+<li>或 java -Xbootclasspath/a:${JAVA_HOME}lib/tools.jar -jar xxx.jar 运行</li>
+</ul>
+</blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">package</span> xyz.kail.demo.javase.instrument.agent<span style="color:#f92672">;</span>
+
+<span style="color:#f92672">import</span> com.sun.tools.attach.VirtualMachine<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> com.sun.tools.attach.VirtualMachineDescriptor<span style="color:#f92672">;</span>
+
+<span style="color:#f92672">import</span> java.nio.file.Path<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.nio.file.Paths<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.util.List<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.util.Scanner<span style="color:#f92672">;</span>
+
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Main</span> <span style="color:#f92672">{</span>
+
+  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> Exception <span style="color:#f92672">{</span>
+    <span style="color:#75715e">// /target/classes/../
+</span><span style="color:#75715e"></span>    System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>Main<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">.</span><span style="color:#a6e22e">getResource</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/&#34;</span><span style="color:#f92672">));</span>
+
+    Path targetPath <span style="color:#f92672">=</span> Paths<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>Main<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">.</span><span style="color:#a6e22e">getResource</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/&#34;</span><span style="color:#f92672">).</span><span style="color:#a6e22e">toURI</span><span style="color:#f92672">()).</span><span style="color:#a6e22e">getParent</span><span style="color:#f92672">();</span>
+    System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;targetPath:&#34;</span> <span style="color:#f92672">+</span> targetPath<span style="color:#f92672">);</span>
+
+    <span style="color:#75715e">//
+</span><span style="color:#75715e"></span>    List<span style="color:#f92672">&lt;</span>VirtualMachineDescriptor<span style="color:#f92672">&gt;</span> vmDescriptors <span style="color:#f92672">=</span> VirtualMachine<span style="color:#f92672">.</span><span style="color:#a6e22e">list</span><span style="color:#f92672">();</span>
+    <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span>VirtualMachineDescriptor vm <span style="color:#f92672">:</span> vmDescriptors<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+      System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>vm<span style="color:#f92672">.</span><span style="color:#a6e22e">id</span><span style="color:#f92672">()</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; : &#34;</span> <span style="color:#f92672">+</span> vm<span style="color:#f92672">.</span><span style="color:#a6e22e">displayName</span><span style="color:#f92672">());</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#75715e">//
+</span><span style="color:#75715e"></span>    Scanner scanner <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Scanner<span style="color:#f92672">(</span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">in</span><span style="color:#f92672">);</span>
+    System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;请输入 pid: &#34;</span><span style="color:#f92672">);</span>
+    String pid <span style="color:#f92672">=</span> scanner<span style="color:#f92672">.</span><span style="color:#a6e22e">nextLine</span><span style="color:#f92672">();</span>
+    System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;请输入 regex: &#34;</span><span style="color:#f92672">);</span>
+    String regex <span style="color:#f92672">=</span> scanner<span style="color:#f92672">.</span><span style="color:#a6e22e">nextLine</span><span style="color:#f92672">();</span>
+    scanner<span style="color:#f92672">.</span><span style="color:#a6e22e">close</span><span style="color:#f92672">();</span>
+
+    <span style="color:#75715e">//
+</span><span style="color:#75715e"></span>    VirtualMachine vm <span style="color:#f92672">=</span> VirtualMachine<span style="color:#f92672">.</span><span style="color:#a6e22e">attach</span><span style="color:#f92672">(</span>pid<span style="color:#f92672">);</span>
+    <span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
+      vm<span style="color:#f92672">.</span><span style="color:#a6e22e">loadAgent</span><span style="color:#f92672">(</span>targetPath <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;/javase-instrument.jar&#34;</span><span style="color:#f92672">,</span>
+                   <span style="color:#e6db74">&#34;&#34;</span> <span style="color:#f92672">+</span>
+                   <span style="color:#e6db74">&#34;ClassToFileTransformer=true;&#34;</span> <span style="color:#f92672">+</span>
+                   <span style="color:#e6db74">&#34;debug=true;&#34;</span> <span style="color:#f92672">+</span>
+                   <span style="color:#e6db74">&#34;regex=&#34;</span> <span style="color:#f92672">+</span> regex <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;;&#34;</span> <span style="color:#f92672">+</span>
+                   <span style="color:#e6db74">&#34;path=&#34;</span> <span style="color:#f92672">+</span> targetPath
+                  <span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span> <span style="color:#66d9ef">finally</span> <span style="color:#f92672">{</span>
+      vm<span style="color:#f92672">.</span><span style="color:#a6e22e">detach</span><span style="color:#f92672">();</span>
+    <span style="color:#f92672">}</span>
+  <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><h2 id="read-more">Read More</h2>
+<ul>
+<li>
+<p>Code @see 
+  <a href="https://github.com/hello-world-example/Java/tree/master/javase-instrument">Java / javase-instrument</a></p>
+</li>
+<li>
+<p>
+  <a href="https://www.ibm.com/developerworks/cn/java/j-lo-jse61/index.html">Java SE 6 新特性 - Instrumentation 新功能</a></p>
+</li>
+<li>
+<p>
+  <a href="https://www.jianshu.com/p/5c62b71fd882">深入理解 Instrument</a></p>
+</li>
+<li>
+<p>
+  <a href="https://mp.weixin.qq.com/s/ZlNcvwJ_swspifWTLHA92Q">Java 动态调试技术原理及实践</a></p>
+</li>
+</ul>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex justify-between">
+
+
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/hello-world-example/Java/edit/master/HuGo/content/docs/java.lang/instrument/JavaAgent.md" target="_blank" rel="noopener">
+      <img src="/Java/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
+    </a>
+  </div>
+
+</div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#javaagent">JavaAgent</a>
+      <ul>
+        <li><a href="#概述">概述</a></li>
+        <li><a href="#agent-签名">agent 签名</a></li>
+        <li><a href="#meta-infmanifestmf">META-INF/MANIFEST.MF</a></li>
+        <li><a href="#示例">示例</a>
+          <ul>
+            <li><a href="#agentjava">Agent.java</a></li>
+            <li><a href="#classtofiletransformerjava">ClassToFileTransformer.java</a></li>
+          </ul>
+        </li>
+        <li><a href="#premain-agent-方式">premain agent 方式</a></li>
+        <li><a href="#agentmain-attach-方式">agentmain attach 方式</a>
+          <ul>
+            <li><a href="#增加依赖">增加依赖</a></li>
+            <li><a href="#mainjava">Main.java</a></li>
+          </ul>
+        </li>
+        <li><a href="#read-more">Read More</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+ 
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

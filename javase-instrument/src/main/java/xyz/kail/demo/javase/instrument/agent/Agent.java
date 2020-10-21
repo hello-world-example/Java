@@ -10,9 +10,9 @@ import java.util.regex.Pattern;
 public class Agent {
 
     /**
-     * 在 Java6 开始，支持再运行时使用 Agent
+     * 在 Java6 开始，支持在运行时使用 Agent
      */
-    public static void agentmain(String args, Instrumentation instrumentation) throws UnmodifiableClassException, IllegalAccessException, InstantiationException {
+    public static void agentmain(String args, Instrumentation instrumentation) throws UnmodifiableClassException {
         Map<String, String> params = parseArgs(args);
         if (params.isEmpty()) {
             System.err.println("缺少参数");
@@ -36,6 +36,7 @@ public class Agent {
         for (Class clazz : allLoadedClasses) {
             // 如果类名匹配正则，重新转换类
             if (Pattern.matches(regex, clazz.getName())) {
+                // Attach 时，类已经被加载，但是 instrumentation.addTransformer 是后执行的，所以需要 重新转换类
                 instrumentation.retransformClasses(clazz);
             }
         }
