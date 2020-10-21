@@ -21,6 +21,7 @@
         <module>javase-socket</module>
         <module>javase-lock</module>
         <module>javase-jdbc</module>
+        <module>javase-instrument</module>
     </modules>
 
     <dependencies>
