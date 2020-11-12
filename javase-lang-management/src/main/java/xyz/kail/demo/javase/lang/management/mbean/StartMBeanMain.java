@@ -1,5 +1,7 @@
 package xyz.kail.demo.javase.lang.management.mbean;
 
+import xyz.kail.demo.javase.lang.management.mbean.listener.HelloListener;
+
 import javax.management.MBeanServer;
 import javax.management.ObjectName;
 import java.lang.management.ManagementFactory;
@@ -21,6 +23,9 @@ public class StartMBeanMain {
 
         // 注册 MBean
         mBeanServer.registerMBean(helloWorldMBean, objectName);
+
+        // 增加监听器
+        mBeanServer.addNotificationListener(objectName, new HelloListener(), null, null);
 
         // success
         System.out.println("MBean 注册成功");

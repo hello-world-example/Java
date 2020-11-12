@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="JXM MBean JMX (Java Management Extensions) 是 Java 管理扩展，MBean(Managed Beans) 是 被管理的Beans。
+ 一个 MBean 是一个被管理的 Java 对象，有点类似于 JavaBean 任何资源都可以被表示为 MBean MBean 会对外暴露一个接口，这个接口可以读取或者写入一些对象中的属性  暴露 MBean 定义MBean接口  接口必须以 MBean 结尾 一般方法会以 &ldquo;操作 (Operations)&quot; 的形式展示 get/set 方法会以 &ldquo;属性 (Attributes)&quot; 的形式展示  package xyz.kail.demo.javase.lang.management.mbean; /** * 定义 MBean 接口，与一般的接口类似，**但是必须以MBean结尾** */ public interface HelloWorldMBean { /** * 定义 MBean 的名字 */ String TYPE_HELLO_WORLD = &#34;xyz.kail.demo.jmx:type=HelloWorld&#34;; /** * 一般方法会以&#34;操作&#34;的形式在 JConsole 或者 JvisualVM 显示 */ void hello(); void say(String name); /** * get/set 方法会以&#34;属性&#34;的形式在 JConsole 或者 JvisualVM 显示 */ String getName(); void setName(String name); } 实现MBean接口 package xyz."><meta property="og:title" content="" />
+<meta property="og:description" content="JXM MBean JMX (Java Management Extensions) 是 Java 管理扩展，MBean(Managed Beans) 是 被管理的Beans。
+ 一个 MBean 是一个被管理的 Java 对象，有点类似于 JavaBean 任何资源都可以被表示为 MBean MBean 会对外暴露一个接口，这个接口可以读取或者写入一些对象中的属性  暴露 MBean 定义MBean接口  接口必须以 MBean 结尾 一般方法会以 &ldquo;操作 (Operations)&quot; 的形式展示 get/set 方法会以 &ldquo;属性 (Attributes)&quot; 的形式展示  package xyz.kail.demo.javase.lang.management.mbean; /** * 定义 MBean 接口，与一般的接口类似，**但是必须以MBean结尾** */ public interface HelloWorldMBean { /** * 定义 MBean 的名字 */ String TYPE_HELLO_WORLD = &#34;xyz.kail.demo.jmx:type=HelloWorld&#34;; /** * 一般方法会以&#34;操作&#34;的形式在 JConsole 或者 JvisualVM 显示 */ void hello(); void say(String name); /** * get/set 方法会以&#34;属性&#34;的形式在 JConsole 或者 JvisualVM 显示 */ String getName(); void setName(String name); } 实现MBean接口 package xyz." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://hello-world-example.github.io/Java/docs/java.lang/management/JMX-MBean/" />
+<meta property="article:modified_time" content="2020-11-12T17:19:46+08:00" />
+<title>J M X M Bean | Java</title>
+<link rel="icon" href="/Java/favicon.png" type="image/x-icon">
+
+
+<link rel="stylesheet" href="/Java/book.min.d436f463c9471cfab26a8b71cd2f50b6abf5225806391453da4ca111d1834fef.css" integrity="sha256-1Db0Y8lHHPqyaotxzS9Qtqv1IlgGORRT2kyhEdGDT&#43;8=">
+
+
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body>
+  <input type="checkbox" class="hidden" id="menu-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/Java"><span>Java</span>
+  </a>
+</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+  <ul>
+<li>
+<p><strong>GC</strong></p>
+<ul>
+<li>
+  <a href="/Java/docs/GC/JVM-Args/">JVM 参数</a></li>
+</ul>
+</li>
+<li>
+<p><strong>java.lang</strong></p>
+<ul>
+<li>
+  <a href="/Java/docs/java.lang/SecurityManager/">SecurityManager</a></li>
+</ul>
+</li>
+<li>
+<p><strong>java.lang.instrument</strong></p>
+<ul>
+<li>
+  <a href="/Java/docs/java.lang/instrument/JavaAgent/">JavaAgent</a></li>
+</ul>
+</li>
+<li>
+<p><strong>java.lang.management</strong></p>
+<ul>
+<li>
+  <a href="/Java/docs/java.lang/management/JMX-MBean/"class=active>JXM MBean</a></li>
+<li>
+  <a href="/Java/docs/java.lang/management/MBean-Notification/">MBean 变更通知</a></li>
+<li>
+  <a href="/Java/docs/java.lang/management/JmxMetricsUtil/">JmxMetrics 工具</a></li>
+</ul>
+</li>
+<li>
+<p><strong>java.rmi</strong></p>
+<ul>
+<li>
+  <a href="/Java/docs/java.rmi/HelloWorld/">RMI 入门示例</a></li>
+</ul>
+</li>
+<li>
+<p><strong>java.time</strong></p>
+<ul>
+<li>
+  <a href="/Java/docs/java.time/Core/">关键概念</a></li>
+<li>
+  <a href="/Java/docs/java.time/Action/">常见操作</a></li>
+<li>
+  <a href="/Java/docs/java.time/Gap/">时间区间</a></li>
+</ul>
+</li>
+<li>
+<p>
+  <a href="/Java-IO"><strong>java.nio 🔗</strong></a></p>
+</li>
+<li>
+<p>
+  <a href="/Java-Concurrent"><strong>java.util.concurrent 🔗</strong></a></p>
+</li>
+<li>
+<p><strong>java.util.regex</strong></p>
+<ul>
+<li>
+  <a href="/Java/docs/java.util.regex/Pattern/">Pattern</a></li>
+<li>
+  <a href="/Java/docs/java.util.regex/Grok/">Grok</a></li>
+</ul>
+</li>
+<li>
+<p>
+  <a href="/Troubleshooting/docs/Java/"><strong>内置工具 🔗</strong></a></p>
+</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/Java/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>J M X M Bean</strong>
+
+  <label for="toc-control">
+    <img src="/Java/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+  </label>
+</div>
+
+
+  
+    <input type="checkbox" class="hidden" id="toc-control" />
+    <aside class="hidden clearfix">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#jxm-mbean">JXM MBean</a>
+      <ul>
+        <li><a href="#暴露-mbean">暴露 MBean</a>
+          <ul>
+            <li><a href="#定义mbean接口">定义MBean接口</a></li>
+            <li><a href="#实现mbean接口">实现MBean接口</a></li>
+            <li><a href="#注册-mbean">注册 MBean</a></li>
+          </ul>
+        </li>
+        <li><a href="#获取本地-mbean">获取本地 MBean</a></li>
+        <li><a href="#获取远程-mbean">获取远程 MBean</a></li>
+        <li><a href="#调用-mbean">调用 MBean</a></li>
+        <li><a href="#read-more">Read More</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+    </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="jxm-mbean">JXM MBean</h1>
+<p>JMX (Java Management Extensions) 是 Java 管理扩展，MBean(Managed Beans) 是 被管理的Beans。</p>
+<ul>
+<li>一个 MBean 是一个被管理的 Java 对象，有点类似于 JavaBean</li>
+<li>任何资源都可以被表示为 MBean</li>
+<li>MBean 会对外暴露一个接口，这个接口可以读取或者写入一些对象中的属性</li>
+</ul>
+<h2 id="暴露-mbean">暴露 MBean</h2>
+<h3 id="定义mbean接口">定义MBean接口</h3>
+<ul>
+<li>接口必须以 <code>MBean</code> 结尾</li>
+<li>一般方法会以 <strong>&ldquo;操作 (Operations)&quot;</strong> 的形式展示</li>
+<li>get/set 方法会以 <strong>&ldquo;属性 (Attributes)&quot;</strong> 的形式展示</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">package</span> xyz.kail.demo.javase.lang.management.mbean<span style="color:#f92672">;</span>
+
+<span style="color:#75715e">/**
+</span><span style="color:#75715e"> * 定义 MBean 接口，与一般的接口类似，**但是必须以MBean结尾**
+</span><span style="color:#75715e"> */</span>
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">HelloWorldMBean</span> <span style="color:#f92672">{</span>
+
+    <span style="color:#75715e">/**
+</span><span style="color:#75715e">     * 定义 MBean 的名字
+</span><span style="color:#75715e">     */</span>
+    String TYPE_HELLO_WORLD <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;xyz.kail.demo.jmx:type=HelloWorld&#34;</span><span style="color:#f92672">;</span>
+
+    <span style="color:#75715e">/**
+</span><span style="color:#75715e">     * 一般方法会以&#34;操作&#34;的形式在 JConsole 或者 JvisualVM 显示
+</span><span style="color:#75715e">     */</span>
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">hello</span><span style="color:#f92672">();</span>
+
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">say</span><span style="color:#f92672">(</span>String name<span style="color:#f92672">);</span>
+
+
+    <span style="color:#75715e">/**
+</span><span style="color:#75715e">     * get/set 方法会以&#34;属性&#34;的形式在 JConsole 或者 JvisualVM 显示
+</span><span style="color:#75715e">     */</span>
+    String <span style="color:#a6e22e">getName</span><span style="color:#f92672">();</span>
+
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">setName</span><span style="color:#f92672">(</span>String name<span style="color:#f92672">);</span>
+
+<span style="color:#f92672">}</span>  
+</code></pre></div><h3 id="实现mbean接口">实现MBean接口</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">package</span> xyz.kail.demo.javase.lang.management.mbean<span style="color:#f92672">;</span>
+
+<span style="color:#75715e">/**
+</span><span style="color:#75715e"> * @author kail
+</span><span style="color:#75715e"> */</span>
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">HelloWorld</span> <span style="color:#66d9ef">implements</span> HelloWorldMBean <span style="color:#f92672">{</span>
+
+    <span style="color:#66d9ef">private</span> String name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Kail&#34;</span><span style="color:#f92672">;</span>
+
+    <span style="color:#75715e">/**
+</span><span style="color:#75715e">     * 打印属性名
+</span><span style="color:#75715e">     */</span>
+    <span style="color:#a6e22e">@Override</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">hello</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Hello World ：&#34;</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">name</span><span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#a6e22e">@Override</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">say</span><span style="color:#f92672">(</span>String name<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Hello &#34;</span> <span style="color:#f92672">+</span> name <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; !&#34;</span><span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#a6e22e">@Override</span>
+    <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">getName</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">return</span> name<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#a6e22e">@Override</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">setName</span><span style="color:#f92672">(</span>String name<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> name<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+
+<span style="color:#f92672">}</span>  
+</code></pre></div><h3 id="注册-mbean">注册 MBean</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">package</span> xyz.kail.demo.javase.lang.management.mbean<span style="color:#f92672">;</span>
+
+<span style="color:#f92672">import</span> javax.management.MBeanServer<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> javax.management.ObjectName<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.lang.management.ManagementFactory<span style="color:#f92672">;</span>
+
+<span style="color:#75715e">/**
+</span><span style="color:#75715e"> * @author kail
+</span><span style="color:#75715e"> */</span>
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">StartMBeanMain</span> <span style="color:#f92672">{</span>
+
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> Exception <span style="color:#f92672">{</span>
+        <span style="color:#75715e">// 获取 MBeanServer
+</span><span style="color:#75715e"></span>        MBeanServer mBeanServer <span style="color:#f92672">=</span> ManagementFactory<span style="color:#f92672">.</span><span style="color:#a6e22e">getPlatformMBeanServer</span><span style="color:#f92672">();</span>
+
+        <span style="color:#75715e">// 新建MBean ObjectName, 在MBeanServer里标识注册的MBean
+</span><span style="color:#75715e"></span>        ObjectName objectName <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ObjectName<span style="color:#f92672">(</span>HelloWorldMBean<span style="color:#f92672">.</span><span style="color:#a6e22e">TYPE_HELLO_WORLD</span><span style="color:#f92672">);</span>
+
+        <span style="color:#75715e">// 创建MBean
+</span><span style="color:#75715e"></span>        HelloWorldMBean helloWorldMBean <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> HelloWorld<span style="color:#f92672">();</span>
+
+        <span style="color:#75715e">// 注册 MBean
+</span><span style="color:#75715e"></span>        mBeanServer<span style="color:#f92672">.</span><span style="color:#a6e22e">registerMBean</span><span style="color:#f92672">(</span>helloWorldMBean<span style="color:#f92672">,</span> objectName<span style="color:#f92672">);</span>
+
+        <span style="color:#75715e">// 结束程序的时候在控制台随便输入点什么
+</span><span style="color:#75715e"></span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">in</span><span style="color:#f92672">.</span><span style="color:#a6e22e">read</span><span style="color:#f92672">();</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><h2 id="获取本地-mbean">获取本地 MBean</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">package</span> xyz.kail.demo.javase.lang.management.mbean<span style="color:#f92672">;</span>
+
+<span style="color:#f92672">import</span> javax.management.*<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.lang.management.ManagementFactory<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.util.Arrays<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.util.Iterator<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.util.Set<span style="color:#f92672">;</span>
+
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">GetMBeanMain</span> <span style="color:#f92672">{</span>
+
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> MalformedObjectNameException<span style="color:#f92672">,</span> IntrospectionException<span style="color:#f92672">,</span> InstanceNotFoundException<span style="color:#f92672">,</span> ReflectionException <span style="color:#f92672">{</span>
+        MBeanServer mBeanServer <span style="color:#f92672">=</span> ManagementFactory<span style="color:#f92672">.</span><span style="color:#a6e22e">getPlatformMBeanServer</span><span style="color:#f92672">();</span>
+
+        String<span style="color:#f92672">[]</span> domains <span style="color:#f92672">=</span> mBeanServer<span style="color:#f92672">.</span><span style="color:#a6e22e">getDomains</span><span style="color:#f92672">();</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>Arrays<span style="color:#f92672">.</span><span style="color:#a6e22e">asList</span><span style="color:#f92672">(</span>domains<span style="color:#f92672">));</span>
+
+        Integer mBeanCount <span style="color:#f92672">=</span> mBeanServer<span style="color:#f92672">.</span><span style="color:#a6e22e">getMBeanCount</span><span style="color:#f92672">();</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>mBeanCount<span style="color:#f92672">);</span>
+
+        <span style="color:#75715e">// ❤ 匹配所有
+</span><span style="color:#75715e"></span>        Set<span style="color:#f92672">&lt;</span>ObjectName<span style="color:#f92672">&gt;</span> objectNames <span style="color:#f92672">=</span> mBeanServer<span style="color:#f92672">.</span><span style="color:#a6e22e">queryNames</span><span style="color:#f92672">(</span><span style="color:#66d9ef">null</span><span style="color:#f92672">,</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">);</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;【All】 : &#34;</span> <span style="color:#f92672">+</span> objectNames<span style="color:#f92672">);</span>
+
+        <span style="color:#75715e">// 通配符 1
+</span><span style="color:#75715e"></span>        objectNames <span style="color:#f92672">=</span> mBeanServer<span style="color:#f92672">.</span><span style="color:#a6e22e">queryNames</span><span style="color:#f92672">(</span>ObjectName<span style="color:#f92672">.</span><span style="color:#a6e22e">getInstance</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;java.lang:*&#34;</span><span style="color:#f92672">),</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">);</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;【java.lang:*】 : &#34;</span> <span style="color:#f92672">+</span> objectNames<span style="color:#f92672">);</span>
+
+        <span style="color:#75715e">// 通配符 2
+</span><span style="color:#75715e"></span>        objectNames <span style="color:#f92672">=</span> mBeanServer<span style="color:#f92672">.</span><span style="color:#a6e22e">queryNames</span><span style="color:#f92672">(</span>ObjectName<span style="color:#f92672">.</span><span style="color:#a6e22e">getInstance</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;java.lang:type=MemoryPool,*&#34;</span><span style="color:#f92672">),</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">);</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;【java.lang:type=MemoryPool,*】 : &#34;</span> <span style="color:#f92672">+</span> objectNames<span style="color:#f92672">);</span>
+
+        <span style="color:#75715e">// 通配符 3
+</span><span style="color:#75715e"></span>        objectNames <span style="color:#f92672">=</span> mBeanServer<span style="color:#f92672">.</span><span style="color:#a6e22e">queryNames</span><span style="color:#f92672">(</span>ObjectName<span style="color:#f92672">.</span><span style="color:#a6e22e">getInstance</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;java.lang:type=MemoryPool,name=PS*&#34;</span><span style="color:#f92672">),</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">);</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;【java.lang:type=MemoryPool,name=PS*】 : &#34;</span> <span style="color:#f92672">+</span> objectNames<span style="color:#f92672">);</span>
+
+        <span style="color:#75715e">// 精确匹配
+</span><span style="color:#75715e"></span>        objectNames <span style="color:#f92672">=</span> mBeanServer<span style="color:#f92672">.</span><span style="color:#a6e22e">queryNames</span><span style="color:#f92672">(</span>ObjectName<span style="color:#f92672">.</span><span style="color:#a6e22e">getInstance</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;java.lang:type=GarbageCollector,name=PS Scavenge&#34;</span><span style="color:#f92672">),</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">);</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;【java.lang:type=GarbageCollector,name=PS Scavenge】 : &#34;</span> <span style="color:#f92672">+</span> objectNames<span style="color:#f92672">);</span>
+
+        <span style="color:#75715e">// 读取属性
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span>ObjectName objectName <span style="color:#f92672">:</span> objectNames<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            MBeanInfo mBeanInfo <span style="color:#f92672">=</span> mBeanServer<span style="color:#f92672">.</span><span style="color:#a6e22e">getMBeanInfo</span><span style="color:#f92672">(</span>objectName<span style="color:#f92672">);</span>
+            <span style="color:#75715e">// 获取 属性 Name
+</span><span style="color:#75715e"></span>            String<span style="color:#f92672">[]</span> attributeNames <span style="color:#f92672">=</span> Arrays<span style="color:#f92672">.</span><span style="color:#a6e22e">stream</span><span style="color:#f92672">(</span>mBeanInfo<span style="color:#f92672">.</span><span style="color:#a6e22e">getAttributes</span><span style="color:#f92672">()).</span><span style="color:#a6e22e">map</span><span style="color:#f92672">(</span>MBeanFeatureInfo<span style="color:#f92672">::</span>getName<span style="color:#f92672">).</span><span style="color:#a6e22e">toArray</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]::</span><span style="color:#66d9ef">new</span><span style="color:#f92672">);</span>
+            <span style="color:#75715e">// 批量获取属性列表
+</span><span style="color:#75715e"></span>            AttributeList attributes <span style="color:#f92672">=</span> mBeanServer<span style="color:#f92672">.</span><span style="color:#a6e22e">getAttributes</span><span style="color:#f92672">(</span>objectName<span style="color:#f92672">,</span> attributeNames<span style="color:#f92672">);</span>
+            Iterator<span style="color:#f92672">&lt;</span>Object<span style="color:#f92672">&gt;</span> iterator <span style="color:#f92672">=</span> attributes<span style="color:#f92672">.</span><span style="color:#a6e22e">iterator</span><span style="color:#f92672">();</span>
+            <span style="color:#66d9ef">while</span> <span style="color:#f92672">(</span>iterator<span style="color:#f92672">.</span><span style="color:#a6e22e">hasNext</span><span style="color:#f92672">())</span> <span style="color:#f92672">{</span>
+                Object next <span style="color:#f92672">=</span> iterator<span style="color:#f92672">.</span><span style="color:#a6e22e">next</span><span style="color:#f92672">();</span>
+                System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;    &#34;</span> <span style="color:#f92672">+</span> next<span style="color:#f92672">.</span><span style="color:#a6e22e">toString</span><span style="color:#f92672">());</span>
+            <span style="color:#f92672">}</span>
+
+        <span style="color:#f92672">}</span>
+    <span style="color:#f92672">}</span>
+
+<span style="color:#f92672">}</span>
+
+</code></pre></div><h2 id="获取远程-mbean">获取远程 MBean</h2>
+<blockquote>
+<p>在启动 StartMBeanMain 的时候增加 JVM 参数</p>
+<ul>
+<li>-Dcom.sun.management.jmxremote=true</li>
+<li>-Dcom.sun.management.jmxremote.port=12345</li>
+<li>-Dcom.sun.management.jmxremote.ssl=false</li>
+<li>-Dcom.sun.management.jmxremote.authenticate=false</li>
+</ul>
+</blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">import static</span> xyz.kail.demo.javase.lang.management.mbean.HelloWorldMBean.TYPE_HELLO_WORLD<span style="color:#f92672">;</span>
+
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">GetRemoteMBeanMain</span> <span style="color:#f92672">{</span>
+
+  <span style="color:#75715e">// 固定格式
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> String JMX_URL_TEMPLATE <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;service:jmx:rmi:///jndi/rmi://%s/jmxrmi&#34;</span><span style="color:#f92672">;</span>
+
+  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> IOException<span style="color:#f92672">,</span> MalformedObjectNameException <span style="color:#f92672">{</span>
+
+    <span style="color:#75715e">// 构造 JMX rmi 链接
+</span><span style="color:#75715e"></span>    String jmxUrl <span style="color:#f92672">=</span> String<span style="color:#f92672">.</span><span style="color:#a6e22e">format</span><span style="color:#f92672">(</span>JMX_URL_TEMPLATE<span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;127.0.0.1:12345&#34;</span><span style="color:#f92672">);</span>
+
+    <span style="color:#75715e">// 链接到远程
+</span><span style="color:#75715e"></span>    JMXConnector connect <span style="color:#f92672">=</span> JMXConnectorFactory<span style="color:#f92672">.</span><span style="color:#a6e22e">connect</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> JMXServiceURL<span style="color:#f92672">(</span>jmxUrl<span style="color:#f92672">));</span>
+
+    <span style="color:#75715e">// 获取 MBean 远程链接
+</span><span style="color:#75715e"></span>    MBeanServerConnection mBeanServer <span style="color:#f92672">=</span> connect<span style="color:#f92672">.</span><span style="color:#a6e22e">getMBeanServerConnection</span><span style="color:#f92672">();</span>
+
+    <span style="color:#75715e">// 查询 MBean
+</span><span style="color:#75715e"></span>    ObjectName objectName <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ObjectName<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;xyz.kail.demo.jmx:type=HelloWorld&#34;</span><span style="color:#f92672">);</span>
+    Set<span style="color:#f92672">&lt;</span>ObjectInstance<span style="color:#f92672">&gt;</span> objectInstances <span style="color:#f92672">=</span> mBeanServer<span style="color:#f92672">.</span><span style="color:#a6e22e">queryMBeans</span><span style="color:#f92672">(</span>objectName<span style="color:#f92672">,</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">);</span>
+
+    System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>objectInstances<span style="color:#f92672">);</span>
+
+  <span style="color:#f92672">}</span>
+
+<span style="color:#f92672">}</span>
+</code></pre></div><blockquote>
+<p>
+  <a href="https://stackoverflow.com/questions/2768087/explain-jmx-url">Explain JMX URL service:jmx:rmi:///jndi/rmi://</a></p>
+</blockquote>
+<h2 id="调用-mbean">调用 MBean</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">MBeanInfo mBeanInfo <span style="color:#f92672">=</span> mBeanServer<span style="color:#f92672">.</span><span style="color:#a6e22e">getMBeanInfo</span><span style="color:#f92672">(</span>objectName<span style="color:#f92672">);</span>
+
+<span style="color:#75715e">// 获取所有的操作
+</span><span style="color:#75715e"></span>MBeanOperationInfo<span style="color:#f92672">[]</span> operations <span style="color:#f92672">=</span> mBeanInfo<span style="color:#f92672">.</span><span style="color:#a6e22e">getOperations</span><span style="color:#f92672">();</span>
+
+<span style="color:#75715e">// 打印操作信息
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span>MBeanOperationInfo operation <span style="color:#f92672">:</span> operations<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+  System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>operation<span style="color:#f92672">.</span><span style="color:#a6e22e">toString</span><span style="color:#f92672">());</span>
+<span style="color:#f92672">}</span>
+
+<span style="color:#75715e">// 调用带参数的 say 方法
+</span><span style="color:#75715e"></span>mBeanServer<span style="color:#f92672">.</span><span style="color:#a6e22e">invoke</span><span style="color:#f92672">(</span>objectName<span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;say&#34;</span><span style="color:#f92672">,</span> <span style="color:#66d9ef">new</span> Object<span style="color:#f92672">[]{</span><span style="color:#e6db74">&#34;World2&#34;</span><span style="color:#f92672">},</span> <span style="color:#66d9ef">new</span> String<span style="color:#f92672">[]{</span><span style="color:#e6db74">&#34;java.lang.String&#34;</span><span style="color:#f92672">});</span>
+
+<span style="color:#75715e">// 调用 hello 方法
+</span><span style="color:#75715e"></span>mBeanServer<span style="color:#f92672">.</span><span style="color:#a6e22e">invoke</span><span style="color:#f92672">(</span>objectName<span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;hello&#34;</span><span style="color:#f92672">,</span> <span style="color:#66d9ef">new</span> Object<span style="color:#f92672">[]{},</span> <span style="color:#66d9ef">new</span> String<span style="color:#f92672">[]{});</span>
+</code></pre></div><h2 id="read-more">Read More</h2>
+<ul>
+<li>Oracle 
+  <a href="https://docs.oracle.com/javase/8/docs/technotes/guides/management/agent.html">Monitoring and Management Using JMX Technology</a></li>
+<li>Oracle 
+  <a href="http://docs.oracle.com/javase/8/docs/technotes/guides/jmx/index.html">Java Management Extensions (JMX)</a></li>
+<li>JDK 文档
+<ul>
+<li>
+  <a href="https://tool.oschina.net/uploads/apidocs/jdk-zh/java/lang/management/package-summary.html"> java.lang.management</a></li>
+<li>
+  <a href="http://tool.oschina.net/uploads/apidocs/jdk-zh/javax/management/package-summary.html">javax.management</a></li>
+</ul>
+</li>
+<li>
+  <a href="https://www.ibm.com/support/knowledgecenter/zh/SSYKE2_8.0.0/com.ibm.java.vm.80.doc/docs/mxbeans.html">MBean 和 MXBean</a></li>
+</ul>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex justify-between">
+
+
+
+  <div>
+    
+    <a class="flex align-center" href="https://github.com/hello-world-example/Java/commit/6bfa34a0bbd670d98dcc7d7e1798d149840b90b9" title='Last modified by kailbin | Nov 12, 2020' target="_blank" rel="noopener">
+      <img src="/Java/svg/calendar.svg" class="book-icon" alt="Calendar" />
+      <span>Nov 12, 2020</span>
+    </a>
+  </div>
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/hello-world-example/Java/edit/master/HuGo/content/docs/java.lang/management/JMX-MBean.md" target="_blank" rel="noopener">
+      <img src="/Java/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
+    </a>
+  </div>
+
+</div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#jxm-mbean">JXM MBean</a>
+      <ul>
+        <li><a href="#暴露-mbean">暴露 MBean</a>
+          <ul>
+            <li><a href="#定义mbean接口">定义MBean接口</a></li>
+            <li><a href="#实现mbean接口">实现MBean接口</a></li>
+            <li><a href="#注册-mbean">注册 MBean</a></li>
+          </ul>
+        </li>
+        <li><a href="#获取本地-mbean">获取本地 MBean</a></li>
+        <li><a href="#获取远程-mbean">获取远程 MBean</a></li>
+        <li><a href="#调用-mbean">调用 MBean</a></li>
+        <li><a href="#read-more">Read More</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+ 
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

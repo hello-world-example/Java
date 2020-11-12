@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="JmxMetrics 工具 本文 提供了一个 Java 工具类，用来获取诸如以下的 JVM 数据：
+ 类加载信息 编译信息 操作系统信息  系统名称、架构、版本、负载 &hellip; 物理内存信息 CPU 信息 等   运行时信息  进程ID JVM 版本信息 启动参数 系统属性 启动时间、运行时常 等   线程信息  线程状态 死锁检查 等   JVM 内存信息  内存使用情况 各个区域内存使用情况 垃圾收集器信息 等    PlatformManagedObject 的 继承结构 PlatformManagedObject (java.lang.management) CompilationMXBean (java.lang.management) MemoryMXBean (java.lang.management) RuntimeMXBean (java.lang.management) BufferPoolMXBean (java.lang.management) MemoryPoolMXBean (java.lang.management) PlatformLoggingMXBean (java.lang.management) HotSpotDiagnosticMXBean (com.sun.management) SystemResourcePressureMXBean (jdk.management.cmm) MemoryManagerMXBean (java."><meta property="og:title" content="" />
+<meta property="og:description" content="JmxMetrics 工具 本文 提供了一个 Java 工具类，用来获取诸如以下的 JVM 数据：
+ 类加载信息 编译信息 操作系统信息  系统名称、架构、版本、负载 &hellip; 物理内存信息 CPU 信息 等   运行时信息  进程ID JVM 版本信息 启动参数 系统属性 启动时间、运行时常 等   线程信息  线程状态 死锁检查 等   JVM 内存信息  内存使用情况 各个区域内存使用情况 垃圾收集器信息 等    PlatformManagedObject 的 继承结构 PlatformManagedObject (java.lang.management) CompilationMXBean (java.lang.management) MemoryMXBean (java.lang.management) RuntimeMXBean (java.lang.management) BufferPoolMXBean (java.lang.management) MemoryPoolMXBean (java.lang.management) PlatformLoggingMXBean (java.lang.management) HotSpotDiagnosticMXBean (com.sun.management) SystemResourcePressureMXBean (jdk.management.cmm) MemoryManagerMXBean (java." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://hello-world-example.github.io/Java/docs/java.lang/management/JmxMetricsUtil/" />
+<meta property="article:modified_time" content="2020-11-12T17:19:46+08:00" />
+<title>Jmx Metrics Util | Java</title>
+<link rel="icon" href="/Java/favicon.png" type="image/x-icon">
+
+
+<link rel="stylesheet" href="/Java/book.min.d436f463c9471cfab26a8b71cd2f50b6abf5225806391453da4ca111d1834fef.css" integrity="sha256-1Db0Y8lHHPqyaotxzS9Qtqv1IlgGORRT2kyhEdGDT&#43;8=">
+
+
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body>
+  <input type="checkbox" class="hidden" id="menu-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/Java"><span>Java</span>
+  </a>
+</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+  <ul>
+<li>
+<p><strong>GC</strong></p>
+<ul>
+<li>
+  <a href="/Java/docs/GC/JVM-Args/">JVM 参数</a></li>
+</ul>
+</li>
+<li>
+<p><strong>java.lang</strong></p>
+<ul>
+<li>
+  <a href="/Java/docs/java.lang/SecurityManager/">SecurityManager</a></li>
+</ul>
+</li>
+<li>
+<p><strong>java.lang.instrument</strong></p>
+<ul>
+<li>
+  <a href="/Java/docs/java.lang/instrument/JavaAgent/">JavaAgent</a></li>
+</ul>
+</li>
+<li>
+<p><strong>java.lang.management</strong></p>
+<ul>
+<li>
+  <a href="/Java/docs/java.lang/management/JMX-MBean/">JXM MBean</a></li>
+<li>
+  <a href="/Java/docs/java.lang/management/MBean-Notification/">MBean 变更通知</a></li>
+<li>
+  <a href="/Java/docs/java.lang/management/JmxMetricsUtil/"class=active>JmxMetrics 工具</a></li>
+</ul>
+</li>
+<li>
+<p><strong>java.rmi</strong></p>
+<ul>
+<li>
+  <a href="/Java/docs/java.rmi/HelloWorld/">RMI 入门示例</a></li>
+</ul>
+</li>
+<li>
+<p><strong>java.time</strong></p>
+<ul>
+<li>
+  <a href="/Java/docs/java.time/Core/">关键概念</a></li>
+<li>
+  <a href="/Java/docs/java.time/Action/">常见操作</a></li>
+<li>
+  <a href="/Java/docs/java.time/Gap/">时间区间</a></li>
+</ul>
+</li>
+<li>
+<p>
+  <a href="/Java-IO"><strong>java.nio 🔗</strong></a></p>
+</li>
+<li>
+<p>
+  <a href="/Java-Concurrent"><strong>java.util.concurrent 🔗</strong></a></p>
+</li>
+<li>
+<p><strong>java.util.regex</strong></p>
+<ul>
+<li>
+  <a href="/Java/docs/java.util.regex/Pattern/">Pattern</a></li>
+<li>
+  <a href="/Java/docs/java.util.regex/Grok/">Grok</a></li>
+</ul>
+</li>
+<li>
+<p>
+  <a href="/Troubleshooting/docs/Java/"><strong>内置工具 🔗</strong></a></p>
+</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/Java/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Jmx Metrics Util</strong>
+
+  <label for="toc-control">
+    <img src="/Java/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+  </label>
+</div>
+
+
+  
+    <input type="checkbox" class="hidden" id="toc-control" />
+    <aside class="hidden clearfix">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#jmxmetrics-工具">JmxMetrics 工具</a>
+      <ul>
+        <li><a href="#platformmanagedobject-的-继承结构">PlatformManagedObject 的 继承结构</a></li>
+        <li><a href="#工具类">工具类</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+    </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="jmxmetrics-工具">JmxMetrics 工具</h1>
+<p>本文 提供了一个 Java 工具类，用来获取诸如以下的 JVM 数据：</p>
+<ul>
+<li>类加载信息</li>
+<li>编译信息</li>
+<li>操作系统信息
+<ul>
+<li>系统名称、架构、版本、负载 &hellip;</li>
+<li>物理内存信息</li>
+<li>CPU 信息</li>
+<li>等</li>
+</ul>
+</li>
+<li>运行时信息
+<ul>
+<li>进程ID</li>
+<li>JVM 版本信息</li>
+<li>启动参数</li>
+<li>系统属性</li>
+<li>启动时间、运行时常</li>
+<li>等</li>
+</ul>
+</li>
+<li>线程信息
+<ul>
+<li>线程状态</li>
+<li>死锁检查</li>
+<li>等</li>
+</ul>
+</li>
+<li>JVM 内存信息
+<ul>
+<li>内存使用情况</li>
+<li>各个区域内存使用情况</li>
+<li>垃圾收集器信息</li>
+<li>等</li>
+</ul>
+</li>
+</ul>
+<h2 id="platformmanagedobject-的-继承结构">PlatformManagedObject 的 继承结构</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">PlatformManagedObject (java.lang.management)
+    CompilationMXBean (java.lang.management)
+    MemoryMXBean (java.lang.management)
+    RuntimeMXBean (java.lang.management)
+    BufferPoolMXBean (java.lang.management)
+    MemoryPoolMXBean (java.lang.management)
+    PlatformLoggingMXBean (java.lang.management)
+    HotSpotDiagnosticMXBean (com.sun.management)
+    SystemResourcePressureMXBean (jdk.management.cmm)
+    MemoryManagerMXBean (java.lang.management)
+    ThreadMXBean (java.lang.management)
+    OperatingSystemMXBean (java.lang.management)
+    ClassLoadingMXBean (java.lang.management)
+    ...
+</code></pre></div><p>通过 <code>ManagementFactory</code> 获取 <code>PlatformManagedObject</code> 的实现</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">ManagementFactory<span style="color:#f92672">.</span><span style="color:#a6e22e">getXxxxMXBean</span><span style="color:#f92672">()</span>
+</code></pre></div><h2 id="工具类">工具类</h2>
+<p>通过 <code>PlatformManagedObject</code> 的继承结构可以看出， JDK 提供了非常强大的扩展管理和监控功能。</p>
+<p>以下主要对进 JDK 提供的主要接口进行再次封装，并不完整，如需更精细的获取 JVM 数据，可参考 <code>PlatformManagedObject</code> 的体系结构，寻找合适的API。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">package</span> xyz.kail.demo.javase.lang.management.tool<span style="color:#f92672">;</span>
+
+<span style="color:#f92672">import</span> java.lang.management.*<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.lang.reflect.InvocationTargetException<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.lang.reflect.Method<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.util.*<span style="color:#f92672">;</span>
+
+<span style="color:#75715e">/**
+</span><span style="color:#75715e"> * @author kail
+</span><span style="color:#75715e"> */</span>
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">JmxMetricsUtil</span> <span style="color:#f92672">{</span>
+
+    <span style="color:#75715e">/**
+</span><span style="color:#75715e">     * 单位转换
+</span><span style="color:#75715e">     */</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Unit</span> <span style="color:#f92672">{</span>
+
+        <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">Unit</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        <span style="color:#f92672">}</span>
+
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">double</span> KB <span style="color:#f92672">=</span> 1024D<span style="color:#f92672">;</span>
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">double</span> MB <span style="color:#f92672">=</span> 1024D <span style="color:#f92672">*</span> KB<span style="color:#f92672">;</span>
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">double</span> GB <span style="color:#f92672">=</span> 1024D <span style="color:#f92672">*</span> MB<span style="color:#f92672">;</span>
+
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">double</span> <span style="color:#a6e22e">kb</span><span style="color:#f92672">(</span><span style="color:#66d9ef">double</span> b<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">return</span> b <span style="color:#f92672">/</span> KB<span style="color:#f92672">;</span>
+        <span style="color:#f92672">}</span>
+
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">double</span> <span style="color:#a6e22e">mb</span><span style="color:#f92672">(</span><span style="color:#66d9ef">double</span> b<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">return</span> b <span style="color:#f92672">/</span> MB<span style="color:#f92672">;</span>
+        <span style="color:#f92672">}</span>
+
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">double</span> <span style="color:#a6e22e">gb</span><span style="color:#f92672">(</span><span style="color:#66d9ef">double</span> b<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">return</span> b <span style="color:#f92672">/</span> GB<span style="color:#f92672">;</span>
+        <span style="color:#f92672">}</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#75715e">/**
+</span><span style="color:#75715e">     * 类加载信息
+</span><span style="color:#75715e">     */</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ClassLoading</span> <span style="color:#f92672">{</span>
+
+        <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">ClassLoading</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        <span style="color:#f92672">}</span>
+
+        <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> ClassLoadingMXBean LOADING_MX_BEAN <span style="color:#f92672">=</span> ManagementFactory<span style="color:#f92672">.</span><span style="color:#a6e22e">getClassLoadingMXBean</span><span style="color:#f92672">();</span>
+
+        <span style="color:#75715e">/**
+</span><span style="color:#75715e">         * 已加载类总数
+</span><span style="color:#75715e">         */</span>
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">long</span> <span style="color:#a6e22e">getTotalLoadedClassCount</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">return</span> LOADING_MX_BEAN<span style="color:#f92672">.</span><span style="color:#a6e22e">getTotalLoadedClassCount</span><span style="color:#f92672">();</span>
+        <span style="color:#f92672">}</span>
+
+
+        <span style="color:#75715e">/**
+</span><span style="color:#75715e">         * 已加载当前类
+</span><span style="color:#75715e">         */</span>
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">getLoadedClassCount</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">return</span> LOADING_MX_BEAN<span style="color:#f92672">.</span><span style="color:#a6e22e">getLoadedClassCount</span><span style="color:#f92672">();</span>
+        <span style="color:#f92672">}</span>
+
+
+        <span style="color:#75715e">/**
+</span><span style="color:#75715e">         * 已卸载类总数
+</span><span style="color:#75715e">         */</span>
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">long</span> <span style="color:#a6e22e">getUnloadedClassCount</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">return</span> LOADING_MX_BEAN<span style="color:#f92672">.</span><span style="color:#a6e22e">getUnloadedClassCount</span><span style="color:#f92672">();</span>
+        <span style="color:#f92672">}</span>
+
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#75715e">/**
+</span><span style="color:#75715e">     * 编译信息
+</span><span style="color:#75715e">     */</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Compilation</span> <span style="color:#f92672">{</span>
+
+        <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">Compilation</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        <span style="color:#f92672">}</span>
+
+
+        <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> CompilationMXBean COMPILATION_MX_BEAN <span style="color:#f92672">=</span> ManagementFactory<span style="color:#f92672">.</span><span style="color:#a6e22e">getCompilationMXBean</span><span style="color:#f92672">();</span>
+
+        <span style="color:#75715e">/**
+</span><span style="color:#75715e">         * JIT编译器名称
+</span><span style="color:#75715e">         */</span>
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> String <span style="color:#a6e22e">getName</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">return</span> COMPILATION_MX_BEAN<span style="color:#f92672">.</span><span style="color:#a6e22e">getName</span><span style="color:#f92672">();</span>
+        <span style="color:#f92672">}</span>
+
+        <span style="color:#75715e">/**
+</span><span style="color:#75715e">         * 判断jvm是否支持编译时间的监控
+</span><span style="color:#75715e">         */</span>
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">isCompilationTimeMonitoringSupported</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">return</span> COMPILATION_MX_BEAN<span style="color:#f92672">.</span><span style="color:#a6e22e">isCompilationTimeMonitoringSupported</span><span style="color:#f92672">();</span>
+        <span style="color:#f92672">}</span>
+
+        <span style="color:#75715e">/**
+</span><span style="color:#75715e">         * 总编译时间
+</span><span style="color:#75715e">         */</span>
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">long</span> <span style="color:#a6e22e">getTotalCompilationTime</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">if</span> <span style="color:#f92672">(!</span>isCompilationTimeMonitoringSupported<span style="color:#f92672">())</span> <span style="color:#f92672">{</span>
+                <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span>1L<span style="color:#f92672">;</span>
+            <span style="color:#f92672">}</span>
+            <span style="color:#66d9ef">return</span> COMPILATION_MX_BEAN<span style="color:#f92672">.</span><span style="color:#a6e22e">getTotalCompilationTime</span><span style="color:#f92672">();</span>
+        <span style="color:#f92672">}</span>
+
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#75715e">/**
+</span><span style="color:#75715e">     * 操作系统信息
+</span><span style="color:#75715e">     */</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">OperatingSystem</span> <span style="color:#f92672">{</span>
+
+        <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">OperatingSystem</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        <span style="color:#f92672">}</span>
+
+        <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> OperatingSystemMXBean SYSTEM_MX_BEAN <span style="color:#f92672">=</span> ManagementFactory<span style="color:#f92672">.</span><span style="color:#a6e22e">getOperatingSystemMXBean</span><span style="color:#f92672">();</span>
+
+        <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">boolean</span> IS_OPERATING_SYSTEM_IMPL<span style="color:#f92672">;</span>
+
+        <span style="color:#66d9ef">static</span> <span style="color:#f92672">{</span>
+            IS_OPERATING_SYSTEM_IMPL <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;sun.management.OperatingSystemImpl&#34;</span><span style="color:#f92672">.</span><span style="color:#a6e22e">equals</span><span style="color:#f92672">(</span>SYSTEM_MX_BEAN<span style="color:#f92672">.</span><span style="color:#a6e22e">getClass</span><span style="color:#f92672">().</span><span style="color:#a6e22e">getName</span><span style="color:#f92672">());</span>
+        <span style="color:#f92672">}</span>
+
+        <span style="color:#75715e">/**
+</span><span style="color:#75715e">         * 系统名称
+</span><span style="color:#75715e">         * &lt;p&gt;
+</span><span style="color:#75715e">         * 相当于 System.getProperty(&#34;os.name&#34;)
+</span><span style="color:#75715e">         */</span>
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> String <span style="color:#a6e22e">getName</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">return</span> SYSTEM_MX_BEAN<span style="color:#f92672">.</span><span style="color:#a6e22e">getName</span><span style="color:#f92672">();</span>
+        <span style="color:#f92672">}</span>
+
+        <span style="color:#75715e">/**
+</span><span style="color:#75715e">         * 系统版本
+</span><span style="color:#75715e">         * &lt;p&gt;
+</span><span style="color:#75715e">         * 相当于System.getProperty(&#34;os.version&#34;)
+</span><span style="color:#75715e">         */</span>
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> String <span style="color:#a6e22e">getVersion</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">return</span> SYSTEM_MX_BEAN<span style="color:#f92672">.</span><span style="color:#a6e22e">getVersion</span><span style="color:#f92672">();</span>
+        <span style="color:#f92672">}</span>
+
+        <span style="color:#75715e">/**
+</span><span style="color:#75715e">         * 操作系统的架构
+</span><span style="color:#75715e">         * &lt;p&gt;
+</span><span style="color:#75715e">         * 相当于System.getProperty(&#34;os.arch&#34;)
+</span><span style="color:#75715e">         */</span>
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> String <span style="color:#a6e22e">getArch</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">return</span> SYSTEM_MX_BEAN<span style="color:#f92672">.</span><span style="color:#a6e22e">getArch</span><span style="color:#f92672">();</span>
+        <span style="color:#f92672">}</span>
+
+        <span style="color:#75715e">/**
+</span><span style="color:#75715e">         * 可用的内核数
+</span><span style="color:#75715e">         * &lt;p&gt;
+</span><span style="color:#75715e">         * 相当于 Runtime.availableProcessors()
+</span><span style="color:#75715e">         */</span>
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">getAvailableProcessors</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">return</span> SYSTEM_MX_BEAN<span style="color:#f92672">.</span><span style="color:#a6e22e">getAvailableProcessors</span><span style="color:#f92672">();</span>
+        <span style="color:#f92672">}</span>
+
+        <span style="color:#75715e">/**
+</span><span style="color:#75715e">         * 获取系统负载平均值
+</span><span style="color:#75715e">         *
+</span><span style="color:#75715e">         * @since 1.6
+</span><span style="color:#75715e">         */</span>
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">double</span> <span style="color:#a6e22e">getSystemLoadAverage</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">return</span> SYSTEM_MX_BEAN<span style="color:#f92672">.</span><span style="color:#a6e22e">getSystemLoadAverage</span><span style="color:#f92672">();</span>
+        <span style="color:#f92672">}</span>
+
+        <span style="color:#75715e">/**
+</span><span style="color:#75715e">         * public native long getCommittedVirtualMemorySize();
+</span><span style="color:#75715e">         * &lt;p&gt;
+</span><span style="color:#75715e">         * public native long getFreeSwapSpaceSize();
+</span><span style="color:#75715e">         * &lt;p&gt;
+</span><span style="color:#75715e">         * public native long getFreePhysicalMemorySize();
+</span><span style="color:#75715e">         * &lt;p&gt;
+</span><span style="color:#75715e">         * public native long getMaxFileDescriptorCount();
+</span><span style="color:#75715e">         * &lt;p&gt;
+</span><span style="color:#75715e">         * public native long getOpenFileDescriptorCount();
+</span><span style="color:#75715e">         * &lt;p&gt;
+</span><span style="color:#75715e">         * public native long getProcessCpuTime();
+</span><span style="color:#75715e">         * &lt;p&gt;
+</span><span style="color:#75715e">         * public native double getProcessCpuLoad();
+</span><span style="color:#75715e">         * &lt;p&gt;
+</span><span style="color:#75715e">         * public native double getSystemCpuLoad();
+</span><span style="color:#75715e">         * &lt;p&gt;
+</span><span style="color:#75715e">         * public native long getTotalPhysicalMemorySize();
+</span><span style="color:#75715e">         * &lt;p&gt;
+</span><span style="color:#75715e">         * public native long getTotalSwapSpaceSize();
+</span><span style="color:#75715e">         */</span>
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Impl</span> <span style="color:#f92672">{</span>
+
+            <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">Impl</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+            <span style="color:#f92672">}</span>
+
+            <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">isOperatingSystemImpl</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+                <span style="color:#66d9ef">return</span> IS_OPERATING_SYSTEM_IMPL<span style="color:#f92672">;</span>
+            <span style="color:#f92672">}</span>
+
+            <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">long</span> <span style="color:#a6e22e">getLong</span><span style="color:#f92672">(</span>String methodName<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+                <span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
+                    <span style="color:#66d9ef">final</span> Method method <span style="color:#f92672">=</span> OperatingSystem<span style="color:#f92672">.</span><span style="color:#a6e22e">SYSTEM_MX_BEAN</span><span style="color:#f92672">.</span><span style="color:#a6e22e">getClass</span><span style="color:#f92672">().</span><span style="color:#a6e22e">getMethod</span><span style="color:#f92672">(</span>methodName<span style="color:#f92672">,</span> <span style="color:#f92672">(</span>Class<span style="color:#f92672">&lt;?&gt;[])</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">);</span>
+                    method<span style="color:#f92672">.</span><span style="color:#a6e22e">setAccessible</span><span style="color:#f92672">(</span><span style="color:#66d9ef">true</span><span style="color:#f92672">);</span>
+                    <span style="color:#66d9ef">return</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">long</span><span style="color:#f92672">)</span> method<span style="color:#f92672">.</span><span style="color:#a6e22e">invoke</span><span style="color:#f92672">(</span>OperatingSystem<span style="color:#f92672">.</span><span style="color:#a6e22e">SYSTEM_MX_BEAN</span><span style="color:#f92672">,</span> <span style="color:#f92672">(</span>Object<span style="color:#f92672">[])</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">);</span>
+                <span style="color:#f92672">}</span> <span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>IllegalAccessException <span style="color:#f92672">|</span> InvocationTargetException <span style="color:#f92672">|</span> NoSuchMethodException e<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+                    <span style="color:#75715e">// Do Noting
+</span><span style="color:#75715e"></span>                <span style="color:#f92672">}</span>
+                <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span>1L<span style="color:#f92672">;</span>
+            <span style="color:#f92672">}</span>
+
+            <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">double</span> <span style="color:#a6e22e">getDouble</span><span style="color:#f92672">(</span>String methodName<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+                <span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
+                    <span style="color:#66d9ef">final</span> Method method <span style="color:#f92672">=</span> OperatingSystem<span style="color:#f92672">.</span><span style="color:#a6e22e">SYSTEM_MX_BEAN</span><span style="color:#f92672">.</span><span style="color:#a6e22e">getClass</span><span style="color:#f92672">().</span><span style="color:#a6e22e">getMethod</span><span style="color:#f92672">(</span>methodName<span style="color:#f92672">,</span> <span style="color:#f92672">(</span>Class<span style="color:#f92672">&lt;?&gt;[])</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">);</span>
+                    method<span style="color:#f92672">.</span><span style="color:#a6e22e">setAccessible</span><span style="color:#f92672">(</span><span style="color:#66d9ef">true</span><span style="color:#f92672">);</span>
+                    <span style="color:#66d9ef">return</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">double</span><span style="color:#f92672">)</span> method<span style="color:#f92672">.</span><span style="color:#a6e22e">invoke</span><span style="color:#f92672">(</span>OperatingSystem<span style="color:#f92672">.</span><span style="color:#a6e22e">SYSTEM_MX_BEAN</span><span style="color:#f92672">,</span> <span style="color:#f92672">(</span>Object<span style="color:#f92672">[])</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">);</span>
+                <span style="color:#f92672">}</span> <span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>IllegalAccessException <span style="color:#f92672">|</span> InvocationTargetException <span style="color:#f92672">|</span> NoSuchMethodException e<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+                    <span style="color:#75715e">// Do Noting
+</span><span style="color:#75715e"></span>                <span style="color:#f92672">}</span>
+                <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span>1D<span style="color:#f92672">;</span>
+            <span style="color:#f92672">}</span>
+
+            <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">long</span> <span style="color:#a6e22e">getCommittedVirtualMemorySize</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+                <span style="color:#66d9ef">if</span> <span style="color:#f92672">(!</span>isOperatingSystemImpl<span style="color:#f92672">())</span> <span style="color:#f92672">{</span>
+                    <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span>1L<span style="color:#f92672">;</span>
+                <span style="color:#f92672">}</span>
+                <span style="color:#66d9ef">return</span> getLong<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;getCommittedVirtualMemorySize&#34;</span><span style="color:#f92672">);</span>
+            <span style="color:#f92672">}</span>
+
+            <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">long</span> <span style="color:#a6e22e">getTotalSwapSpaceSize</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+                <span style="color:#66d9ef">if</span> <span style="color:#f92672">(!</span>isOperatingSystemImpl<span style="color:#f92672">())</span> <span style="color:#f92672">{</span>
+                    <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span>1L<span style="color:#f92672">;</span>
+                <span style="color:#f92672">}</span>
+                <span style="color:#66d9ef">return</span> getLong<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;getTotalSwapSpaceSize&#34;</span><span style="color:#f92672">);</span>
+            <span style="color:#f92672">}</span>
+
+            <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">long</span> <span style="color:#a6e22e">getFreeSwapSpaceSize</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+                <span style="color:#66d9ef">if</span> <span style="color:#f92672">(!</span>isOperatingSystemImpl<span style="color:#f92672">())</span> <span style="color:#f92672">{</span>
+                    <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span>1L<span style="color:#f92672">;</span>
+                <span style="color:#f92672">}</span>
+                <span style="color:#66d9ef">return</span> getLong<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;getFreeSwapSpaceSize&#34;</span><span style="color:#f92672">);</span>
+            <span style="color:#f92672">}</span>
+
+            <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">long</span> <span style="color:#a6e22e">getProcessCpuTime</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+                <span style="color:#66d9ef">if</span> <span style="color:#f92672">(!</span>isOperatingSystemImpl<span style="color:#f92672">())</span> <span style="color:#f92672">{</span>
+                    <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span>1L<span style="color:#f92672">;</span>
+                <span style="color:#f92672">}</span>
+                <span style="color:#66d9ef">return</span> getLong<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;getProcessCpuTime&#34;</span><span style="color:#f92672">);</span>
+            <span style="color:#f92672">}</span>
+
+            <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">long</span> <span style="color:#a6e22e">getFreePhysicalMemorySize</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+                <span style="color:#66d9ef">if</span> <span style="color:#f92672">(!</span>isOperatingSystemImpl<span style="color:#f92672">())</span> <span style="color:#f92672">{</span>
+                    <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span>1L<span style="color:#f92672">;</span>
+                <span style="color:#f92672">}</span>
+                <span style="color:#66d9ef">return</span> getLong<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;getFreePhysicalMemorySize&#34;</span><span style="color:#f92672">);</span>
+            <span style="color:#f92672">}</span>
+
+            <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">long</span> <span style="color:#a6e22e">getTotalPhysicalMemorySize</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+                <span style="color:#66d9ef">if</span> <span style="color:#f92672">(!</span>isOperatingSystemImpl<span style="color:#f92672">())</span> <span style="color:#f92672">{</span>
+                    <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span>1L<span style="color:#f92672">;</span>
+                <span style="color:#f92672">}</span>
+                <span style="color:#66d9ef">return</span> getLong<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;getTotalPhysicalMemorySize&#34;</span><span style="color:#f92672">);</span>
+            <span style="color:#f92672">}</span>
+
+            <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">long</span> <span style="color:#a6e22e">getOpenFileDescriptorCount</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+                <span style="color:#66d9ef">if</span> <span style="color:#f92672">(!</span>isOperatingSystemImpl<span style="color:#f92672">())</span> <span style="color:#f92672">{</span>
+                    <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span>1L<span style="color:#f92672">;</span>
+                <span style="color:#f92672">}</span>
+                <span style="color:#66d9ef">return</span> getLong<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;getOpenFileDescriptorCount&#34;</span><span style="color:#f92672">);</span>
+            <span style="color:#f92672">}</span>
+
+            <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">long</span> <span style="color:#a6e22e">getMaxFileDescriptorCount</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+                <span style="color:#66d9ef">if</span> <span style="color:#f92672">(!</span>isOperatingSystemImpl<span style="color:#f92672">())</span> <span style="color:#f92672">{</span>
+                    <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span>1L<span style="color:#f92672">;</span>
+                <span style="color:#f92672">}</span>
+                <span style="color:#66d9ef">return</span> getLong<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;getMaxFileDescriptorCount&#34;</span><span style="color:#f92672">);</span>
+            <span style="color:#f92672">}</span>
+
+            <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">double</span> <span style="color:#a6e22e">getSystemCpuLoad</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+                <span style="color:#66d9ef">if</span> <span style="color:#f92672">(!</span>isOperatingSystemImpl<span style="color:#f92672">())</span> <span style="color:#f92672">{</span>
+                    <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span>1D<span style="color:#f92672">;</span>
+                <span style="color:#f92672">}</span>
+                <span style="color:#66d9ef">return</span> getDouble<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;getSystemCpuLoad&#34;</span><span style="color:#f92672">);</span>
+            <span style="color:#f92672">}</span>
+
+            <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">double</span> <span style="color:#a6e22e">getProcessCpuLoad</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+                <span style="color:#66d9ef">if</span> <span style="color:#f92672">(!</span>isOperatingSystemImpl<span style="color:#f92672">())</span> <span style="color:#f92672">{</span>
+                    <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span>1D<span style="color:#f92672">;</span>
+                <span style="color:#f92672">}</span>
+                <span style="color:#66d9ef">return</span> getDouble<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;getProcessCpuLoad&#34;</span><span style="color:#f92672">);</span>
+            <span style="color:#f92672">}</span>
+
+        <span style="color:#f92672">}</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#75715e">/**
+</span><span style="color:#75715e">     * 运行时信息
+</span><span style="color:#75715e">     */</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Runtime</span> <span style="color:#f92672">{</span>
+
+        <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">Runtime</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        <span style="color:#f92672">}</span>
+
+        <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> RuntimeMXBean RUNTIME_MX_BEAN <span style="color:#f92672">=</span> ManagementFactory<span style="color:#f92672">.</span><span style="color:#a6e22e">getRuntimeMXBean</span><span style="color:#f92672">();</span>
+
+        <span style="color:#75715e">/**
+</span><span style="color:#75715e">         * pid@主机名 = vmId
+</span><span style="color:#75715e">         */</span>
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> String <span style="color:#a6e22e">getName</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">return</span> RUNTIME_MX_BEAN<span style="color:#f92672">.</span><span style="color:#a6e22e">getName</span><span style="color:#f92672">();</span>
+        <span style="color:#f92672">}</span>
+
+        <span style="color:#75715e">/**
+</span><span style="color:#75715e">         * 进程ID
+</span><span style="color:#75715e">         */</span>
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> String <span style="color:#a6e22e">getPid</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">return</span> RUNTIME_MX_BEAN<span style="color:#f92672">.</span><span style="color:#a6e22e">getName</span><span style="color:#f92672">().</span><span style="color:#a6e22e">split</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;@&#34;</span><span style="color:#f92672">)[</span>0<span style="color:#f92672">];</span>
+        <span style="color:#f92672">}</span>
+
+        <span style="color:#75715e">/**
+</span><span style="color:#75715e">         * 引导类路径
+</span><span style="color:#75715e">         */</span>
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> String <span style="color:#a6e22e">getBootClassPath</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">return</span> RUNTIME_MX_BEAN<span style="color:#f92672">.</span><span style="color:#a6e22e">getBootClassPath</span><span style="color:#f92672">();</span>
+        <span style="color:#f92672">}</span>
+
+        <span style="color:#75715e">/**
+</span><span style="color:#75715e">         * 库路径
+</span><span style="color:#75715e">         */</span>
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> String <span style="color:#a6e22e">getLibraryPath</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">return</span> RUNTIME_MX_BEAN<span style="color:#f92672">.</span><span style="color:#a6e22e">getLibraryPath</span><span style="color:#f92672">();</span>
+        <span style="color:#f92672">}</span>
+
+        <span style="color:#75715e">/**
+</span><span style="color:#75715e">         * 类路径
+</span><span style="color:#75715e">         */</span>
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> String <span style="color:#a6e22e">getClassPath</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">return</span> RUNTIME_MX_BEAN<span style="color:#f92672">.</span><span style="color:#a6e22e">getClassPath</span><span style="color:#f92672">();</span>
+        <span style="color:#f92672">}</span>
+
+        <span style="color:#75715e">/**
+</span><span style="color:#75715e">         * jvm规范名称
+</span><span style="color:#75715e">         */</span>
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> String <span style="color:#a6e22e">getSpecName</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">return</span> RUNTIME_MX_BEAN<span style="color:#f92672">.</span><span style="color:#a6e22e">getSpecName</span><span style="color:#f92672">();</span>
+        <span style="color:#f92672">}</span>
+
+        <span style="color:#75715e">/**
+</span><span style="color:#75715e">         * jvm规范运营商
+</span><span style="color:#75715e">         */</span>
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> String <span style="color:#a6e22e">getSpecVendor</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">return</span> RUNTIME_MX_BEAN<span style="color:#f92672">.</span><span style="color:#a6e22e">getSpecVendor</span><span style="color:#f92672">();</span>
+        <span style="color:#f92672">}</span>
+
+        <span style="color:#75715e">/**
+</span><span style="color:#75715e">         * jvm规范版本
+</span><span style="color:#75715e">         * &lt;p&gt;
+</span><span style="color:#75715e">         * 1.8
+</span><span style="color:#75715e">         */</span>
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> String <span style="color:#a6e22e">getSpecVersion</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">return</span> RUNTIME_MX_BEAN<span style="color:#f92672">.</span><span style="color:#a6e22e">getSpecVersion</span><span style="color:#f92672">();</span>
+        <span style="color:#f92672">}</span>
+
+        <span style="color:#75715e">/**
+</span><span style="color:#75715e">         * jvm名称
+</span><span style="color:#75715e">         * &lt;p&gt;
+</span><span style="color:#75715e">         * 相当于System.getProperty(&#34;java.vm.name&#34;)
+</span><span style="color:#75715e">         */</span>
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> String <span style="color:#a6e22e">getVmName</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">return</span> RUNTIME_MX_BEAN<span style="color:#f92672">.</span><span style="color:#a6e22e">getVmName</span><span style="color:#f92672">();</span>
+        <span style="color:#f92672">}</span>
+
+        <span style="color:#75715e">/**
+</span><span style="color:#75715e">         * jvm运营商
+</span><span style="color:#75715e">         * &lt;p&gt;
+</span><span style="color:#75715e">         * 相当于System.getProperty(&#34;java.vm.vendor&#34;)
+</span><span style="color:#75715e">         */</span>
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> String <span style="color:#a6e22e">getVmVendor</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">return</span> RUNTIME_MX_BEAN<span style="color:#f92672">.</span><span style="color:#a6e22e">getVmVendor</span><span style="color:#f92672">();</span>
+        <span style="color:#f92672">}</span>
+
+        <span style="color:#75715e">/**
+</span><span style="color:#75715e">         * jvm实现版本
+</span><span style="color:#75715e">         * &lt;p&gt;
+</span><span style="color:#75715e">         * 相当于System.getProperty(&#34;java.vm.version&#34;)
+</span><span style="color:#75715e">         * &lt;p&gt;
+</span><span style="color:#75715e">         * 25.131-b11
+</span><span style="color:#75715e">         */</span>
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> String <span style="color:#a6e22e">getVmVersion</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">return</span> RUNTIME_MX_BEAN<span style="color:#f92672">.</span><span style="color:#a6e22e">getVmVersion</span><span style="color:#f92672">();</span>
+        <span style="color:#f92672">}</span>
+
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> String <span style="color:#a6e22e">getManagementSpecVersion</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">return</span> RUNTIME_MX_BEAN<span style="color:#f92672">.</span><span style="color:#a6e22e">getManagementSpecVersion</span><span style="color:#f92672">();</span>
+        <span style="color:#f92672">}</span>
+
+        <span style="color:#75715e">/**
+</span><span style="color:#75715e">         * jvm启动时间（毫秒）
+</span><span style="color:#75715e">         */</span>
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">long</span> <span style="color:#a6e22e">getStartTime</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">return</span> RUNTIME_MX_BEAN<span style="color:#f92672">.</span><span style="color:#a6e22e">getStartTime</span><span style="color:#f92672">();</span>
+        <span style="color:#f92672">}</span>
+
+        <span style="color:#75715e">/**
+</span><span style="color:#75715e">         * jvm正常运行时间（毫秒）
+</span><span style="color:#75715e">         */</span>
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">long</span> <span style="color:#a6e22e">getUptime</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">return</span> RUNTIME_MX_BEAN<span style="color:#f92672">.</span><span style="color:#a6e22e">getUptime</span><span style="color:#f92672">();</span>
+        <span style="color:#f92672">}</span>
+
+        <span style="color:#75715e">/**
+</span><span style="color:#75715e">         * 获取系统属性
+</span><span style="color:#75715e">         */</span>
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> Map<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">,</span> String<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">getSystemProperties</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">return</span> RUNTIME_MX_BEAN<span style="color:#f92672">.</span><span style="color:#a6e22e">getSystemProperties</span><span style="color:#f92672">();</span>
+        <span style="color:#f92672">}</span>
+
+        <span style="color:#75715e">/**
+</span><span style="color:#75715e">         * JVM 启动参数
+</span><span style="color:#75715e">         */</span>
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> List<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">getInputArguments</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">return</span> RUNTIME_MX_BEAN<span style="color:#f92672">.</span><span style="color:#a6e22e">getInputArguments</span><span style="color:#f92672">();</span>
+        <span style="color:#f92672">}</span>
+
+
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#75715e">/**
+</span><span style="color:#75715e">     * 线程
+</span><span style="color:#75715e">     */</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Thread</span> <span style="color:#f92672">{</span>
+
+        <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">Thread</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        <span style="color:#f92672">}</span>
+
+        <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> ThreadMXBean THREAD_MX_BEAN <span style="color:#f92672">=</span> ManagementFactory<span style="color:#f92672">.</span><span style="color:#a6e22e">getThreadMXBean</span><span style="color:#f92672">();</span>
+
+        <span style="color:#75715e">/**
+</span><span style="color:#75715e">         * 返回当前活动线程数，包括守护和非守护线程
+</span><span style="color:#75715e">         */</span>
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">getThreadCount</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">return</span> THREAD_MX_BEAN<span style="color:#f92672">.</span><span style="color:#a6e22e">getThreadCount</span><span style="color:#f92672">();</span>
+        <span style="color:#f92672">}</span>
+
+        <span style="color:#75715e">/**
+</span><span style="color:#75715e">         * 峰值活动线程数
+</span><span style="color:#75715e">         */</span>
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">getPeakThreadCount</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">return</span> THREAD_MX_BEAN<span style="color:#f92672">.</span><span style="color:#a6e22e">getPeakThreadCount</span><span style="color:#f92672">();</span>
+        <span style="color:#f92672">}</span>
+
+        <span style="color:#75715e">/**
+</span><span style="color:#75715e">         * JVM 启动以来创建的线程总数
+</span><span style="color:#75715e">         */</span>
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">long</span> <span style="color:#a6e22e">getTotalStartedThreadCount</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">return</span> THREAD_MX_BEAN<span style="color:#f92672">.</span><span style="color:#a6e22e">getTotalStartedThreadCount</span><span style="color:#f92672">();</span>
+        <span style="color:#f92672">}</span>
+
+        <span style="color:#75715e">/**
+</span><span style="color:#75715e">         * 守护线程数
+</span><span style="color:#75715e">         */</span>
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">long</span> <span style="color:#a6e22e">getDaemonThreadCount</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">return</span> THREAD_MX_BEAN<span style="color:#f92672">.</span><span style="color:#a6e22e">getDaemonThreadCount</span><span style="color:#f92672">();</span>
+        <span style="color:#f92672">}</span>
+
+        <span style="color:#75715e">/**
+</span><span style="color:#75715e">         * 获取所有的线程信息
+</span><span style="color:#75715e">         */</span>
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> Map<span style="color:#f92672">&lt;</span>Long<span style="color:#f92672">,</span> ThreadInfo<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">getAllThreadInfo</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">long</span><span style="color:#f92672">[]</span> threadIds <span style="color:#f92672">=</span> THREAD_MX_BEAN<span style="color:#f92672">.</span><span style="color:#a6e22e">getAllThreadIds</span><span style="color:#f92672">();</span>
+            Map<span style="color:#f92672">&lt;</span>Long<span style="color:#f92672">,</span> ThreadInfo<span style="color:#f92672">&gt;</span> allThreadInfo <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> HashMap<span style="color:#f92672">&lt;&gt;(</span>threadIds<span style="color:#f92672">.</span><span style="color:#a6e22e">length</span> <span style="color:#f92672">*</span> 2<span style="color:#f92672">);</span>
+
+            <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">long</span> threadId <span style="color:#f92672">:</span> threadIds<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+                ThreadInfo threadInfo <span style="color:#f92672">=</span> THREAD_MX_BEAN<span style="color:#f92672">.</span><span style="color:#a6e22e">getThreadInfo</span><span style="color:#f92672">(</span>threadId<span style="color:#f92672">);</span>
+                allThreadInfo<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span>threadId<span style="color:#f92672">,</span> threadInfo<span style="color:#f92672">);</span>
+            <span style="color:#f92672">}</span>
+            <span style="color:#66d9ef">return</span> allThreadInfo<span style="color:#f92672">;</span>
+        <span style="color:#f92672">}</span>
+
+        <span style="color:#75715e">/**
+</span><span style="color:#75715e">         * 所有的死锁线程
+</span><span style="color:#75715e">         */</span>
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> Map<span style="color:#f92672">&lt;</span>Long<span style="color:#f92672">,</span> ThreadInfo<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">getAllDeadlockedThreadInfo</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">long</span><span style="color:#f92672">[]</span> threadIds <span style="color:#f92672">=</span> THREAD_MX_BEAN<span style="color:#f92672">.</span><span style="color:#a6e22e">findDeadlockedThreads</span><span style="color:#f92672">();</span>
+            Map<span style="color:#f92672">&lt;</span>Long<span style="color:#f92672">,</span> ThreadInfo<span style="color:#f92672">&gt;</span> allDeadlockedThreadInfo <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> HashMap<span style="color:#f92672">&lt;&gt;(</span>threadIds<span style="color:#f92672">.</span><span style="color:#a6e22e">length</span> <span style="color:#f92672">*</span> 2<span style="color:#f92672">);</span>
+
+            <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">long</span> threadId <span style="color:#f92672">:</span> threadIds<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+                ThreadInfo threadInfo <span style="color:#f92672">=</span> THREAD_MX_BEAN<span style="color:#f92672">.</span><span style="color:#a6e22e">getThreadInfo</span><span style="color:#f92672">(</span>threadId<span style="color:#f92672">);</span>
+                allDeadlockedThreadInfo<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span>threadId<span style="color:#f92672">,</span> threadInfo<span style="color:#f92672">);</span>
+            <span style="color:#f92672">}</span>
+            <span style="color:#66d9ef">return</span> allDeadlockedThreadInfo<span style="color:#f92672">;</span>
+        <span style="color:#f92672">}</span>
+
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#75715e">/**
+</span><span style="color:#75715e">     * MemoryManager
+</span><span style="color:#75715e">     */</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Memory</span> <span style="color:#f92672">{</span>
+
+        <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">Memory</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        <span style="color:#f92672">}</span>
+
+
+        <span style="color:#75715e">/**
+</span><span style="color:#75715e">         * 内存信息
+</span><span style="color:#75715e">         */</span>
+        <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> MemoryMXBean MEMORY_MX_BEAN <span style="color:#f92672">=</span> ManagementFactory<span style="color:#f92672">.</span><span style="color:#a6e22e">getMemoryMXBean</span><span style="color:#f92672">();</span>
+
+        <span style="color:#75715e">/**
+</span><span style="color:#75715e">         * 内存区域
+</span><span style="color:#75715e">         */</span>
+        <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> Map<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">,</span> MemoryPoolMXBean<span style="color:#f92672">&gt;</span> POOLS <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> HashMap<span style="color:#f92672">&lt;&gt;();</span>
+
+        <span style="color:#66d9ef">static</span> <span style="color:#f92672">{</span>
+            List<span style="color:#f92672">&lt;</span>MemoryPoolMXBean<span style="color:#f92672">&gt;</span> memoryPool <span style="color:#f92672">=</span> ManagementFactory<span style="color:#f92672">.</span><span style="color:#a6e22e">getMemoryPoolMXBeans</span><span style="color:#f92672">();</span>
+            <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span>MemoryPoolMXBean pool <span style="color:#f92672">:</span> memoryPool<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+                POOLS<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span>pool<span style="color:#f92672">.</span><span style="color:#a6e22e">getName</span><span style="color:#f92672">(),</span> pool<span style="color:#f92672">);</span>
+            <span style="color:#f92672">}</span>
+        <span style="color:#f92672">}</span>
+
+        <span style="color:#75715e">/**
+</span><span style="color:#75715e">         * 垃圾收集器
+</span><span style="color:#75715e">         */</span>
+        <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> Map<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">,</span> GarbageCollectorMXBean<span style="color:#f92672">&gt;</span> COLLECTORS <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> HashMap<span style="color:#f92672">&lt;&gt;();</span>
+
+        <span style="color:#66d9ef">static</span> <span style="color:#f92672">{</span>
+            List<span style="color:#f92672">&lt;</span>GarbageCollectorMXBean<span style="color:#f92672">&gt;</span> garbageCollectors <span style="color:#f92672">=</span> ManagementFactory<span style="color:#f92672">.</span><span style="color:#a6e22e">getGarbageCollectorMXBeans</span><span style="color:#f92672">();</span>
+            <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span>GarbageCollectorMXBean garbageCollector <span style="color:#f92672">:</span> garbageCollectors<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+                COLLECTORS<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span>garbageCollector<span style="color:#f92672">.</span><span style="color:#a6e22e">getName</span><span style="color:#f92672">(),</span> garbageCollector<span style="color:#f92672">);</span>
+            <span style="color:#f92672">}</span>
+        <span style="color:#f92672">}</span>
+
+        <span style="color:#75715e">/**
+</span><span style="color:#75715e">         * 内存区域
+</span><span style="color:#75715e">         */</span>
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">enum</span> PoolEnum <span style="color:#f92672">{</span>
+
+
+            <span style="color:#75715e">/**
+</span><span style="color:#75715e">             * -XX:+UseSerialGC
+</span><span style="color:#75715e">             */</span>
+            EDEN_SPACE<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Eden Space&#34;</span><span style="color:#f92672">),</span>
+            <span style="color:#75715e">/**
+</span><span style="color:#75715e">             * -XX:+UseSerialGC
+</span><span style="color:#75715e">             */</span>
+            SURVIVOR_SPACE<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Survivor Space&#34;</span><span style="color:#f92672">),</span>
+            <span style="color:#75715e">/**
+</span><span style="color:#75715e">             * -XX:+UseSerialGC
+</span><span style="color:#75715e">             */</span>
+            TENURED_GEN<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Tenured Gen&#34;</span><span style="color:#f92672">),</span>
+
+            <span style="color:#75715e">/**
+</span><span style="color:#75715e">             *
+</span><span style="color:#75715e">             */</span>
+            PS_EDEN_SPACE<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;PS Eden Space&#34;</span><span style="color:#f92672">),</span>
+            <span style="color:#75715e">/**
+</span><span style="color:#75715e">             *
+</span><span style="color:#75715e">             */</span>
+            PS_SURVIVOR_SPACE<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;PS Survivor Space&#34;</span><span style="color:#f92672">),</span>
+            <span style="color:#75715e">/**
+</span><span style="color:#75715e">             *
+</span><span style="color:#75715e">             */</span>
+            PS_OLD_GEN<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;PS Old Gen&#34;</span><span style="color:#f92672">),</span>
+
+
+            <span style="color:#75715e">/**
+</span><span style="color:#75715e">             * -XX:+UseConcMarkSweepGC
+</span><span style="color:#75715e">             */</span>
+            PAR_EDEN_SPACE<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Par Eden Space&#34;</span><span style="color:#f92672">),</span>
+            <span style="color:#75715e">/**
+</span><span style="color:#75715e">             * -XX:+UseConcMarkSweepGC
+</span><span style="color:#75715e">             */</span>
+            PAR_SURVIVOR_SPACE<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Par Survivor Space&#34;</span><span style="color:#f92672">),</span>
+            <span style="color:#75715e">/**
+</span><span style="color:#75715e">             * -XX:+UseConcMarkSweepGC
+</span><span style="color:#75715e">             */</span>
+            CMS_OLD_GEN<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;CMS Old Gen&#34;</span><span style="color:#f92672">),</span>
+
+
+            <span style="color:#75715e">/**
+</span><span style="color:#75715e">             * -XX:+UseG1GC
+</span><span style="color:#75715e">             */</span>
+            G1_EDEN_SPACE<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;G1 Eden Space&#34;</span><span style="color:#f92672">),</span>
+            <span style="color:#75715e">/**
+</span><span style="color:#75715e">             * -XX:+UseG1GC
+</span><span style="color:#75715e">             */</span>
+            G1_SURVIVOR_SPACE<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;G1 Survivor Space&#34;</span><span style="color:#f92672">),</span>
+            <span style="color:#75715e">/**
+</span><span style="color:#75715e">             * -XX:+UseG1GC
+</span><span style="color:#75715e">             */</span>
+            G1_OLD_GEN<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;G1 Old Gen&#34;</span><span style="color:#f92672">),</span>
+
+
+            <span style="color:#75715e">/**
+</span><span style="color:#75715e">             *
+</span><span style="color:#75715e">             */</span>
+            META_SPACE<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Metaspace&#34;</span><span style="color:#f92672">),</span>
+            <span style="color:#75715e">/**
+</span><span style="color:#75715e">             *
+</span><span style="color:#75715e">             */</span>
+            CODE_CACHE<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Code Cache&#34;</span><span style="color:#f92672">),</span>
+            <span style="color:#75715e">/**
+</span><span style="color:#75715e">             *
+</span><span style="color:#75715e">             */</span>
+            COMPRESSED_CLASS_SPACE<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Compressed Class Space&#34;</span><span style="color:#f92672">),</span>
+            <span style="color:#f92672">;</span>
+
+            <span style="color:#66d9ef">private</span> String poolName<span style="color:#f92672">;</span>
+
+            PoolEnum<span style="color:#f92672">(</span>String poolName<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+                <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">poolName</span> <span style="color:#f92672">=</span> poolName<span style="color:#f92672">;</span>
+            <span style="color:#f92672">}</span>
+
+            <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">getPoolName</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+                <span style="color:#66d9ef">return</span> poolName<span style="color:#f92672">;</span>
+            <span style="color:#f92672">}</span>
+
+            <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> PoolEnum <span style="color:#a6e22e">enumOf</span><span style="color:#f92672">(</span>String name<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+                PoolEnum<span style="color:#f92672">[]</span> values <span style="color:#f92672">=</span> PoolEnum<span style="color:#f92672">.</span><span style="color:#a6e22e">values</span><span style="color:#f92672">();</span>
+                <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span>PoolEnum value <span style="color:#f92672">:</span> values<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+                    <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>Objects<span style="color:#f92672">.</span><span style="color:#a6e22e">equals</span><span style="color:#f92672">(</span>value<span style="color:#f92672">.</span><span style="color:#a6e22e">poolName</span><span style="color:#f92672">,</span> name<span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
+                        <span style="color:#66d9ef">return</span> value<span style="color:#f92672">;</span>
+                    <span style="color:#f92672">}</span>
+                <span style="color:#f92672">}</span>
+                <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span>
+            <span style="color:#f92672">}</span>
+        <span style="color:#f92672">}</span>
+
+        <span style="color:#75715e">/**
+</span><span style="color:#75715e">         * 垃圾收集名称
+</span><span style="color:#75715e">         */</span>
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">enum</span> CollectorEnum <span style="color:#f92672">{</span>
+
+            <span style="color:#75715e">/**
+</span><span style="color:#75715e">             * -XX:+UseSerialGC
+</span><span style="color:#75715e">             */</span>
+            COPY<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Copy&#34;</span><span style="color:#f92672">),</span>
+
+            <span style="color:#75715e">/**
+</span><span style="color:#75715e">             * -XX:+UseSerialGC
+</span><span style="color:#75715e">             */</span>
+            MARK_SWEEP_COMPACT<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;MarkSweepCompact&#34;</span><span style="color:#f92672">),</span>
+
+            <span style="color:#75715e">/**
+</span><span style="color:#75715e">             * -XX:+UseParallelOldGC
+</span><span style="color:#75715e">             * -XX:+UseParallelGC
+</span><span style="color:#75715e">             */</span>
+            PS_SCAVENGE<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;PS Scavenge&#34;</span><span style="color:#f92672">),</span>
+
+            <span style="color:#75715e">/**
+</span><span style="color:#75715e">             * -XX:+UseParallelOldGC
+</span><span style="color:#75715e">             * -XX:+UseParallelGC
+</span><span style="color:#75715e">             */</span>
+            PS_MARKSWEEP<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;PS MarkSweep&#34;</span><span style="color:#f92672">),</span>
+
+            <span style="color:#75715e">/**
+</span><span style="color:#75715e">             * -XX:+UseConcMarkSweepGC
+</span><span style="color:#75715e">             * -XX:+UseParNewGC
+</span><span style="color:#75715e">             */</span>
+            PAR_NEW<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;ParNew&#34;</span><span style="color:#f92672">),</span>
+
+            <span style="color:#75715e">/**
+</span><span style="color:#75715e">             * -XX:+UseConcMarkSweepGC
+</span><span style="color:#75715e">             * -XX:+UseParNewGC
+</span><span style="color:#75715e">             */</span>
+            CONCURRENT_MARK_SWEEP<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;ConcurrentMarkSweep&#34;</span><span style="color:#f92672">),</span>
+
+            <span style="color:#75715e">/**
+</span><span style="color:#75715e">             * -XX:+UseG1GC
+</span><span style="color:#75715e">             */</span>
+            G1_YOUNG<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;G1 Young Generation&#34;</span><span style="color:#f92672">),</span>
+
+            <span style="color:#75715e">/**
+</span><span style="color:#75715e">             * -XX:+UseG1GC
+</span><span style="color:#75715e">             */</span>
+            G1_OLD<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;G1 Old Generation&#34;</span><span style="color:#f92672">),</span>
+            <span style="color:#f92672">;</span>
+
+            <span style="color:#66d9ef">private</span> String collectorName<span style="color:#f92672">;</span>
+
+            CollectorEnum<span style="color:#f92672">(</span>String collectorName<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+                <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">collectorName</span> <span style="color:#f92672">=</span> collectorName<span style="color:#f92672">;</span>
+            <span style="color:#f92672">}</span>
+
+            <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">getCollectorName</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+                <span style="color:#66d9ef">return</span> collectorName<span style="color:#f92672">;</span>
+            <span style="color:#f92672">}</span>
+
+            <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> CollectorEnum <span style="color:#a6e22e">enumOf</span><span style="color:#f92672">(</span>String name<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+                CollectorEnum<span style="color:#f92672">[]</span> values <span style="color:#f92672">=</span> CollectorEnum<span style="color:#f92672">.</span><span style="color:#a6e22e">values</span><span style="color:#f92672">();</span>
+                <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span>CollectorEnum value <span style="color:#f92672">:</span> values<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+                    <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>Objects<span style="color:#f92672">.</span><span style="color:#a6e22e">equals</span><span style="color:#f92672">(</span>value<span style="color:#f92672">.</span><span style="color:#a6e22e">collectorName</span><span style="color:#f92672">,</span> name<span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
+                        <span style="color:#66d9ef">return</span> value<span style="color:#f92672">;</span>
+                    <span style="color:#f92672">}</span>
+                <span style="color:#f92672">}</span>
+                <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span>
+            <span style="color:#f92672">}</span>
+
+
+        <span style="color:#f92672">}</span>
+
+
+        <span style="color:#75715e">/**
+</span><span style="color:#75715e">         * 堆内内存使用量
+</span><span style="color:#75715e">         * &lt;pre&gt;
+</span><span style="color:#75715e">         *        +----------------------------------------------+
+</span><span style="color:#75715e">         *        +////////////////           |                  +
+</span><span style="color:#75715e">         *        +////////////////           |                  +
+</span><span style="color:#75715e">         *        +----------------------------------------------+
+</span><span style="color:#75715e">         *
+</span><span style="color:#75715e">         *        |--------|
+</span><span style="color:#75715e">         *           init
+</span><span style="color:#75715e">         *        |---------------|
+</span><span style="color:#75715e">         *               used
+</span><span style="color:#75715e">         *        |---------------------------|
+</span><span style="color:#75715e">         *                  committed
+</span><span style="color:#75715e">         *        |----------------------------------------------|
+</span><span style="color:#75715e">         *                            max
+</span><span style="color:#75715e">         * &lt;/pre&gt;
+</span><span style="color:#75715e">         */</span>
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> MemoryUsage <span style="color:#a6e22e">getHeapMemoryUsage</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">return</span> MEMORY_MX_BEAN<span style="color:#f92672">.</span><span style="color:#a6e22e">getHeapMemoryUsage</span><span style="color:#f92672">();</span>
+        <span style="color:#f92672">}</span>
+
+        <span style="color:#75715e">/**
+</span><span style="color:#75715e">         * 堆外内存使用量
+</span><span style="color:#75715e">         * &lt;pre&gt;
+</span><span style="color:#75715e">         *        +----------------------------------------------+
+</span><span style="color:#75715e">         *        +////////////////           |                  +
+</span><span style="color:#75715e">         *        +////////////////           |                  +
+</span><span style="color:#75715e">         *        +----------------------------------------------+
+</span><span style="color:#75715e">         *
+</span><span style="color:#75715e">         *        |--------|
+</span><span style="color:#75715e">         *           init
+</span><span style="color:#75715e">         *        |---------------|
+</span><span style="color:#75715e">         *               used
+</span><span style="color:#75715e">         *        |---------------------------|
+</span><span style="color:#75715e">         *                  committed
+</span><span style="color:#75715e">         *        |----------------------------------------------|
+</span><span style="color:#75715e">         *                            max
+</span><span style="color:#75715e">         * &lt;/pre&gt;
+</span><span style="color:#75715e">         */</span>
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> MemoryUsage <span style="color:#a6e22e">getNonHeapMemoryUsage</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">return</span> MEMORY_MX_BEAN<span style="color:#f92672">.</span><span style="color:#a6e22e">getNonHeapMemoryUsage</span><span style="color:#f92672">();</span>
+        <span style="color:#f92672">}</span>
+
+        <span style="color:#75715e">/**
+</span><span style="color:#75715e">         * 当前 JVM 的内存区域名称
+</span><span style="color:#75715e">         */</span>
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> Set<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">getPoolNames</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">return</span> POOLS<span style="color:#f92672">.</span><span style="color:#a6e22e">keySet</span><span style="color:#f92672">();</span>
+        <span style="color:#f92672">}</span>
+
+        <span style="color:#75715e">/**
+</span><span style="color:#75715e">         * 对应的内存区域是否存在
+</span><span style="color:#75715e">         */</span>
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">existMemoryPool</span><span style="color:#f92672">(</span>PoolEnum name<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">return</span> POOLS<span style="color:#f92672">.</span><span style="color:#a6e22e">containsKey</span><span style="color:#f92672">(</span>name<span style="color:#f92672">.</span><span style="color:#a6e22e">getPoolName</span><span style="color:#f92672">());</span>
+        <span style="color:#f92672">}</span>
+
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> MemoryUsage <span style="color:#a6e22e">getPoolUsage</span><span style="color:#f92672">(</span>PoolEnum name<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">if</span> <span style="color:#f92672">(!</span>existMemoryPool<span style="color:#f92672">(</span>name<span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
+                <span style="color:#66d9ef">return</span> nullUsage<span style="color:#f92672">(</span><span style="color:#66d9ef">null</span><span style="color:#f92672">);</span>
+            <span style="color:#f92672">}</span>
+            <span style="color:#66d9ef">return</span> nullUsage<span style="color:#f92672">(</span>POOLS<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>name<span style="color:#f92672">.</span><span style="color:#a6e22e">getPoolName</span><span style="color:#f92672">()).</span><span style="color:#a6e22e">getUsage</span><span style="color:#f92672">());</span>
+        <span style="color:#f92672">}</span>
+
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> MemoryType <span style="color:#a6e22e">getPoolType</span><span style="color:#f92672">(</span>PoolEnum name<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">if</span> <span style="color:#f92672">(!</span>existMemoryPool<span style="color:#f92672">(</span>name<span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
+                <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span>
+            <span style="color:#f92672">}</span>
+            <span style="color:#66d9ef">return</span> POOLS<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>name<span style="color:#f92672">.</span><span style="color:#a6e22e">getPoolName</span><span style="color:#f92672">()).</span><span style="color:#a6e22e">getType</span><span style="color:#f92672">();</span>
+        <span style="color:#f92672">}</span>
+
+        <span style="color:#75715e">/**
+</span><span style="color:#75715e">         * 返回 JVM 最近在此内存池中回收未使用的对象 所花费的内存使用量
+</span><span style="color:#75715e">         */</span>
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> MemoryUsage <span style="color:#a6e22e">getPoolCollectionUsage</span><span style="color:#f92672">(</span>PoolEnum name<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">if</span> <span style="color:#f92672">(!</span>existMemoryPool<span style="color:#f92672">(</span>name<span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
+                <span style="color:#66d9ef">return</span> nullUsage<span style="color:#f92672">(</span><span style="color:#66d9ef">null</span><span style="color:#f92672">);</span>
+            <span style="color:#f92672">}</span>
+            <span style="color:#66d9ef">return</span> nullUsage<span style="color:#f92672">(</span>POOLS<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>name<span style="color:#f92672">.</span><span style="color:#a6e22e">getPoolName</span><span style="color:#f92672">()).</span><span style="color:#a6e22e">getCollectionUsage</span><span style="color:#f92672">());</span>
+        <span style="color:#f92672">}</span>
+
+        <span style="color:#75715e">/**
+</span><span style="color:#75715e">         * 峰值内存使用量
+</span><span style="color:#75715e">         */</span>
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> MemoryUsage <span style="color:#a6e22e">getPoolPeakUsage</span><span style="color:#f92672">(</span>PoolEnum name<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">if</span> <span style="color:#f92672">(!</span>existMemoryPool<span style="color:#f92672">(</span>name<span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
+                <span style="color:#66d9ef">return</span> nullUsage<span style="color:#f92672">(</span><span style="color:#66d9ef">null</span><span style="color:#f92672">);</span>
+            <span style="color:#f92672">}</span>
+            <span style="color:#66d9ef">return</span> nullUsage<span style="color:#f92672">(</span>POOLS<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>name<span style="color:#f92672">.</span><span style="color:#a6e22e">getPoolName</span><span style="color:#f92672">()).</span><span style="color:#a6e22e">getPeakUsage</span><span style="color:#f92672">());</span>
+        <span style="color:#f92672">}</span>
+
+
+        <span style="color:#75715e">/**
+</span><span style="color:#75715e">         * 以字节为单位返回此内存池的使用阈值
+</span><span style="color:#75715e">         */</span>
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">long</span> <span style="color:#a6e22e">getPoolUsageThreshold</span><span style="color:#f92672">(</span>PoolEnum name<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">if</span> <span style="color:#f92672">(!</span>existMemoryPool<span style="color:#f92672">(</span>name<span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
+                <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span>1<span style="color:#f92672">;</span>
+            <span style="color:#f92672">}</span>
+            <span style="color:#66d9ef">return</span> POOLS<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>name<span style="color:#f92672">.</span><span style="color:#a6e22e">getPoolName</span><span style="color:#f92672">()).</span><span style="color:#a6e22e">getUsageThreshold</span><span style="color:#f92672">();</span>
+        <span style="color:#f92672">}</span>
+
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">long</span> <span style="color:#a6e22e">getPoolUsageThresholdCount</span><span style="color:#f92672">(</span>PoolEnum name<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">if</span> <span style="color:#f92672">(!</span>existMemoryPool<span style="color:#f92672">(</span>name<span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
+                <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span>1<span style="color:#f92672">;</span>
+            <span style="color:#f92672">}</span>
+            <span style="color:#66d9ef">return</span> POOLS<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>name<span style="color:#f92672">.</span><span style="color:#a6e22e">getPoolName</span><span style="color:#f92672">()).</span><span style="color:#a6e22e">getUsageThresholdCount</span><span style="color:#f92672">();</span>
+        <span style="color:#f92672">}</span>
+
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">long</span> <span style="color:#a6e22e">getPoolCollectionUsageThreshold</span><span style="color:#f92672">(</span>PoolEnum name<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">if</span> <span style="color:#f92672">(!</span>existMemoryPool<span style="color:#f92672">(</span>name<span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
+                <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span>1<span style="color:#f92672">;</span>
+            <span style="color:#f92672">}</span>
+            <span style="color:#66d9ef">return</span> POOLS<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>name<span style="color:#f92672">.</span><span style="color:#a6e22e">getPoolName</span><span style="color:#f92672">()).</span><span style="color:#a6e22e">getCollectionUsageThreshold</span><span style="color:#f92672">();</span>
+        <span style="color:#f92672">}</span>
+
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">long</span> <span style="color:#a6e22e">getPoolCollectionUsageThresholdCount</span><span style="color:#f92672">(</span>PoolEnum name<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">if</span> <span style="color:#f92672">(!</span>existMemoryPool<span style="color:#f92672">(</span>name<span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
+                <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span>1<span style="color:#f92672">;</span>
+            <span style="color:#f92672">}</span>
+            <span style="color:#66d9ef">return</span> POOLS<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>name<span style="color:#f92672">.</span><span style="color:#a6e22e">getPoolName</span><span style="color:#f92672">()).</span><span style="color:#a6e22e">getCollectionUsageThresholdCount</span><span style="color:#f92672">();</span>
+        <span style="color:#f92672">}</span>
+
+        <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> MemoryUsage <span style="color:#a6e22e">nullUsage</span><span style="color:#f92672">(</span>MemoryUsage usage<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">null</span> <span style="color:#f92672">==</span> usage <span style="color:#f92672">?</span> <span style="color:#66d9ef">new</span> MemoryUsage<span style="color:#f92672">(-</span>1L<span style="color:#f92672">,</span> 0L<span style="color:#f92672">,</span> 0L<span style="color:#f92672">,</span> <span style="color:#f92672">-</span>1L<span style="color:#f92672">)</span> <span style="color:#f92672">:</span> usage<span style="color:#f92672">;</span>
+        <span style="color:#f92672">}</span>
+
+        <span style="color:#75715e">/**
+</span><span style="color:#75715e">         * 当前 JVM 的垃圾收集器
+</span><span style="color:#75715e">         */</span>
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> Set<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">getCollectorNames</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">return</span> COLLECTORS<span style="color:#f92672">.</span><span style="color:#a6e22e">keySet</span><span style="color:#f92672">();</span>
+        <span style="color:#f92672">}</span>
+
+        <span style="color:#75715e">/**
+</span><span style="color:#75715e">         * 是否存在对应的垃圾收集器
+</span><span style="color:#75715e">         */</span>
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">existCollector</span><span style="color:#f92672">(</span>CollectorEnum collector<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">return</span> COLLECTORS<span style="color:#f92672">.</span><span style="color:#a6e22e">containsKey</span><span style="color:#f92672">(</span>collector<span style="color:#f92672">.</span><span style="color:#a6e22e">getCollectorName</span><span style="color:#f92672">());</span>
+        <span style="color:#f92672">}</span>
+
+        <span style="color:#75715e">/**
+</span><span style="color:#75715e">         * 垃圾收集器次数
+</span><span style="color:#75715e">         */</span>
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">long</span> <span style="color:#a6e22e">getGarbageCollectionCount</span><span style="color:#f92672">(</span>CollectorEnum collector<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">if</span> <span style="color:#f92672">(!</span>existCollector<span style="color:#f92672">(</span>collector<span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
+                <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span>1<span style="color:#f92672">;</span>
+            <span style="color:#f92672">}</span>
+            <span style="color:#66d9ef">return</span> COLLECTORS<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>collector<span style="color:#f92672">.</span><span style="color:#a6e22e">getCollectorName</span><span style="color:#f92672">()).</span><span style="color:#a6e22e">getCollectionCount</span><span style="color:#f92672">();</span>
+        <span style="color:#f92672">}</span>
+
+        <span style="color:#75715e">/**
+</span><span style="color:#75715e">         * 垃圾回收期总耗时
+</span><span style="color:#75715e">         */</span>
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">long</span> <span style="color:#a6e22e">getGarbageCollectionTime</span><span style="color:#f92672">(</span>CollectorEnum collector<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">if</span> <span style="color:#f92672">(!</span>existCollector<span style="color:#f92672">(</span>collector<span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
+                <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span>1<span style="color:#f92672">;</span>
+            <span style="color:#f92672">}</span>
+            <span style="color:#66d9ef">return</span> COLLECTORS<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>collector<span style="color:#f92672">.</span><span style="color:#a6e22e">getCollectorName</span><span style="color:#f92672">()).</span><span style="color:#a6e22e">getCollectionTime</span><span style="color:#f92672">();</span>
+        <span style="color:#f92672">}</span>
+
+        <span style="color:#75715e">/**
+</span><span style="color:#75715e">         * 垃圾回收器 可回收的区域名称
+</span><span style="color:#75715e">         */</span>
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> List<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">getGarbageCollectionMemoryPoolNames</span><span style="color:#f92672">(</span>CollectorEnum collector<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">if</span> <span style="color:#f92672">(!</span>existCollector<span style="color:#f92672">(</span>collector<span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
+                <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;&gt;();</span>
+            <span style="color:#f92672">}</span>
+            String<span style="color:#f92672">[]</span> memoryPoolNames <span style="color:#f92672">=</span> COLLECTORS<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>collector<span style="color:#f92672">.</span><span style="color:#a6e22e">getCollectorName</span><span style="color:#f92672">()).</span><span style="color:#a6e22e">getMemoryPoolNames</span><span style="color:#f92672">();</span>
+            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;&gt;(</span>Arrays<span style="color:#f92672">.</span><span style="color:#a6e22e">asList</span><span style="color:#f92672">(</span>memoryPoolNames<span style="color:#f92672">));</span>
+        <span style="color:#f92672">}</span>
+
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">JmxMetricsUtil</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div></article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex justify-between">
+
+
+
+  <div>
+    
+    <a class="flex align-center" href="https://github.com/hello-world-example/Java/commit/6bfa34a0bbd670d98dcc7d7e1798d149840b90b9" title='Last modified by kailbin | Nov 12, 2020' target="_blank" rel="noopener">
+      <img src="/Java/svg/calendar.svg" class="book-icon" alt="Calendar" />
+      <span>Nov 12, 2020</span>
+    </a>
+  </div>
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/hello-world-example/Java/edit/master/HuGo/content/docs/java.lang/management/JmxMetricsUtil.md" target="_blank" rel="noopener">
+      <img src="/Java/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
+    </a>
+  </div>
+
+</div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#jmxmetrics-工具">JmxMetrics 工具</a>
+      <ul>
+        <li><a href="#platformmanagedobject-的-继承结构">PlatformManagedObject 的 继承结构</a></li>
+        <li><a href="#工具类">工具类</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+ 
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

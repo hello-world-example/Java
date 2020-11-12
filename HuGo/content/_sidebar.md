@@ -14,6 +14,7 @@ headless: true
 - **java.lang.management**
 
   - [JXM MBean]({{< relref "/docs/java.lang/management/JMX-MBean" >}})
+  - [MBean 变更通知]({{< relref "/docs/java.lang/management/MBean-Notification" >}})
   - [JmxMetrics 工具]({{< relref "/docs/java.lang/management/JmxMetricsUtil.md" >}})
 - **java.rmi**
   

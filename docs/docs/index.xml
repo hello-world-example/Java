@@ -50,6 +50,16 @@
     
     <item>
       <title></title>
+      <link>https://hello-world-example.github.io/Java/docs/java.lang/management/MBean-Notification/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://hello-world-example.github.io/Java/docs/java.lang/management/MBean-Notification/</guid>
+      <description>MBean 变更通知  MBean 的变更通知基于事件监听机制，主要有以下三个角色 NotificationBroadcaster 事件广播者，一般需要 MBean 继承其实现 NotificationBroadcasterSupport Notification MBean 所发出的通知，包含对源 MBean 的引用 等其他扩展信息 NotificationListener 监听器，接收变动的消息 Notification   以下代码基于上文 JXM MBean
+ HelloWorld 实现 MBean 接口 package xyz.kail.demo.javase.lang.management.mbean; import javax.management.AttributeChangeNotification; import javax.management.NotificationBroadcasterSupport; import java.util.concurrent.atomic.AtomicLong; /** * @author kail */ public class HelloWorld extends NotificationBroadcasterSupport implements HelloWorldMBean { private String name = &amp;#34;Kail&amp;#34;; private AtomicLong sequenceNumber = new AtomicLong(1); ... @Override public String getName() { return name; } @Override public void setName(String name) { // 【发送事件通知】 当修改 name 值的时候，会发送通知  this.</description>
+    </item>
+    
+    <item>
+      <title></title>
       <link>https://hello-world-example.github.io/Java/docs/java.lang/SecurityManager/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       

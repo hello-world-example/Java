@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="RMI 入门示例 简介  RMI （Remote Method Invocation），允许 一个 JVM 访问 另外 JVM 中运行对象 提供了 Java 进程间远程通讯的机制，在 java.rmi 包中提供  架构   Transport Layer ：管理和常见 Client 和 Server 之间的链接 Stub ：Client 侧 对远程对象的代理 Skeleton ： Client 通过 Stub 与 Skeleton 通信，交换云对象 RRL(Remote Reference Layer) ： 远程引用层，Client 对远程对象的引用层  调用流程  Client 对 远程对象进行调用时，通过 Stub 接收这个操作，并将这个操作传递给 RRL Client 的 RRL 接收到请求后，调用 remoteRef 的 invoke() 方法，将请求传递给 Server 端 的 RRL Server 的 RRL 将请求传递给 Skeleton 即服务端的代理，最终调用 Server 端的对象 结果反向传递给 CLient  注册登记  RMI 程序示例 HelloRemote 定义远程接口 public interface HelloRemote extends Remote { String helloWorld() throws RemoteException; String sayHello(String name) throws RemoteException; } HelloRemoteImp 实现远程接口 import java."><meta property="og:title" content="" />
+<meta property="og:description" content="RMI 入门示例 简介  RMI （Remote Method Invocation），允许 一个 JVM 访问 另外 JVM 中运行对象 提供了 Java 进程间远程通讯的机制，在 java.rmi 包中提供  架构   Transport Layer ：管理和常见 Client 和 Server 之间的链接 Stub ：Client 侧 对远程对象的代理 Skeleton ： Client 通过 Stub 与 Skeleton 通信，交换云对象 RRL(Remote Reference Layer) ： 远程引用层，Client 对远程对象的引用层  调用流程  Client 对 远程对象进行调用时，通过 Stub 接收这个操作，并将这个操作传递给 RRL Client 的 RRL 接收到请求后，调用 remoteRef 的 invoke() 方法，将请求传递给 Server 端 的 RRL Server 的 RRL 将请求传递给 Skeleton 即服务端的代理，最终调用 Server 端的对象 结果反向传递给 CLient  注册登记  RMI 程序示例 HelloRemote 定义远程接口 public interface HelloRemote extends Remote { String helloWorld() throws RemoteException; String sayHello(String name) throws RemoteException; } HelloRemoteImp 实现远程接口 import java." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://hello-world-example.github.io/Java/docs/java.rmi/HelloWorld/" />
+<meta property="article:modified_time" content="2020-11-12T17:19:46+08:00" />
+<title>Hello World | Java</title>
+<link rel="icon" href="/Java/favicon.png" type="image/x-icon">
+
+
+<link rel="stylesheet" href="/Java/book.min.d436f463c9471cfab26a8b71cd2f50b6abf5225806391453da4ca111d1834fef.css" integrity="sha256-1Db0Y8lHHPqyaotxzS9Qtqv1IlgGORRT2kyhEdGDT&#43;8=">
+
+
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body>
+  <input type="checkbox" class="hidden" id="menu-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/Java"><span>Java</span>
+  </a>
+</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+  <ul>
+<li>
+<p><strong>GC</strong></p>
+<ul>
+<li>
+  <a href="/Java/docs/GC/JVM-Args/">JVM 参数</a></li>
+</ul>
+</li>
+<li>
+<p><strong>java.lang</strong></p>
+<ul>
+<li>
+  <a href="/Java/docs/java.lang/SecurityManager/">SecurityManager</a></li>
+</ul>
+</li>
+<li>
+<p><strong>java.lang.instrument</strong></p>
+<ul>
+<li>
+  <a href="/Java/docs/java.lang/instrument/JavaAgent/">JavaAgent</a></li>
+</ul>
+</li>
+<li>
+<p><strong>java.lang.management</strong></p>
+<ul>
+<li>
+  <a href="/Java/docs/java.lang/management/JMX-MBean/">JXM MBean</a></li>
+<li>
+  <a href="/Java/docs/java.lang/management/MBean-Notification/">MBean 变更通知</a></li>
+<li>
+  <a href="/Java/docs/java.lang/management/JmxMetricsUtil/">JmxMetrics 工具</a></li>
+</ul>
+</li>
+<li>
+<p><strong>java.rmi</strong></p>
+<ul>
+<li>
+  <a href="/Java/docs/java.rmi/HelloWorld/"class=active>RMI 入门示例</a></li>
+</ul>
+</li>
+<li>
+<p><strong>java.time</strong></p>
+<ul>
+<li>
+  <a href="/Java/docs/java.time/Core/">关键概念</a></li>
+<li>
+  <a href="/Java/docs/java.time/Action/">常见操作</a></li>
+<li>
+  <a href="/Java/docs/java.time/Gap/">时间区间</a></li>
+</ul>
+</li>
+<li>
+<p>
+  <a href="/Java-IO"><strong>java.nio 🔗</strong></a></p>
+</li>
+<li>
+<p>
+  <a href="/Java-Concurrent"><strong>java.util.concurrent 🔗</strong></a></p>
+</li>
+<li>
+<p><strong>java.util.regex</strong></p>
+<ul>
+<li>
+  <a href="/Java/docs/java.util.regex/Pattern/">Pattern</a></li>
+<li>
+  <a href="/Java/docs/java.util.regex/Grok/">Grok</a></li>
+</ul>
+</li>
+<li>
+<p>
+  <a href="/Troubleshooting/docs/Java/"><strong>内置工具 🔗</strong></a></p>
+</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/Java/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Hello World</strong>
+
+  <label for="toc-control">
+    <img src="/Java/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+  </label>
+</div>
+
+
+  
+    <input type="checkbox" class="hidden" id="toc-control" />
+    <aside class="hidden clearfix">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#rmi-入门示例">RMI 入门示例</a>
+      <ul>
+        <li><a href="#简介">简介</a></li>
+        <li><a href="#架构">架构</a></li>
+        <li><a href="#调用流程">调用流程</a></li>
+        <li><a href="#注册登记">注册登记</a></li>
+        <li><a href="#rmi-程序示例">RMI 程序示例</a>
+          <ul>
+            <li><a href="#helloremote-定义远程接口">HelloRemote 定义远程接口</a></li>
+            <li><a href="#helloremoteimp-实现远程接口">HelloRemoteImp 实现远程接口</a></li>
+          </ul>
+        </li>
+        <li><a href="#helloregistryserver-服务端绑定">HelloRegistryServer 服务端绑定</a>
+          <ul>
+            <li><a href="#helloregsitryclient-客户端调用">HelloRegsitryClient 客户端调用</a></li>
+          </ul>
+        </li>
+        <li><a href="#read-more">Read More</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+    </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="rmi-入门示例">RMI 入门示例</h1>
+<h2 id="简介">简介</h2>
+<ul>
+<li><code>RMI</code>  （Remote Method Invocation），允许 一个 JVM 访问 另外 JVM 中运行对象</li>
+<li>提供了 Java 进程间远程通讯的机制，在 <code>java.rmi</code> 包中提供</li>
+</ul>
+<h2 id="架构">架构</h2>
+<p>
+  <img src="https://www.tutorialspoint.com/java_rmi/images/rmi_architecture.jpg" alt="" /></p>
+<ul>
+<li><strong>Transport Layer</strong> ：管理和常见 Client 和 Server 之间的链接</li>
+<li><strong>Stub</strong> ：Client 侧 对远程对象的代理</li>
+<li><strong>Skeleton</strong> ： Client 通过 Stub 与 Skeleton 通信，交换云对象</li>
+<li><strong>RRL(Remote Reference Layer)</strong> ： 远程引用层，Client 对远程对象的引用层</li>
+</ul>
+<h2 id="调用流程">调用流程</h2>
+<ul>
+<li>Client 对 远程对象进行调用时，通过 Stub 接收这个操作，并将这个操作传递给 RRL</li>
+<li>Client 的 RRL 接收到请求后，调用 <strong>remoteRef</strong> 的 <strong>invoke()</strong> 方法，将请求传递给 Server 端 的 RRL</li>
+<li>Server 的 RRL 将请求传递给 <strong>Skeleton</strong> 即服务端的代理，最终调用 Server 端的对象</li>
+<li>结果反向传递给 CLient</li>
+</ul>
+<h2 id="注册登记">注册登记</h2>
+<p>
+  <img src="https://www.tutorialspoint.com/java_rmi/images/registry.jpg" alt="" /></p>
+<h2 id="rmi-程序示例">RMI 程序示例</h2>
+<h3 id="helloremote-定义远程接口">HelloRemote 定义远程接口</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">HelloRemote</span> <span style="color:#66d9ef">extends</span> Remote <span style="color:#f92672">{</span>
+
+    String <span style="color:#a6e22e">helloWorld</span><span style="color:#f92672">()</span> <span style="color:#66d9ef">throws</span> RemoteException<span style="color:#f92672">;</span>
+
+    String <span style="color:#a6e22e">sayHello</span><span style="color:#f92672">(</span>String name<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> RemoteException<span style="color:#f92672">;</span>
+
+<span style="color:#f92672">}</span>
+</code></pre></div><h3 id="helloremoteimp-实现远程接口">HelloRemoteImp 实现远程接口</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">import</span> java.rmi.RemoteException<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.rmi.server.UnicastRemoteObject<span style="color:#f92672">;</span>
+
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">HelloRemoteImp</span> <span style="color:#66d9ef">extends</span> UnicatRemoteObject <span style="color:#66d9ef">implements</span> HelloRemote <span style="color:#f92672">{</span>
+
+    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">HelloRemoteImp</span><span style="color:#f92672">()</span> <span style="color:#66d9ef">throws</span> RemoteException <span style="color:#f92672">{</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#a6e22e">@Override</span>
+    <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">helloWorld</span><span style="color:#f92672">()</span> <span style="color:#66d9ef">throws</span> RemoteException <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;Hello AlphaGo!&#34;</span><span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#a6e22e">@Override</span>
+    <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">sayHello</span><span style="color:#f92672">(</span>String name<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> RemoteException <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;Hello&#34;</span> <span style="color:#f92672">+</span> name <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;!&#34;</span><span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+
+<span style="color:#f92672">}</span>
+</code></pre></div><h2 id="helloregistryserver-服务端绑定">HelloRegistryServer 服务端绑定</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">import</span> java.rmi.AlreadyBoundException<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.rmi.RemoteException<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.rmi.registry.LocateRegistry<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.rmi.registry.Registry<span style="color:#f92672">;</span>
+
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">HelloRegistryServer</span> <span style="color:#f92672">{</span>
+
+  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">server</span><span style="color:#f92672">()</span> <span style="color:#66d9ef">throws</span> RemoteException<span style="color:#f92672">,</span> AlreadyBoundException <span style="color:#f92672">{</span>
+    <span style="color:#75715e">// 远程对象注册表
+</span><span style="color:#75715e"></span>    Registry registry <span style="color:#f92672">=</span> LocateRegistry<span style="color:#f92672">.</span><span style="color:#a6e22e">createRegistry</span><span style="color:#f92672">(</span>8888<span style="color:#f92672">);</span>
+    <span style="color:#75715e">// 实例化远程对象
+</span><span style="color:#75715e"></span>    HelloRemote hello <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> HelloRemoteImp<span style="color:#f92672">();</span>
+    <span style="color:#75715e">// 注册绑定远程对象
+</span><span style="color:#75715e"></span>    registry<span style="color:#f92672">.</span><span style="color:#a6e22e">bind</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/Hello&#34;</span><span style="color:#f92672">,</span> hello<span style="color:#f92672">);</span>
+    registry<span style="color:#f92672">.</span><span style="color:#a6e22e">bind</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/World&#34;</span><span style="color:#f92672">,</span> hello<span style="color:#f92672">);</span>
+
+    System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;server:对象绑定成功！&#34;</span><span style="color:#f92672">);</span>
+  <span style="color:#f92672">}</span>
+
+  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> AlreadyBoundException<span style="color:#f92672">,</span> RemoteException <span style="color:#f92672">{</span>
+    server<span style="color:#f92672">();</span>
+  <span style="color:#f92672">}</span>
+
+<span style="color:#f92672">}</span>
+</code></pre></div><h3 id="helloregsitryclient-客户端调用">HelloRegsitryClient 客户端调用</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">import</span> java.rmi.NotBoundException<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.rmi.RemoteException<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.rmi.registry.LocateRegistry<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.rmi.registry.Registry<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.util.Arrays<span style="color:#f92672">;</span>
+
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">HelloRegsitryClient</span> <span style="color:#f92672">{</span>
+
+  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">client</span><span style="color:#f92672">()</span> <span style="color:#66d9ef">throws</span> RemoteException<span style="color:#f92672">,</span> NotBoundException <span style="color:#f92672">{</span>
+    <span style="color:#75715e">// 获取注册表
+</span><span style="color:#75715e"></span>    Registry registry <span style="color:#f92672">=</span> LocateRegistry<span style="color:#f92672">.</span><span style="color:#a6e22e">getRegistry</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;127.0.0.1&#34;</span><span style="color:#f92672">,</span> 8888<span style="color:#f92672">);</span>
+
+    <span style="color:#75715e">// 在 RMI 注册表中查找指定对象
+</span><span style="color:#75715e"></span>    HelloRemote hello <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>HelloRemote<span style="color:#f92672">)</span> registry<span style="color:#f92672">.</span><span style="color:#a6e22e">lookup</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/Hello&#34;</span><span style="color:#f92672">);</span>
+
+    <span style="color:#75715e">// 获取所有 Name 列表
+</span><span style="color:#75715e"></span>    String<span style="color:#f92672">[]</span> nameList <span style="color:#f92672">=</span> registry<span style="color:#f92672">.</span><span style="color:#a6e22e">list</span><span style="color:#f92672">();</span>
+    System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>Arrays<span style="color:#f92672">.</span><span style="color:#a6e22e">toString</span><span style="color:#f92672">(</span>nameList<span style="color:#f92672">));</span>
+
+    <span style="color:#75715e">// 调用远程对象方法
+</span><span style="color:#75715e"></span>    System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;client:&#34;</span><span style="color:#f92672">);</span>
+    System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>hello<span style="color:#f92672">.</span><span style="color:#a6e22e">helloWorld</span><span style="color:#f92672">());</span>
+    System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>hello<span style="color:#f92672">.</span><span style="color:#a6e22e">sayHello</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34; Kail&#34;</span><span style="color:#f92672">));</span>
+  <span style="color:#f92672">}</span>
+
+  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> RemoteException<span style="color:#f92672">,</span> NotBoundException <span style="color:#f92672">{</span>
+    client<span style="color:#f92672">();</span>
+  <span style="color:#f92672">}</span>
+
+<span style="color:#f92672">}</span>
+</code></pre></div><h2 id="read-more">Read More</h2>
+<ul>
+<li>
+  <a href="https://www.tutorialspoint.com/java_rmi/">Java RMI Tutorial</a></li>
+<li>
+  <a href="https://www.jianshu.com/p/de85fad05dcb">分布式架构基础:Java RMI详解</a></li>
+</ul>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex justify-between">
+
+
+
+  <div>
+    
+    <a class="flex align-center" href="https://github.com/hello-world-example/Java/commit/6bfa34a0bbd670d98dcc7d7e1798d149840b90b9" title='Last modified by kailbin | Nov 12, 2020' target="_blank" rel="noopener">
+      <img src="/Java/svg/calendar.svg" class="book-icon" alt="Calendar" />
+      <span>Nov 12, 2020</span>
+    </a>
+  </div>
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/hello-world-example/Java/edit/master/HuGo/content/docs/java.rmi/HelloWorld.md" target="_blank" rel="noopener">
+      <img src="/Java/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
+    </a>
+  </div>
+
+</div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#rmi-入门示例">RMI 入门示例</a>
+      <ul>
+        <li><a href="#简介">简介</a></li>
+        <li><a href="#架构">架构</a></li>
+        <li><a href="#调用流程">调用流程</a></li>
+        <li><a href="#注册登记">注册登记</a></li>
+        <li><a href="#rmi-程序示例">RMI 程序示例</a>
+          <ul>
+            <li><a href="#helloremote-定义远程接口">HelloRemote 定义远程接口</a></li>
+            <li><a href="#helloremoteimp-实现远程接口">HelloRemoteImp 实现远程接口</a></li>
+          </ul>
+        </li>
+        <li><a href="#helloregistryserver-服务端绑定">HelloRegistryServer 服务端绑定</a>
+          <ul>
+            <li><a href="#helloregsitryclient-客户端调用">HelloRegsitryClient 客户端调用</a></li>
+          </ul>
+        </li>
+        <li><a href="#read-more">Read More</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+ 
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

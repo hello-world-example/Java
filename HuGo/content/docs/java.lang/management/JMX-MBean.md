@@ -239,6 +239,14 @@ public class GetRemoteMBeanMain {
 }
 ```
 
+> 
+>
+> [Explain JMX URL service:jmx:rmi:///jndi/rmi://](https://stackoverflow.com/questions/2768087/explain-jmx-url)
+>
+> 
+
+
+
 
 
 ## 调用 MBean
@@ -270,3 +278,4 @@ mBeanServer.invoke(objectName, "hello", new Object[]{}, new String[]{});
 - JDK 文档
   - [ java.lang.management](https://tool.oschina.net/uploads/apidocs/jdk-zh/java/lang/management/package-summary.html)
   - [javax.management](http://tool.oschina.net/uploads/apidocs/jdk-zh/javax/management/package-summary.html)
+- [MBean 和 MXBean](https://www.ibm.com/support/knowledgecenter/zh/SSYKE2_8.0.0/com.ibm.java.vm.80.doc/docs/mxbeans.html)

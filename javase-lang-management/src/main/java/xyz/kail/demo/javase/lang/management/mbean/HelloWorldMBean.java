@@ -1,5 +1,7 @@
 package xyz.kail.demo.javase.lang.management.mbean;
 
+import java.beans.ConstructorProperties;
+
 /**
  * 定义 MBean 接口，与一般的接口类似，**但是必须以MBean结尾**
  */

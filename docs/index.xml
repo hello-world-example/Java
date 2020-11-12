@@ -19,7 +19,7 @@
   JVM 参数    java.lang
   SecurityManager    java.lang.instrument
   JavaAgent    java.lang.management
-  JXM MBean  JmxMetrics 工具    java.rmi
+  JXM MBean  MBean 变更通知  JmxMetrics 工具    java.rmi
   RMI 入门示例    java.time
   关键概念  常见操作  时间区间     java.nio 🔗
    java.util.concurrent 🔗
@@ -64,6 +64,16 @@
       <guid>https://hello-world-example.github.io/Java/docs/java.lang/management/JmxMetricsUtil/</guid>
       <description>JmxMetrics 工具 本文 提供了一个 Java 工具类，用来获取诸如以下的 JVM 数据：
  类加载信息 编译信息 操作系统信息  系统名称、架构、版本、负载 &amp;hellip; 物理内存信息 CPU 信息 等   运行时信息  进程ID JVM 版本信息 启动参数 系统属性 启动时间、运行时常 等   线程信息  线程状态 死锁检查 等   JVM 内存信息  内存使用情况 各个区域内存使用情况 垃圾收集器信息 等    PlatformManagedObject 的 继承结构 PlatformManagedObject (java.lang.management) CompilationMXBean (java.lang.management) MemoryMXBean (java.lang.management) RuntimeMXBean (java.lang.management) BufferPoolMXBean (java.lang.management) MemoryPoolMXBean (java.lang.management) PlatformLoggingMXBean (java.lang.management) HotSpotDiagnosticMXBean (com.sun.management) SystemResourcePressureMXBean (jdk.management.cmm) MemoryManagerMXBean (java.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://hello-world-example.github.io/Java/docs/java.lang/management/MBean-Notification/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://hello-world-example.github.io/Java/docs/java.lang/management/MBean-Notification/</guid>
+      <description>MBean 变更通知  MBean 的变更通知基于事件监听机制，主要有以下三个角色 NotificationBroadcaster 事件广播者，一般需要 MBean 继承其实现 NotificationBroadcasterSupport Notification MBean 所发出的通知，包含对源 MBean 的引用 等其他扩展信息 NotificationListener 监听器，接收变动的消息 Notification   以下代码基于上文 JXM MBean
+ HelloWorld 实现 MBean 接口 package xyz.kail.demo.javase.lang.management.mbean; import javax.management.AttributeChangeNotification; import javax.management.NotificationBroadcasterSupport; import java.util.concurrent.atomic.AtomicLong; /** * @author kail */ public class HelloWorld extends NotificationBroadcasterSupport implements HelloWorldMBean { private String name = &amp;#34;Kail&amp;#34;; private AtomicLong sequenceNumber = new AtomicLong(1); ... @Override public String getName() { return name; } @Override public void setName(String name) { // 【发送事件通知】 当修改 name 值的时候，会发送通知  this.</description>
     </item>
     
     <item>
