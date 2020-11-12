@@ -15,15 +15,16 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://hello-world-example.github.io/Java/_sidebar/</guid>
-      <description>  GC
+      <description>GC
   JVM 参数    java.lang
   SecurityManager    java.lang.instrument
-  JavaAgent    java.time
+  JavaAgent    java.lang.management
+  JXM MBean  JmxMetrics 工具    java.rmi
+  RMI 入门示例    java.time
   关键概念  常见操作  时间区间     java.nio 🔗
    java.util.concurrent 🔗
   java.util.regex
-  Pattern  Grok     内置工具 🔗
-  </description>
+  Pattern  Grok     内置工具 🔗</description>
     </item>
     
     <item>
@@ -47,11 +48,40 @@
     
     <item>
       <title></title>
+      <link>https://hello-world-example.github.io/Java/docs/java.lang/management/JMX-MBean/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://hello-world-example.github.io/Java/docs/java.lang/management/JMX-MBean/</guid>
+      <description>JXM MBean JMX (Java Management Extensions) 是 Java 管理扩展，MBean(Managed Beans) 是 被管理的Beans。
+ 一个 MBean 是一个被管理的 Java 对象，有点类似于 JavaBean 任何资源都可以被表示为 MBean MBean 会对外暴露一个接口，这个接口可以读取或者写入一些对象中的属性  暴露 MBean 定义MBean接口  接口必须以 MBean 结尾 一般方法会以 &amp;ldquo;操作 (Operations)&amp;quot; 的形式展示 get/set 方法会以 &amp;ldquo;属性 (Attributes)&amp;quot; 的形式展示  package xyz.kail.demo.javase.lang.management.mbean; /** * 定义 MBean 接口，与一般的接口类似，**但是必须以MBean结尾** */ public interface HelloWorldMBean { /** * 定义 MBean 的名字 */ String TYPE_HELLO_WORLD = &amp;#34;xyz.kail.demo.jmx:type=HelloWorld&amp;#34;; /** * 一般方法会以&amp;#34;操作&amp;#34;的形式在 JConsole 或者 JvisualVM 显示 */ void hello(); void say(String name); /** * get/set 方法会以&amp;#34;属性&amp;#34;的形式在 JConsole 或者 JvisualVM 显示 */ String getName(); void setName(String name); } 实现MBean接口 package xyz.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://hello-world-example.github.io/Java/docs/java.lang/management/JmxMetricsUtil/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://hello-world-example.github.io/Java/docs/java.lang/management/JmxMetricsUtil/</guid>
+      <description>JmxMetrics 工具 本文 提供了一个 Java 工具类，用来获取诸如以下的 JVM 数据：
+ 类加载信息 编译信息 操作系统信息  系统名称、架构、版本、负载 &amp;hellip; 物理内存信息 CPU 信息 等   运行时信息  进程ID JVM 版本信息 启动参数 系统属性 启动时间、运行时常 等   线程信息  线程状态 死锁检查 等   JVM 内存信息  内存使用情况 各个区域内存使用情况 垃圾收集器信息 等    PlatformManagedObject 的 继承结构 PlatformManagedObject (java.lang.management) CompilationMXBean (java.lang.management) MemoryMXBean (java.lang.management) RuntimeMXBean (java.lang.management) BufferPoolMXBean (java.lang.management) MemoryPoolMXBean (java.lang.management) PlatformLoggingMXBean (java.lang.management) HotSpotDiagnosticMXBean (com.sun.management) SystemResourcePressureMXBean (jdk.management.cmm) MemoryManagerMXBean (java.</description>
+    </item>
+    
+    <item>
+      <title></title>
       <link>https://hello-world-example.github.io/Java/docs/java.lang/SecurityManager/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://hello-world-example.github.io/Java/docs/java.lang/SecurityManager/</guid>
       <description>SecurityManager 简单理解  JDK 针对一些敏感的资源操作，通过 Security 机制，添加了很多埋点 权限通过 配置文件 $JAVA_HOME/jre/lib/security/java.policy 进行配置 配置文件的匹配 通过 java.security.Permission 的各种子类实现 具体的校验操作 通过 java.security.AccessController.checkPermission(perm) 处理 SecurityManager 对 AccessController 进行了封装了，通过 checkXXX() 调用 SecurityManager 的获取方式一般通过 System.getSecurityManager() 获取，使用的时候一定要判空，因为 安全机制不一定开启，如果没有开启，返回值是 null  示例埋点代码 Runtime.getRuntime().exit | System.exit 退出 JVM public void exit(int status) { SecurityManager security = System.getSecurityManager(); if (security != null) { // 不允许调用 System.exit  security.checkExit(status); } Shutdown.exit(status); } System.setProperty 设置系统属性 public static String setProperty(String key, String value) { checkKey(key); SecurityManager sm = getSecurityManager(); if (sm !</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://hello-world-example.github.io/Java/docs/java.rmi/HelloWorld/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://hello-world-example.github.io/Java/docs/java.rmi/HelloWorld/</guid>
+      <description>RMI 入门示例 简介  RMI （Remote Method Invocation），允许 一个 JVM 访问 另外 JVM 中运行对象 提供了 Java 进程间远程通讯的机制，在 java.rmi 包中提供  架构   Transport Layer ：管理和常见 Client 和 Server 之间的链接 Stub ：Client 侧 对远程对象的代理 Skeleton ： Client 通过 Stub 与 Skeleton 通信，交换云对象 RRL(Remote Reference Layer) ： 远程引用层，Client 对远程对象的引用层  调用流程  Client 对 远程对象进行调用时，通过 Stub 接收这个操作，并将这个操作传递给 RRL Client 的 RRL 接收到请求后，调用 remoteRef 的 invoke() 方法，将请求传递给 Server 端 的 RRL Server 的 RRL 将请求传递给 Skeleton 即服务端的代理，最终调用 Server 端的对象 结果反向传递给 CLient  注册登记  RMI 程序示例 HelloRemote 定义远程接口 public interface HelloRemote extends Remote { String helloWorld() throws RemoteException; String sayHello(String name) throws RemoteException; } HelloRemoteImp 实现远程接口 import java.</description>
     </item>
     
     <item>

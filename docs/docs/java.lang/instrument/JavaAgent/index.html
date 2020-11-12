@@ -8,7 +8,7 @@
 <meta property="og:description" content="JavaAgent 概述  JVMTI （JVM Tool Interface）是 Java 虚拟机对外提供的 Native 编程接口，通过 JVMTI，外部进程可以获取到运行时 JVM 的诸多信息，比如 线程、GC 等 在 Java SE 5之前，要实现一个 Agent 只能通过编写 Native 代码来实现 从 Java SE 5 开始，可以使用 Java 的 java.lang.instrument.Instrumentation 来编写 Agent，但是 1.5 时 只提供了 premain 一种方式，即在 main 方法启动前启动一个 -javaagent: 代理程序 Java SE 6 开始，提供了 agentmain 方式，支持在运行时使用 Agent  agent 签名 // Java SE 5&#43; // 通过: -javaagent:agent.jar=key1=value1;key2=value2 public static void premain(String agentArgs, Instrumentation inst) { } public static void premain(String agentArgs) { } // Java SE 6&#43; // 通过: VirtualMachine." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://hello-world-example.github.io/Java/docs/java.lang/instrument/JavaAgent/" />
-
+<meta property="article:modified_time" content="2020-10-21T15:52:58+08:00" />
 <title>Java Agent | Java</title>
 <link rel="icon" href="/Java/favicon.png" type="image/x-icon">
 
@@ -66,6 +66,22 @@ https://github.com/alex-shpak/hugo-book
 <ul>
 <li>
   <a href="/Java/docs/java.lang/instrument/JavaAgent/"class=active>JavaAgent</a></li>
+</ul>
+</li>
+<li>
+<p><strong>java.lang.management</strong></p>
+<ul>
+<li>
+  <a href="/Java/docs/java.lang/management/JMX-MBean/">JXM MBean</a></li>
+<li>
+  <a href="/Java/docs/java.lang/management/JmxMetricsUtil/">JmxMetrics 工具</a></li>
+</ul>
+</li>
+<li>
+<p><strong>java.rmi</strong></p>
+<ul>
+<li>
+  <a href="/Java/docs/java.rmi/HelloWorld/">RMI 入门示例</a></li>
 </ul>
 </li>
 <li>
@@ -461,6 +477,14 @@ https://github.com/alex-shpak/hugo-book
   <div class="flex justify-between">
 
 
+
+  <div>
+    
+    <a class="flex align-center" href="https://github.com/hello-world-example/Java/commit/9b9e3f5c72ad372a01aef8e862e13efdeece8e58" title='Last modified by kailbin | Oct 21, 2020' target="_blank" rel="noopener">
+      <img src="/Java/svg/calendar.svg" class="book-icon" alt="Calendar" />
+      <span>Oct 21, 2020</span>
+    </a>
+  </div>
 
 
 

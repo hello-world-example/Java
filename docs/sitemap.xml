@@ -4,7 +4,7 @@
   
   <url>
     <loc>https://hello-world-example.github.io/Java/_sidebar/</loc>
-    <lastmod>2020-08-02T23:50:35+08:00</lastmod>
+    <lastmod>2020-11-12T17:19:46+08:00</lastmod>
   </url>
   
   <url>
@@ -14,11 +14,27 @@
   
   <url>
     <loc>https://hello-world-example.github.io/Java/docs/java.lang/instrument/JavaAgent/</loc>
+    <lastmod>2020-10-21T15:52:58+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hello-world-example.github.io/Java/docs/java.lang/management/JMX-MBean/</loc>
+    <lastmod>2020-11-12T17:19:46+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hello-world-example.github.io/Java/docs/java.lang/management/JmxMetricsUtil/</loc>
+    <lastmod>2020-11-12T17:19:46+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://hello-world-example.github.io/Java/docs/java.lang/SecurityManager/</loc>
     <lastmod>2020-02-02T21:19:18+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hello-world-example.github.io/Java/docs/java.rmi/HelloWorld/</loc>
+    <lastmod>2020-11-12T17:19:46+08:00</lastmod>
   </url>
   
   <url>
@@ -52,7 +68,7 @@
   
   <url>
     <loc>https://hello-world-example.github.io/Java/docs/</loc>
-    <lastmod>2020-08-02T23:50:35+08:00</lastmod>
+    <lastmod>2020-11-12T17:19:46+08:00</lastmod>
   </url>
   
   <url>
