@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>javase-instrument</artifactId>
+    <artifactId>javase-lang-instrument</artifactId>
 
     <dependencies>
         <!-- -Xbootclasspath/a:${JAVA_HOME}lib/tools.jar -->

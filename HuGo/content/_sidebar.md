@@ -11,6 +11,13 @@ headless: true
 - **java.lang.instrument**
 
   - [JavaAgent]({{< relref "/docs/java.lang/instrument/JavaAgent.md" >}})
+- **java.lang.management**
+
+  - [JXM MBean]({{< relref "/docs/java.lang/management/JMX-MBean" >}})
+  - [JmxMetrics 工具]({{< relref "/docs/java.lang/management/JmxMetricsUtil.md" >}})
+- **java.rmi**
+  
+  - [RMI 入门示例]({{< relref "/docs/java.rmi/HelloWorld.md" >}})
 - **java.time**
   - [关键概念]({{< relref "/docs/java.time/Core.md" >}})
   - [常见操作]({{< relref "/docs/java.time/Action.md" >}})

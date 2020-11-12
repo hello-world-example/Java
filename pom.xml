@@ -21,7 +21,10 @@
         <module>javase-socket</module>
         <module>javase-lock</module>
         <module>javase-jdbc</module>
-        <module>javase-instrument</module>
+
+        <module>javase-lang-instrument</module>
+        <module>javase-lang-management</module>
+        <module>javase-rmi</module>
     </modules>
 
     <dependencies>
