@@ -8,7 +8,14 @@ import java.io.IOException;
 import java.util.Set;
 
 /**
- * -Dcom.sun.management.jmxremote=true -Dcom.sun.management.jmxremote.port=12345 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false
+ * -Dcom.sun.management.jmxremote=true
+ * -Dcom.sun.management.jmxremote.port=12345
+ * -Dcom.sun.management.jmxremote.ssl=false
+ * -Dcom.sun.management.jmxremote.authenticate=false
+ *
+ * java.rmi.server.hostname=
+ * com.sun.management.jmxremote.rmi.port=
+ * Dcom.sun.management.jmxremote.local.only=false
  */
 public class GetRemoteMBeanMain {
 
@@ -17,6 +24,7 @@ public class GetRemoteMBeanMain {
     public static void main(String[] args) throws IOException, MalformedObjectNameException, IntrospectionException, InstanceNotFoundException, ReflectionException, MBeanException {
 
         String jmxUrl = String.format(JMX_URL_TEMPLATE, "127.0.0.1:12345");
+        System.out.println(jmxUrl);
 
         JMXConnector connect = JMXConnectorFactory.connect(new JMXServiceURL(jmxUrl));
 
