@@ -18,7 +18,6 @@
         <module>javase-regex</module>
         <module>javase-crypto</module>
         <module>javase-proxy</module>
-        <module>javase-socket</module>
         <module>javase-lock</module>
         <module>javase-jdbc</module>
 
